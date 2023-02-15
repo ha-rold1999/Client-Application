@@ -2,7 +2,7 @@ import { Image, View, Pressable, Text } from "react-native";
 import Styles from "../Style/Component/StyleComponent";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function InitialScreen() {
+export default function InitialScreen({ navigation }) {
   return (
     <LinearGradient
       colors={["#cff5fb", "#fcfdfd"]}
@@ -15,7 +15,10 @@ export default function InitialScreen() {
         <Pressable style={Styles.buttton}>
           <Text style={Styles.buttonText}>Login</Text>
         </Pressable>
-        <Pressable style={Styles.buttton}>
+        <Pressable
+          style={Styles.buttton}
+          onPress={() => navigation.navigate("Signup")}
+        >
           <Text style={Styles.buttonText}>Sign Up</Text>
         </Pressable>
       </View>

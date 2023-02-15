@@ -9,7 +9,6 @@ const FormStyle = StyleSheet.create({
   },
   form: {
     width: "90%",
-    height: "90%",
   },
   label: {
     fontSize: 20,
@@ -17,7 +16,7 @@ const FormStyle = StyleSheet.create({
     paddingBottom: 5,
   },
   button: {
-    backgroundColor: "red",
+    backgroundColor: "#209589",
     marginTop: "20%",
     borderRadius: 10,
   },
