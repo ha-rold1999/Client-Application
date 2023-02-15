@@ -7,6 +7,18 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  buttton: {
+    backgroundColor: "#209589",
+    alignItems: "center",
+    borderRadius: 10,
+    padding: 10,
+    margin: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 15,
+    fontWeight: "900",
+  },
 });
 
 export default Styles;
