@@ -2,7 +2,7 @@ import { Image, View, Pressable, Text } from "react-native";
 import Styles from "../Style/Component/StyleComponent";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function SignUpScreen() {
+export default function InitialScreen() {
   return (
     <LinearGradient
       colors={["#cff5fb", "#fcfdfd"]}
