@@ -1,6 +1,16 @@
 import LaodingScreen from "./Component/LoadingComponent";
-import SignUpScreen from "./Component/InitialComponent";
+import InitialScreen from "./Component/InitialComponent";
+import { useState } from "react";
 
 export default function App() {
-  return <SignUpScreen />;
+  let [isLoading, loading] = useState(true);
+
+  setTimeout(() => {
+    loading(false);
+  }, 3000);
+
+  if (isLoading) {
+    return <LaodingScreen />;
+  }
+  return <InitialScreen />;
 }
