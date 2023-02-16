@@ -12,7 +12,10 @@ export default function InitialScreen({ navigation }) {
     >
       <View>
         <Image source={require("../assets/Logo/Logo.png")} />
-        <Pressable style={Styles.buttton}>
+        <Pressable
+          style={Styles.buttton}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={Styles.buttonText}>Login</Text>
         </Pressable>
         <Pressable
