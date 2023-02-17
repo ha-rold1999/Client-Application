@@ -35,7 +35,7 @@ export default function SingupScreen() {
             <LicenseInfo />
           </ProgressStep>
           <ProgressStep
-            label="Email and Password"
+            label="Username and Password"
             nextBtnStyle={FormStyle.submitButton}
             nextBtnTextStyle={FormStyle.submitButton}
             previousBtnStyle={FormStyle.prevButton}

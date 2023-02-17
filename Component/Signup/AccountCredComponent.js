@@ -1,7 +1,6 @@
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, TextInput, Pressable, Image } from "react-native";
 import FormStyle from "../../Style/Component/StyleSignupComponent";
 import Checkbox from "expo-checkbox";
-import LoginForm from "../../Style/Component/StyleLoginComponent";
 import { useState } from "react";
 
 export default function AccountCred() {
@@ -9,11 +8,29 @@ export default function AccountCred() {
   return (
     <>
       <Text style={FormStyle.label}>Username</Text>
-      <TextInput style={FormStyle.input} />
+      <View style={FormStyle.textInputView}>
+        <Image
+          source={require("../../assets/Icons/username.png")}
+          style={{ width: 30, height: 30, marginRight: 5 }}
+        />
+        <TextInput style={FormStyle.input} />
+      </View>
       <Text style={FormStyle.label}>Password</Text>
-      <TextInput style={FormStyle.input} secureTextEntry />
+      <View style={FormStyle.textInputView}>
+        <Image
+          source={require("../../assets/Icons/password.png")}
+          style={{ width: 30, height: 30, marginRight: 5 }}
+        />
+        <TextInput style={FormStyle.input} />
+      </View>
       <Text style={FormStyle.label}>Re-type Password</Text>
-      <TextInput style={FormStyle.input} secureTextEntry />
+      <View style={FormStyle.textInputView}>
+        <Image
+          source={require("../../assets/Icons/password.png")}
+          style={{ width: 30, height: 30, marginRight: 5 }}
+        />
+        <TextInput style={FormStyle.input} />
+      </View>
       <View style={{ flexDirection: "row", paddingTop: 10 }}>
         <Checkbox
           value={isChecked}

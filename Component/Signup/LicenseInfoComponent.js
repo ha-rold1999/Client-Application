@@ -1,13 +1,20 @@
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, TextInput, Image } from "react-native";
 import FormStyle from "../../Style/Component/StyleSignupComponent";
+import DatePicker from "../FormCoponent/DatePickerComponent";
 
 export default function LicenseInfo() {
   return (
     <>
       <Text style={FormStyle.label}>License No</Text>
-      <TextInput style={FormStyle.input} />
+      <View style={FormStyle.textInputView}>
+        <Image
+          source={require("../../assets/Icons/license.png")}
+          style={{ width: 30, height: 30, marginHorizontal: 5 }}
+        />
+        <TextInput style={FormStyle.input} />
+      </View>
       <Text style={FormStyle.label}>Expiry Date</Text>
-      <TextInput style={FormStyle.input} />
+      <DatePicker />
     </>
   );
 }

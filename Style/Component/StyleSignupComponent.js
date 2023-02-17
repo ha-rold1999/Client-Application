@@ -3,9 +3,7 @@ import { StyleSheet } from "react-native";
 const FormStyle = StyleSheet.create({
   input: {
     fontSize: 20,
-    padding: 5,
-    borderRadius: 5,
-    borderWidth: 1,
+    width: "90%",
   },
   steps: {
     flex: 1,
@@ -48,6 +46,12 @@ const FormStyle = StyleSheet.create({
     color: "white",
     borderRadius: 10,
     paddingHorizontal: 10,
+  },
+  textInputView: {
+    borderRadius: 5,
+    borderWidth: 1,
+    flexDirection: "row",
+    paddingVertical: 5,
   },
 });
 

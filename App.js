@@ -12,7 +12,7 @@ export default function App() {
 
   setTimeout(() => {
     loading(false);
-  }, 3000);
+  }, 100); //Change this if needed
 
   if (isLoading) {
     return <LaodingScreen />;
