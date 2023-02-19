@@ -8,20 +8,38 @@ import FormStyle from "../Style/Component/StyleSignupComponent";
 import { useState } from "react";
 
 export default function SingupScreen() {
-  const [firstname, setFirstname] = useState("Harold");
+  //Peronsal Information Form Validation
+  const [firstname, setFirstname] = useState("");
   const [firstnameError, setFirstnameError] = useState("");
-  const [lastname, setLastName] = useState("Cuico");
+  const [lastname, setLastName] = useState("");
   const [lastnameError, setLastnameError] = useState("");
-  const [contact, setContact] = useState("09567126387");
+  const [contact, setContact] = useState("");
   const [contactError, setContactError] = useState("");
-  const [birthdate, setBirthdate] = useState("02/19/23");
+  const [birthdate, setBirthdate] = useState("");
   const [birthdateError, setBirthdateError] = useState("");
-  const [address, setAddress] = useState("Cebu City, Cebu");
+  const [address, setAddress] = useState("");
   const [addressError, setAddressError] = useState("");
+
+  //Driverse License Form  Validdation
   const [licenseNo, setLicenseNo] = useState("");
   const [licenseNoError, setLicenseNoError] = useState("");
   const [licenseExpDate, setExpDate] = useState("");
   const [licenseExpDateError, setExpDateError] = useState("");
+
+  //Acount Credential Form Validation
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [username, setUsername] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [passwordConfirmationError, setPasswordConfirmationError] =
+    useState("");
+  const [isChecked, setChecked] = useState(false);
+  const [isCheckedError, setCheckedError] = useState("");
+
+  //Form Error flag
   const [isError, setError] = useState(false);
 
   const checkPersonalInfoForm = () => {
@@ -114,6 +132,90 @@ export default function SingupScreen() {
       setExpDateError("");
     }
   };
+  const checkAccountCredForm = () => {
+    if (
+      !email ||
+      !username ||
+      !password ||
+      !passwordConfirmation ||
+      !isChecked
+    ) {
+      if (!email) {
+        setEmailError("Enter your email");
+      } else {
+        setEmailError("");
+      }
+      if (!username) {
+        setUsernameError("Enter your username");
+      } else {
+        setUsernameError("");
+      }
+      if (!password) {
+        setPasswordError("Enter your password");
+      } else {
+        setPasswordError("");
+      }
+      if (!passwordConfirmation) {
+        setPasswordConfirmationError("Re enter your password");
+      } else {
+        setPasswordConfirmationError("");
+      }
+      if (!isChecked) {
+        setCheckedError("This confirmation is required");
+      } else {
+        setCheckedError("");
+      }
+      setError(true);
+    } else if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        email
+      ) ||
+      !/^[A-Za-z][A-Za-z0-9_]{2,29}$/.test(username) ||
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*-?&])[A-Za-z\d@$!%*-?&]{8,}$/.test(
+        password
+      )
+    ) {
+      if (
+        !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          email
+        )
+      ) {
+        setEmailError("Enter a valid email address");
+      } else {
+        setEmailError("");
+      }
+      if (!/^[A-Za-z][A-Za-z0-9_]{2,29}$/.test(username)) {
+        setUsernameError("Enter a valid usernname");
+      } else {
+        setUsernameError("");
+      }
+      if (
+        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*-?&])[A-Za-z\d@$!%*-?&]{8,}$/.test(
+          password
+        )
+      ) {
+        setPasswordError(
+          "Password must be at leat 8 character with at least one uppercase letter, one lowercase letter, one number and one special character"
+        );
+      } else {
+        setPasswordError("");
+      }
+
+      console.log(password);
+      setCheckedError("");
+      setError(true);
+    } else if (password !== passwordConfirmation) {
+      setPasswordConfirmationError("Password does not match");
+      setError(true);
+    } else {
+      setError(false);
+      setEmailError("");
+      setUsernameError("");
+      setPasswordError("");
+      setPasswordConfirmationError("");
+      setCheckedError("");
+    }
+  };
 
   return (
     <View style={Styles.container}>
@@ -180,8 +282,25 @@ export default function SingupScreen() {
             nextBtnTextStyle={FormStyle.submitButton}
             previousBtnStyle={FormStyle.prevButton}
             previousBtnTextStyle={FormStyle.prevButton}
+            onSubmit={checkAccountCredForm}
           >
-            <AccountCred />
+            <AccountCred
+              email={email}
+              setEmail={setEmail}
+              emailError={emailError}
+              username={username}
+              setUsername={setUsername}
+              usernameError={usernameError}
+              password={password}
+              setPassword={setPassword}
+              passwordError={passwordError}
+              passwordConfirmation={passwordConfirmation}
+              setPasswordConfirmation={setPasswordConfirmation}
+              passwordConfirmationError={passwordConfirmationError}
+              isChecked={isChecked}
+              setChecked={setChecked}
+              isCheckedError={isCheckedError}
+            />
           </ProgressStep>
         </ProgressSteps>
       </View>
