@@ -6,11 +6,13 @@ import AccountCred from "./Signup/AccountCredComponent";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import FormStyle from "../Style/Component/StyleSignupComponent";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { checkFirstname } from "../Redux/SignupFormReducers/PersonalInfoSlice";
 
 export default function SingupScreen() {
+  const checkFname = useDispatch();
+
   //Peronsal Information Form Validation
-  const [firstname, setFirstname] = useState("");
-  const [firstnameError, setFirstnameError] = useState("");
   const [lastname, setLastName] = useState("");
   const [lastnameError, setLastnameError] = useState("");
   const [contact, setContact] = useState("");
@@ -43,12 +45,7 @@ export default function SingupScreen() {
   const [isError, setError] = useState(false);
 
   const checkPersonalInfoForm = () => {
-    if (!firstname || !lastname || !contact || !birthdate || !address) {
-      if (!firstname) {
-        setFirstnameError("Enter your firstname");
-      } else {
-        setFirstnameError("");
-      }
+    if (!lastname || !contact || !birthdate || !address) {
       if (!lastname) {
         setLastnameError("Enter your lastname");
       } else {
@@ -71,16 +68,10 @@ export default function SingupScreen() {
       }
       setError(true);
     } else if (
-      !/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(firstname) ||
       !/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(lastname) ||
       !/^(09|\+639)\d{9}$/.test(contact) ||
       !/^([a-zA-z0-9/\\''(),-\s]{2,255})$/.test(address)
     ) {
-      if (!/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(firstname)) {
-        setFirstnameError("Enter a valid firstname");
-      } else {
-        setFirstnameError("");
-      }
       if (!/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(lastname)) {
         setLastnameError("Enter a valid lastname");
       } else {
@@ -99,7 +90,6 @@ export default function SingupScreen() {
       setError(true);
     } else {
       setError(false);
-      setFirstnameError("");
       setLastnameError("");
       setContactError("");
       setBirthdateError("");
@@ -233,13 +223,10 @@ export default function SingupScreen() {
             label="Personal Information"
             nextBtnStyle={FormStyle.nextButton}
             nextBtnTextStyle={FormStyle.nextButton}
-            onNext={checkPersonalInfoForm}
-            errors={isError}
+            onNext={() => checkFname(checkFirstname("error"))}
+            errors={true}
           >
             <PersonalInformation
-              firstname={firstname}
-              setFirstname={setFirstname}
-              firstnameError={firstnameError}
               lastnameError={lastnameError}
               lastname={lastname}
               setLastName={setLastName}

@@ -2,8 +2,18 @@ import { View, Text, TextInput, Image } from "react-native";
 import FormStyle from "../../Style/Component/StyleSignupComponent";
 import { useState } from "react";
 import DatePicker from "../FormCoponent/DatePickerComponent";
+import { useSelector, useDispatch } from "react-redux";
+import * as PersonalInfo from "../../Redux/SignupFormReducers/PersonalInfoSlice";
 
 export default function PersonalInformation(props) {
+  const fname = useSelector(PersonalInfo.firstname);
+  const lname = useSelector(PersonalInfo.lastname);
+  const contct = useSelector(PersonalInfo.contact);
+  const birthDte = useSelector(PersonalInfo.birthdate);
+  const addrrs = useSelector(PersonalInfo.address);
+
+  const fNameError = useSelector(PersonalInfo.error);
+  const dispatch = useDispatch();
   return (
     <>
       {/*Firstname Input*/}
@@ -15,14 +25,12 @@ export default function PersonalInformation(props) {
         />
         <TextInput
           style={FormStyle.input}
-          onChangeText={props.setFirstname}
-          value={props.firstname}
+          onChangeText={(text) => dispatch(PersonalInfo.handleFirtname(text))}
+          value={fname}
           autoComplete="name-given"
         />
       </View>
-      {props.firstnameError && (
-        <Text style={{ color: "red" }}>{props.firstnameError}</Text>
-      )}
+      {fNameError && <Text style={{ color: "red" }}>{fNameError}</Text>}
 
       {/*Lastname Input*/}
       <Text style={FormStyle.label}>Lastname</Text>
@@ -33,8 +41,8 @@ export default function PersonalInformation(props) {
         />
         <TextInput
           style={FormStyle.input}
-          onChangeText={props.setLastName}
-          value={props.lastname}
+          onChangeText={(text) => dispatch(PersonalInfo.handleLastname(text))}
+          value={lname}
         />
       </View>
       {props.lastnameError && (
@@ -51,8 +59,8 @@ export default function PersonalInformation(props) {
         <TextInput
           style={FormStyle.input}
           keyboardType="numeric"
-          onChangeText={props.setContact}
-          value={props.contact}
+          onChangeText={(text) => dispatch(PersonalInfo.handleContact(text))}
+          value={contct}
         />
       </View>
       {props.contactError && (
@@ -62,8 +70,8 @@ export default function PersonalInformation(props) {
       {/*Birthdate Input*/}
       <Text style={FormStyle.label}>Birthdate</Text>
       <DatePicker
-        birthdate={props.birthdate}
-        setBirthdate={props.setBirthdate}
+        birthdate={birthDte}
+        setBirthdate={(text) => dispatch(PersonalInfo.hadleBirthdate(text))}
       />
       {props.birthdateError && (
         <Text style={{ color: "red" }}>{props.birthdateError}</Text>
@@ -78,8 +86,8 @@ export default function PersonalInformation(props) {
         />
         <TextInput
           style={FormStyle.input}
-          onChangeText={props.setAddress}
-          value={props.address}
+          onChangeText={(text) => dispatch(PersonalInfo.handleAddress(text))}
+          value={addrrs}
         />
       </View>
       {props.addressError && (
