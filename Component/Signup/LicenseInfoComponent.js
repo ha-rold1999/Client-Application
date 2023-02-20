@@ -1,8 +1,16 @@
 import { View, Text, TextInput, Image } from "react-native";
 import FormStyle from "../../Style/Component/StyleSignupComponent";
 import DatePicker from "../FormCoponent/DatePickerComponent";
+import { useSelector, useDispatch } from "react-redux";
+import * as LicenseInfoForm from "../../Redux/SignupFormReducers/DriveerLicenseFormReducers";
 
 export default function LicenseInfo(props) {
+  const licenseNo = useSelector(LicenseInfoForm.licenseNo);
+  const licenseExpDate = useSelector(LicenseInfoForm.licenseExpDate);
+
+  const licenseNoError = useSelector(LicenseInfoForm.licenseNoError);
+  const licenseExpDateError = useSelector(LicenseInfoForm.licenseExpDateError);
+  const dispatch = useDispatch();
   return (
     <>
       <Text style={FormStyle.label}>License No</Text>
@@ -13,20 +21,23 @@ export default function LicenseInfo(props) {
         />
         <TextInput
           style={FormStyle.input}
-          onChangeText={props.setLicenseNo}
-          value={props.licenseNo}
+          onChangeText={(text) =>
+            dispatch(LicenseInfoForm.handleLicenseNo(text))
+          }
+          value={licenseNo}
         />
       </View>
-      {props.licenseNoError && (
-        <Text style={{ color: "red" }}>{props.licenseNoError}</Text>
-      )}
+      {licenseNoError && <Text style={{ color: "red" }}>{licenseNoError}</Text>}
+
       <Text style={FormStyle.label}>Expiry Date</Text>
       <DatePicker
-        birthdate={props.licenseExpDate}
-        setBirthdate={props.setExpDate}
+        birthdate={licenseExpDate}
+        setBirthdate={(text) =>
+          dispatch(LicenseInfoForm.handleLicenseExpDate(text))
+        }
       />
-      {props.licenseExpDateError && (
-        <Text style={{ color: "red" }}>{props.licenseExpDateError}</Text>
+      {licenseExpDateError && (
+        <Text style={{ color: "red" }}>{licenseExpDateError}</Text>
       )}
     </>
   );

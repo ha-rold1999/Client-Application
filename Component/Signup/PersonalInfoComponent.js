@@ -1,6 +1,5 @@
 import { View, Text, TextInput, Image } from "react-native";
 import FormStyle from "../../Style/Component/StyleSignupComponent";
-import { useState } from "react";
 import DatePicker from "../FormCoponent/DatePickerComponent";
 import { useSelector, useDispatch } from "react-redux";
 import * as PersonalInfo from "../../Redux/SignupFormReducers/PersonalInfoSlice";
@@ -13,6 +12,10 @@ export default function PersonalInformation(props) {
   const addrrs = useSelector(PersonalInfo.address);
 
   const fNameError = useSelector(PersonalInfo.error);
+  const lNameError = useSelector(PersonalInfo.lastnameError);
+  const cotactError = useSelector(PersonalInfo.contactError);
+  const birthdateError = useSelector(PersonalInfo.birthdateError);
+  const addressError = useSelector(PersonalInfo.addressError);
   const dispatch = useDispatch();
   return (
     <>
@@ -45,9 +48,7 @@ export default function PersonalInformation(props) {
           value={lname}
         />
       </View>
-      {props.lastnameError && (
-        <Text style={{ color: "red" }}>{props.lastnameError}</Text>
-      )}
+      {lNameError && <Text style={{ color: "red" }}>{lNameError}</Text>}
 
       {/*Contact Input*/}
       <Text style={FormStyle.label}>Contact</Text>
@@ -63,9 +64,7 @@ export default function PersonalInformation(props) {
           value={contct}
         />
       </View>
-      {props.contactError && (
-        <Text style={{ color: "red" }}>{props.contactError}</Text>
-      )}
+      {cotactError && <Text style={{ color: "red" }}>{cotactError}</Text>}
 
       {/*Birthdate Input*/}
       <Text style={FormStyle.label}>Birthdate</Text>
@@ -73,9 +72,7 @@ export default function PersonalInformation(props) {
         birthdate={birthDte}
         setBirthdate={(text) => dispatch(PersonalInfo.hadleBirthdate(text))}
       />
-      {props.birthdateError && (
-        <Text style={{ color: "red" }}>{props.birthdateError}</Text>
-      )}
+      {birthdateError && <Text style={{ color: "red" }}>{birthdateError}</Text>}
 
       {/*Address Input*/}
       <Text style={FormStyle.label}>Address</Text>
@@ -90,9 +87,7 @@ export default function PersonalInformation(props) {
           value={addrrs}
         />
       </View>
-      {props.addressError && (
-        <Text style={{ color: "red" }}>{props.addressError}</Text>
-      )}
+      {addressError && <Text style={{ color: "red" }}>{addressError}</Text>}
     </>
   );
 }

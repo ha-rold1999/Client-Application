@@ -1,9 +1,22 @@
 import { View, Text, TextInput, Pressable, Image } from "react-native";
 import FormStyle from "../../Style/Component/StyleSignupComponent";
 import Checkbox from "expo-checkbox";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import * as CredForm from "../../Redux/SignupFormReducers/AccountCredFormReducers";
 
-export default function AccountCred(props) {
+export default function AccountCred() {
+  const email = useSelector(CredForm.email);
+  const username = useSelector(CredForm.username);
+  const password = useSelector(CredForm.password);
+  const retypePass = useSelector(CredForm.retypePass);
+  const aggree = useSelector(CredForm.aggree);
+
+  const emailError = useSelector(CredForm.emailError);
+  const usernameError = useSelector(CredForm.usernameError);
+  const passwordError = useSelector(CredForm.passwordError);
+  const retypePassError = useSelector(CredForm.retypePassError);
+  const aggreError = useSelector(CredForm.aggreError);
+  const dispatch = useDispatch();
   return (
     <>
       {/*Email Input*/}
@@ -15,13 +28,11 @@ export default function AccountCred(props) {
         />
         <TextInput
           style={FormStyle.input}
-          onChangeText={props.setEmail}
-          value={props.email}
+          onChangeText={(text) => dispatch(CredForm.handleEmmail(text))}
+          value={email}
         />
       </View>
-      {props.emailError && (
-        <Text style={{ color: "red" }}>{props.emailError}</Text>
-      )}
+      {emailError && <Text style={{ color: "red" }}>{emailError}</Text>}
 
       {/*Username Input*/}
       <Text style={FormStyle.label}>Username</Text>
@@ -32,13 +43,11 @@ export default function AccountCred(props) {
         />
         <TextInput
           style={FormStyle.input}
-          onChangeText={props.setUsername}
-          value={props.username}
+          onChangeText={(text) => dispatch(CredForm.handleUsername(text))}
+          value={username}
         />
       </View>
-      {props.usernameError && (
-        <Text style={{ color: "red" }}>{props.usernameError}</Text>
-      )}
+      {usernameError && <Text style={{ color: "red" }}>{usernameError}</Text>}
 
       {/*Password Input*/}
       <Text style={FormStyle.label}>Password</Text>
@@ -49,14 +58,12 @@ export default function AccountCred(props) {
         />
         <TextInput
           style={FormStyle.input}
-          onChangeText={props.setPassword}
-          value={props.password}
+          onChangeText={(text) => dispatch(CredForm.handlePassword(text))}
+          value={password}
           secureTextEntry
         />
       </View>
-      {props.passwordError && (
-        <Text style={{ color: "red" }}>{props.passwordError}</Text>
-      )}
+      {passwordError && <Text style={{ color: "red" }}>{passwordError}</Text>}
 
       {/*Password Confirmation Input*/}
       <Text style={FormStyle.label}>Re-type Password</Text>
@@ -67,25 +74,25 @@ export default function AccountCred(props) {
         />
         <TextInput
           style={FormStyle.input}
-          onChangeText={props.setPasswordConfirmation}
-          value={props.passwordConfirmation}
+          onChangeText={(text) => dispatch(CredForm.handleRetypePass(text))}
+          value={retypePass}
           secureTextEntry
         />
       </View>
-      {props.passwordConfirmationError && (
-        <Text style={{ color: "red" }}>{props.passwordConfirmationError}</Text>
+      {retypePassError && (
+        <Text style={{ color: "red" }}>{retypePassError}</Text>
       )}
 
       {/*Terms and Conditions*/}
       <View style={{ flexDirection: "row", paddingTop: 10 }}>
         <Checkbox
-          value={props.isChecked}
-          onValueChange={props.setChecked}
-          color={props.isChecked ? "black" : undefined}
+          value={aggree}
+          onValueChange={() => dispatch(CredForm.handleAggree(!aggree))}
+          color={aggree ? "black" : undefined}
         />
         <Pressable
           onPress={() => {
-            props.isChecked ? props.setChecked(false) : props.setChecked(true);
+            dispatch(CredForm.handleAggree(!aggree));
           }}
         >
           <Text style={{ paddingLeft: 5 }}>
@@ -93,9 +100,7 @@ export default function AccountCred(props) {
           </Text>
         </Pressable>
       </View>
-      {props.isCheckedError && (
-        <Text style={{ color: "red" }}>{props.isCheckedError}</Text>
-      )}
+      {aggreError && <Text style={{ color: "red" }}>{aggreError}</Text>}
     </>
   );
 }
