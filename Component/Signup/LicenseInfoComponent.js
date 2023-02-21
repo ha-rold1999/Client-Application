@@ -4,7 +4,7 @@ import DatePicker from "../FormCoponent/DatePickerComponent";
 import { useSelector, useDispatch } from "react-redux";
 import * as LicenseInfoForm from "../../Redux/SignupFormReducers/DriveerLicenseFormReducers";
 
-export default function LicenseInfo(props) {
+export default function LicenseInfo() {
   const licenseNo = useSelector(LicenseInfoForm.licenseNo);
   const licenseExpDate = useSelector(LicenseInfoForm.licenseExpDate);
 

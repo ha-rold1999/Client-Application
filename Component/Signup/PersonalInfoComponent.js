@@ -24,7 +24,7 @@ export default function PersonalInformation(props) {
       <View style={FormStyle.textInputView}>
         <Image
           source={require("../../assets/Icons/person.png")}
-          style={{ width: 30, height: 30 }}
+          style={{ width: 30, height: 30, opacity: 0.6 }}
         />
         <TextInput
           style={FormStyle.input}
