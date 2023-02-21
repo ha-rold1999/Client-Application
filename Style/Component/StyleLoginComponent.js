@@ -20,13 +20,15 @@ const LoginForm = StyleSheet.create({
   input: {
     borderWidth: 1,
     fontSize: 20,
-    marginHorizontal: "5%",
     padding: 10,
     borderRadius: 5,
     backgroundColor: "white",
-    marginBottom: "5%",
   },
-  label: { marginHorizontal: "5%", fontSize: 15 },
+  label: { fontSize: 15 },
+  inputView: {
+    paddingHorizontal: "5%",
+    paddingBottom: "5%",
+  },
 });
 
 export default LoginForm;

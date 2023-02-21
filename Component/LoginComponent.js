@@ -4,8 +4,40 @@ import { LinearGradient } from "expo-linear-gradient";
 import Styles from "../Style/Component/StyleComponent";
 import LoginForm from "../Style/Component/StyleLoginComponent";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import * as loginForm from "../Redux/LoginFormReducers/LoginReducers";
 
 export default function LoginScreen() {
+  const dispatch = useDispatch();
+
+  const username = useSelector(loginForm.username);
+  const password = useSelector(loginForm.password);
+  const usernameError = useSelector(loginForm.usernameError);
+  const passwordError = useSelector(loginForm.passwordError);
+  const formError = useSelector(loginForm.formError);
+
+  const apiKey = "API_SECRET-42e016b219421dc83d180bdee27f81dd";
+
+  const loginFetch = () => {
+    dispatch(loginForm.checkLoginForm("error"));
+    if (!formError) {
+      console.log("fetching");
+      fetch("http://203.177.71.218:5003/api/Account", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "AYUS-API-KEY": apiKey,
+          username: username,
+          password: password,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => JSON.stringify(result))
+        .then((data) => console.log(data))
+        .catch((error) => console.log("error: " + error));
+    }
+  };
+
   const [isChecked, setChecked] = useState(false);
   return (
     <LinearGradient
@@ -21,10 +53,33 @@ export default function LoginScreen() {
         />
       </View>
       <View style={LoginForm.form}>
-        <Text style={LoginForm.label}>Username</Text>
-        <TextInput style={LoginForm.input} />
-        <Text style={LoginForm.label}>Password</Text>
-        <TextInput style={LoginForm.input} secureTextEntry />
+        {/* Username */}
+        <View style={LoginForm.inputView}>
+          <Text style={LoginForm.label}>Username</Text>
+          <TextInput
+            onFocus={() => dispatch(loginForm.handleUsername(""))}
+            style={LoginForm.input}
+            onChangeText={(text) => dispatch(loginForm.handleUsername(text))}
+          />
+          {usernameError && (
+            <Text style={{ color: "red" }}>{usernameError}</Text>
+          )}
+        </View>
+
+        {/* Password */}
+        <View style={LoginForm.inputView}>
+          <Text style={LoginForm.label}>Password</Text>
+          <TextInput
+            style={LoginForm.input}
+            secureTextEntry
+            onChangeText={(text) => dispatch(loginForm.handlePassword(text))}
+          />
+          {passwordError && (
+            <Text style={{ color: "red" }}>{passwordError}</Text>
+          )}
+        </View>
+
+        {/* Checkbox */}
         <View style={LoginForm.checkBox}>
           <Checkbox
             value={isChecked}
@@ -48,7 +103,9 @@ export default function LoginScreen() {
             Forget Password?
           </Text>
         </View>
-        <Pressable style={LoginForm.loginButton}>
+
+        {/* Login Button */}
+        <Pressable style={LoginForm.loginButton} onPress={loginFetch}>
           <Text style={LoginForm.loginText}>Login</Text>
         </Pressable>
       </View>
