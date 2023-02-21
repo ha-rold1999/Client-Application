@@ -4,8 +4,12 @@ import {
   Pressable,
   Text,
   ActivityIndicator,
-  StyleSheet,
+  Image,
 } from "react-native";
+import modelStyle from "../../../Style/Component/Modal/StyleModelComponent";
+import Loading from "./ModalLoading";
+import Warning from "./SignUpModalMessage/WarningMessage";
+import Success from "./SignUpModalMessage/SuccessMessage";
 
 export default function SingnupConfirmation(props) {
   return (
@@ -17,62 +21,24 @@ export default function SingnupConfirmation(props) {
         props.setModalVisible(!modalVisible);
       }}
     >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          {props.isLoading && <ActivityIndicator />}
-          {props.isError && <Text>Username/Email already used</Text>}
-          {props.isSuccess && <Text>Success Welcome to AYUS</Text>}
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => props.setModalVisible(!props.modalVisible)}
-          >
-            <Text style={styles.textStyle}>Hide Modal YEs</Text>
-          </Pressable>
+      <View style={modelStyle.container}>
+        <View style={modelStyle.modal}>
+          {props.isLoading && <Loading />}
+          {props.isError && (
+            <Warning
+              setModalVisible={props.setModalVisible}
+              modalVisible={props.modalVisible}
+            />
+          )}
+          {props.isSuccess && (
+            <Success
+              setModalVisible={props.setModalVisible}
+              modalVisible={props.modalVisible}
+              navigation={props.navigation}
+            />
+          )}
         </View>
       </View>
     </Modal>
   );
 }
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-});

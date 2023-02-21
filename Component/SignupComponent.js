@@ -19,7 +19,7 @@ import * as CredentialForm from "../Redux/SignupFormReducers/AccountCredFormRedu
 import { useState } from "react";
 import SingnupConfirmation from "./Signup/ModalComponent/SignupConfirmationModal";
 
-export default function SingupScreen() {
+export default function SingupScreen({ navigation }) {
   const apiKey = "API_SECRET-42e016b219421dc83d180bdee27f81dd";
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -112,6 +112,7 @@ export default function SingupScreen() {
         isError={isError}
         isSuccess={isSuccess}
         setModalVisible={setModalVisible}
+        navigation={navigation}
       />
       <View style={FormStyle.steps}>
         <ProgressSteps
