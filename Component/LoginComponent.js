@@ -7,8 +7,9 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as loginForm from "../Redux/LoginFormReducers/LoginReducers";
 import LoginModal from "./Signup/ModalComponent/LoginModal";
+import { getAllData } from "../Redux/AccountInfoReducers/AccountReducers";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const username = useSelector(loginForm.username);
@@ -52,6 +53,7 @@ export default function LoginScreen() {
             setIsExist(false);
             setIsPasswordWrong(false);
             setIsSuccess(true);
+            dispatch(getAllData(data));
           }
           setIsLoading(false);
         })
@@ -77,6 +79,7 @@ export default function LoginScreen() {
         isLoading={isLoading}
         isSuccess={isSuccess}
         setModalVisible={setModalVisible}
+        navigation={navigation}
       />
       {/* Logo */}
       <View style={LoginForm.img}>
