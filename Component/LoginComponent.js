@@ -6,6 +6,7 @@ import LoginForm from "../Style/Component/StyleLoginComponent";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as loginForm from "../Redux/LoginFormReducers/LoginReducers";
+import LoginModal from "./Signup/ModalComponent/LoginModal";
 
 export default function LoginScreen() {
   const dispatch = useDispatch();
@@ -16,12 +17,18 @@ export default function LoginScreen() {
   const passwordError = useSelector(loginForm.passwordError);
   const formError = useSelector(loginForm.formError);
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isExist, setIsExist] = useState(false);
+  const [isPasswordWrong, setIsPasswordWrong] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const apiKey = "API_SECRET-42e016b219421dc83d180bdee27f81dd";
 
   const loginFetch = () => {
     dispatch(loginForm.checkLoginForm("error"));
     if (!formError) {
-      console.log("fetching");
+      setModalVisible(true);
       fetch("http://203.177.71.218:5003/api/Account", {
         method: "GET",
         headers: {
@@ -32,9 +39,26 @@ export default function LoginScreen() {
         },
       })
         .then((res) => res.json())
-        .then((result) => JSON.stringify(result))
-        .then((data) => console.log(data))
-        .catch((error) => console.log("error: " + error));
+        .then((data) => {
+          if (data.Status == 404) {
+            setIsExist(true);
+            setIsPasswordWrong(false);
+            setIsSuccess(false);
+          } else if (data.Status == 401) {
+            setIsExist(false);
+            setIsPasswordWrong(true);
+            setIsSuccess(false);
+          } else {
+            setIsExist(false);
+            setIsPasswordWrong(false);
+            setIsSuccess(true);
+          }
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+          setIsLoading(false);
+        });
     }
   };
 
@@ -46,12 +70,22 @@ export default function LoginScreen() {
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
+      <LoginModal
+        modalVisible={modalVisible}
+        isExist={isExist}
+        isPasswordWrong={isPasswordWrong}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        setModalVisible={setModalVisible}
+      />
+      {/* Logo */}
       <View style={LoginForm.img}>
         <Image
           source={require("../assets/Logo/Logo.png")}
           style={{ width: 200, height: 100 }}
         />
       </View>
+
       <View style={LoginForm.form}>
         {/* Username */}
         <View style={LoginForm.inputView}>
@@ -59,7 +93,10 @@ export default function LoginScreen() {
           <TextInput
             onFocus={() => dispatch(loginForm.handleUsername(""))}
             style={LoginForm.input}
-            onChangeText={(text) => dispatch(loginForm.handleUsername(text))}
+            onChangeText={(text) =>
+              dispatch(loginForm.handleUsername("test123"))
+            }
+            value="test123"
           />
           {usernameError && (
             <Text style={{ color: "red" }}>{usernameError}</Text>
@@ -72,7 +109,10 @@ export default function LoginScreen() {
           <TextInput
             style={LoginForm.input}
             secureTextEntry
-            onChangeText={(text) => dispatch(loginForm.handlePassword(text))}
+            onChangeText={(text) =>
+              dispatch(loginForm.handlePassword("ThisIsATest@123"))
+            }
+            value="ThisIsATest@123"
           />
           {passwordError && (
             <Text style={{ color: "red" }}>{passwordError}</Text>
