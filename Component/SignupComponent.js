@@ -87,7 +87,6 @@ export default function SingupScreen({ navigation }) {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
           if (response.Status == 409) {
             setIsError(true);
             setIsSuccess(false);
@@ -98,8 +97,6 @@ export default function SingupScreen({ navigation }) {
           setIsLoading(false);
         })
         .catch((error) => console.log(error));
-    } else {
-      console.log("form error");
     }
   };
 
