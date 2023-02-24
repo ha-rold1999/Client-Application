@@ -1,8 +1,16 @@
 import { Image, View, Pressable, Text } from "react-native";
 import Styles from "../Style/Component/StyleComponent";
 import { LinearGradient } from "expo-linear-gradient";
+import { useDispatch } from "react-redux";
+import { fetchAsyncData } from "../Redux/MechanicReducers/AvailableMechanicsReducers";
+import { useEffect } from "react";
 
 export default function InitialScreen({ navigation }) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAsyncData());
+  }, [dispatch]);
+
   return (
     <LinearGradient
       colors={["#cff5fb", "#fcfdfd"]}

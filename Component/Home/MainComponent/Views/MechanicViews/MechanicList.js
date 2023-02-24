@@ -1,33 +1,30 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import MechanicCard from "./MechanicCardComponent";
 import MainView from "../../../../../Style/Component/MainViewStyles/StyleMainComponent";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import {
+  availableMechanics,
+  isLoading,
+} from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
+import { fetchAsyncData } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
+import { useDispatch } from "react-redux";
 
 export default function MechanicList({ navigation }) {
-  const apiKey = "API_SECRET-42e016b219421dc83d180bdee27f81dd";
-
-  const [DATA, setDATA] = useState([]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetch("http://203.177.71.218:5003/api/Sessions/AvailableMechanics", {
-      method: "GET",
-      headers: { "Content-Type": "application/json", "AYUS-API-KEY": apiKey },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        data.forEach((element) => {
-          setDATA([...DATA, element]);
-        });
-      })
-      .catch((error) => console.log("error: " + error));
-  }, []);
+    const time = setInterval(() => {
+      dispatch(fetchAsyncData());
+    }, 10000);
+    return () => clearInterval(time);
+  }, [dispatch]);
 
-  DATA.forEach((item) => {
-    console.log(item.accountStatus.Shop.ShopName);
-  });
+  const DATA = useSelector(availableMechanics);
+  const Loading = useSelector(isLoading);
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      {Loading && <ActivityIndicator />}
       <FlatList
         data={DATA}
         renderItem={({ item }) => (

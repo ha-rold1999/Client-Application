@@ -4,6 +4,7 @@ import { licenseSliceReducer } from "./SignupFormReducers/DriveerLicenseFormRedu
 import { credentialSliceReducer } from "./SignupFormReducers/AccountCredFormReducers";
 import { loginSliceReducer } from "./LoginFormReducers/LoginReducers";
 import { informationSliceReducer } from "./AccountInfoReducers/AccountReducers";
+import { mechanicListSliceReducer } from "./MechanicReducers/AvailableMechanicsReducers";
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     credentialSlice: credentialSliceReducer,
     loginSlice: loginSliceReducer,
     informationSlice: informationSliceReducer,
+    mechanicListSlice: mechanicListSliceReducer,
   },
 });
