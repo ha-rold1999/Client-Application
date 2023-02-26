@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function MechanicProfile({ route, navigation }) {
   const ShopData = route.params;
+  const mechanicID = ShopData.ShopData.personalInformation.UUID;
   const dispatch = useDispatch();
   const { services } = useSelector((state) => state.mechanicListSlice);
 
   useEffect(() => {
-    dispatch(fetchService(ShopData.ShopData.personalInformation.UUID));
+    dispatch(fetchService(mechanicID));
   }, [dispatch]);
 
   return (
@@ -25,7 +26,12 @@ export default function MechanicProfile({ route, navigation }) {
       ))}
       <Button
         title="Request Service"
-        onPress={() => navigation.navigate("RequestService")}
+        onPress={() =>
+          navigation.navigate("RequestService", {
+            mechanicID: mechanicID,
+            services: services,
+          })
+        }
       />
     </View>
   );
