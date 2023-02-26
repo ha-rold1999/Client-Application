@@ -7,6 +7,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Provider } from "react-redux";
 import store from "./Redux/Store";
+import HomeScreen from "./Component/HomeComponent";
+import "react-native-gesture-handler";
 
 export default function App() {
   /*
@@ -40,6 +42,11 @@ export default function App() {
           <Stack.Screen
             name="Login"
             component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
