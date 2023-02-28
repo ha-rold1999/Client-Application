@@ -5,6 +5,7 @@ import { credentialSliceReducer } from "./SignupFormReducers/AccountCredFormRedu
 import { loginSliceReducer } from "./LoginFormReducers/LoginReducers";
 import { informationSliceReducer } from "./AccountInfoReducers/AccountReducers";
 import { mechanicListSliceReducer } from "./MechanicReducers/AvailableMechanicsReducers";
+import { requestServiceSliceReducer } from "./RequestReducers/RequestReducer";
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     loginSlice: loginSliceReducer,
     informationSlice: informationSliceReducer,
     mechanicListSlice: mechanicListSliceReducer,
+    requestServiceSlice: requestServiceSliceReducer,
   },
 });
