@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as loginForm from "../Redux/LoginFormReducers/LoginReducers";
 import LoginModal from "./Signup/ModalComponent/LoginModal";
 import { getAllData } from "../Redux/AccountInfoReducers/AccountReducers";
+import { server, apiKey } from "../Static";
 
 export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -24,13 +25,11 @@ export default function LoginScreen({ navigation }) {
   const [isPasswordWrong, setIsPasswordWrong] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const apiKey = "API_SECRET-42e016b219421dc83d180bdee27f81dd";
-
   const loginFetch = () => {
     dispatch(loginForm.checkLoginForm("error"));
     if (!formError) {
       setModalVisible(true);
-      fetch("http://203.177.71.218:5003/api/Account", {
+      fetch(`${server}/api/Account`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

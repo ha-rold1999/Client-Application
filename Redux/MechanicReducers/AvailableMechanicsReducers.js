@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiKey } from "../../Static";
+import { apiKey, server } from "../../Static";
 
 export const mechanicListSlice = createSlice({
   name: "mechanicListSlice",
@@ -28,7 +28,7 @@ export const mechanicListSliceReducer = mechanicListSlice.reducer;
 
 export const fetchAsyncData = () => async (dispatch) => {
   try {
-    await fetch("http://203.177.71.218:5003/api/Sessions/AvailableMechanics", {
+    await fetch(`${server}/api/Sessions/AvailableMechanics`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export const fetchAsyncData = () => async (dispatch) => {
 
 export const fetchService = (UUID) => async (dispatch) => {
   try {
-    await fetch("http://203.177.71.218:5003/api/Mechanic/ServiceOffer", {
+    await fetch(`${server}/api/Mechanic/ServiceOffer`, {
       headers: {
         "Content-Type": "application/json",
         "AYUS-API-KEY": apiKey,

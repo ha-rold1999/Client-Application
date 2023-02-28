@@ -30,6 +30,7 @@ export default function MechanicProfile({ route, navigation }) {
           navigation.navigate("RequestService", {
             mechanicID: mechanicID,
             services: services,
+            navigation: navigation
           })
         }
       />

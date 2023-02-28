@@ -18,6 +18,7 @@ import * as LicenseInfoForm from "../Redux/SignupFormReducers/DriveerLicenseForm
 import * as CredentialForm from "../Redux/SignupFormReducers/AccountCredFormReducers";
 import { useState } from "react";
 import SingnupConfirmation from "./Signup/ModalComponent/SignupConfirmationModal";
+import { server } from "../Static";
 
 export default function SingupScreen({ navigation }) {
   const apiKey = "API_SECRET-42e016b219421dc83d180bdee27f81dd";
@@ -54,7 +55,7 @@ export default function SingupScreen({ navigation }) {
     if (!formError) {
       console.log("fetch");
       setModalVisible(true);
-      fetch("http://203.177.71.218:5003/api/Account", {
+      fetch(`${server}/api/Account`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -110,6 +111,7 @@ export default function SingupScreen({ navigation }) {
         isSuccess={isSuccess}
         setModalVisible={setModalVisible}
         navigation={navigation}
+        
       />
       <View style={FormStyle.steps}>
         <ProgressSteps

@@ -19,9 +19,10 @@ export default function RequestService({ route }) {
   const mechanicInfo = route.params;
   const mechanicID = mechanicInfo.mechanicID;
   const mechaniService = mechanicInfo.services;
+  const navigation = mechanicInfo.navigation;
 
   const userInfo = useSelector(data);
-  const userID = userInfo.AccountData.personalInformation.UUID;
+  const userID = userInfo && userInfo.AccountData.personalInformation.UUID;
 
   return (
     <View>
@@ -62,8 +63,10 @@ export default function RequestService({ route }) {
       />
       <Button
         title="Submit Request"
-        onPress={() =>
+        onPress={() =>{
           dispatch(postRequest({ userID: userID, mechanicID: mechanicID }))
+          navigation.navigate("RequestingView", {mechanicID:mechanicID, userID:userID})
+        }
         }
       />
     </View>
