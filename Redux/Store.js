@@ -6,6 +6,7 @@ import { loginSliceReducer } from "./LoginFormReducers/LoginReducers";
 import { informationSliceReducer } from "./AccountInfoReducers/AccountReducers";
 import { mechanicListSliceReducer } from "./MechanicReducers/AvailableMechanicsReducers";
 import { requestServiceSliceReducer } from "./RequestReducers/RequestReducer";
+import { locationSliceReducer } from "./MapReducers.js/LocationReducer";
 
 export default configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
     informationSlice: informationSliceReducer,
     mechanicListSlice: mechanicListSliceReducer,
     requestServiceSlice: requestServiceSliceReducer,
+    locationSlice:locationSliceReducer
   },
 });
