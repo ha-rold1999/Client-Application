@@ -46,6 +46,7 @@ export const requestServiceSlice = createSlice({
           service: state.service,
           description: state.description,
           picture: null,
+          Status:"requesting",
           NewStatus:"requesting"
         }),
       })
@@ -58,7 +59,6 @@ export const requestServiceSlice = createSlice({
     },
 
     getServiceRequest: (state, action) => {
-      console.log(JSON.stringify(action.payload, null, 2))
       if(action.payload.Status === 200){
         state.isRequesting = true
       }else{state.isRequesting=false}
@@ -79,7 +79,6 @@ export const {
 export const requestServiceSliceReducer = requestServiceSlice.reducer;
 
 export const fetchRequest = (mechanicID)=>async(dispatch)=>{
-  console.log("fetch: "+ mechanicID)
   try{
     await fetch(`${server}/api/ServiceRequest`, {
       method: "GET",
