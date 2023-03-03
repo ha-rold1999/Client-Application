@@ -21,7 +21,6 @@ export default function MechanicList({ navigation }) {
 
   const DATA = useSelector(availableMechanics);
   const Loading = useSelector(isLoading);
-
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       {Loading && <ActivityIndicator />}

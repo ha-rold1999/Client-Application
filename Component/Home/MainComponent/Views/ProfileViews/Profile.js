@@ -6,7 +6,8 @@ export default function Profile() {
   const profile = useSelector(data);
   return (
     <View>
-      <Text>{profile.AccountData.personalInformation.Firstname}</Text>
+      <Text>Name: {profile.AccountData.personalInformation.Firstname}</Text>
+      <Text>ID: {profile.AccountData.personalInformation.UUID}</Text>
     </View>
   );
 }
