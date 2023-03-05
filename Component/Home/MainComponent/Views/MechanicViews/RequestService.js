@@ -11,6 +11,7 @@ import {
   handleService,
   postRequest,
 } from "../../../../../Redux/RequestReducers/RequestReducer";
+import { setTabEnable } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 
 export default function RequestService({ route }) {
   const { service } = useSelector((state) => state.requestServiceSlice);
@@ -63,11 +64,11 @@ export default function RequestService({ route }) {
       />
       <Button
         title="Submit Request"
-        onPress={() =>{
-          dispatch(postRequest({ userID: userID, mechanicID: mechanicID }))
-          navigation.navigate("RequestingView", {mechanicID:mechanicID, userID:userID})
-        }
-        }
+        onPress={() => {
+          dispatch(postRequest({ userID: userID, mechanicID: mechanicID }));
+          dispatch(setTabEnable(false));
+          navigation.reset({ index: 0, routes: [{ name: "Profile" }] });
+        }}
       />
     </View>
   );
