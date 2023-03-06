@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { server,apiKey } from "../../Static";
+import { server, apiKey } from "../../Static";
 
 export const locationSlice = createSlice({
   name: "locationSlice",
-  initialState: { longitude: "", latitude: "", UUID: "" },
+  initialState: { longitude: "", latitude: "", UUID: "", sessionMap: null },
   reducers: {
     getLocation: (state, action) => {
       state.longitude = action.payload.longitude;
@@ -27,8 +27,32 @@ export const locationSlice = createSlice({
         .then((response) => console.log(JSON.stringify(response)))
         .catch((err) => console.log(err));
     },
+    getSessionMap: (state, action) => {
+      state.sessionMap = action.payload;
+    },
   },
 });
 
-export const { getLocation } = locationSlice.actions;
+export const { getLocation, getSessionMap } = locationSlice.actions;
 export const locationSliceReducer = locationSlice.reducer;
+
+export const getSessionLocation = (UUID) => (dispatch) => {
+  try {
+    fetch(`${server}/api/Sessions/MapLocation`, {
+      method: "GET",
+      headers: {
+        "AYUS-API-KEY": apiKey,
+        SessionID: UUID,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.Status === 201) {
+          dispatch(getSessionMap(data.Data));
+        }
+      })
+      .catch((err) => console.log(err));
+  } catch (error) {
+    console.log(error);
+  }
+};

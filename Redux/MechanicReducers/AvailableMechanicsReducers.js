@@ -5,7 +5,7 @@ export const mechanicListSlice = createSlice({
   name: "mechanicListSlice",
   initialState: {
     data: [],
-    isLoading: false,
+    isLoading: true,
     error: null,
     services: [],
     enable: true,
@@ -17,7 +17,6 @@ export const mechanicListSlice = createSlice({
     },
     getServices: (state, action) => {
       state.services = action.payload;
-      console.log(JSON.stringify(state.services, null, 2));
     },
     getDataFail: (state, action) => {
       state.error = action.payload;
@@ -71,7 +70,6 @@ export const fetchService = (UUID) => async (dispatch) => {
 };
 
 export const checkRequests = (UUID) => async (dispatch) => {
-  console.log(UUID);
   try {
     await fetch(`${server}/api/ServiceRequest`, {
       headers: {
@@ -82,7 +80,6 @@ export const checkRequests = (UUID) => async (dispatch) => {
     })
       .then((result) => result.json())
       .then((data) => {
-        console.log(JSON.stringify(data, null, 2));
         if (data.ServiceRequests.length) {
           dispatch(setTabEnable(false));
         } else {

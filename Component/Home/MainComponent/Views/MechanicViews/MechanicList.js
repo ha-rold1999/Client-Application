@@ -19,6 +19,7 @@ export default function MechanicList({ navigation }) {
   const isEnabled = useSelector(enable);
   const userData = useSelector(data);
   const userID = userData.AccountData.personalInformation.UUID;
+  const { inSession } = useSelector((state) => state.requestStatusSlice);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,23 +32,36 @@ export default function MechanicList({ navigation }) {
 
   const DATA = useSelector(availableMechanics);
   const Loading = useSelector(isLoading);
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      {Loading && <ActivityIndicator />}
-      {isEnabled && (
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => (
-            <MechanicCard item={item} navigation={navigation} />
-          )}
-          style={MainView.flatView}
-        />
-      )}
-      {!isEnabled && (
-        <View>
-          <Text>You already requested a service</Text>
-        </View>
-      )}
-    </View>
-  );
+
+  if (Loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
+  } else if (inSession) {
+    return (
+      <View>
+        <Text>Service on its way</Text>
+      </View>
+    );
+  } else if (!isEnabled) {
+    <View>
+      <Text>You already requested a service</Text>
+    </View>;
+  } else {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {isEnabled && (
+          <FlatList
+            data={DATA}
+            renderItem={({ item }) => (
+              <MechanicCard item={item} navigation={navigation} />
+            )}
+            style={MainView.flatView}
+          />
+        )}
+      </View>
+    );
+  }
 }

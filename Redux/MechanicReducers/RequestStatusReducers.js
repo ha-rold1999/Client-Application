@@ -3,19 +3,21 @@ import { server, apiKey } from "../../Static";
 
 export const requestStatusSlice = createSlice({
   name: "requestStatusSlice",
-  initialState: { inSession: false },
+  initialState: { inSession: false, sessionID: null },
   reducers: {
     setInSession: (state, action) => {
       state.inSession = action.payload;
     },
+    setSessionID: (state, action) => {
+      state.sessionID = action.payload;
+    },
   },
 });
 
-export const { setInSession } = requestStatusSlice.actions;
+export const { setInSession, setSessionID } = requestStatusSlice.actions;
 export const requestStatusSliceReucer = requestStatusSlice.reducer;
 
 export const checkInSession = (UUID) => async (dispatch) => {
-  console.log("UUID:" + UUID);
   try {
     await fetch(`${server}/api/Sessions/GetSession`, {
       method: "GET",
@@ -29,6 +31,7 @@ export const checkInSession = (UUID) => async (dispatch) => {
       .then((data) => {
         if (data.Status === 200) {
           dispatch(setInSession(true));
+          dispatch(setSessionID(data.foundData.SessionData.SessionID));
         }
       })
       .catch((error) => dispatch(console.log(error)));
