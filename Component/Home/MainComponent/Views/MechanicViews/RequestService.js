@@ -67,7 +67,7 @@ export default function RequestService({ route }) {
         onPress={() => {
           dispatch(postRequest({ userID: userID, mechanicID: mechanicID }));
           dispatch(setTabEnable(false));
-          navigation.reset({ index: 0, routes: [{ name: "Profile" }] });
+          navigation.reset({ index: 0, routes: [{ name: "ServiceStatus" }] });
         }}
       />
     </View>

@@ -96,9 +96,9 @@ export default function LoginScreen({ navigation }) {
             onFocus={() => dispatch(loginForm.handleUsername(""))}
             style={LoginForm.input}
             onChangeText={(text) =>
-              dispatch(loginForm.handleUsername("harold"))
+              dispatch(loginForm.handleUsername("caramonte"))
             }
-            value="harold"
+            value="caramonte"
           />
           {usernameError && (
             <Text style={{ color: "red" }}>{usernameError}</Text>

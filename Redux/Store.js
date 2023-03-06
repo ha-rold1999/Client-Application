@@ -8,6 +8,7 @@ import { mechanicListSliceReducer } from "./MechanicReducers/AvailableMechanicsR
 import { requestServiceSliceReducer } from "./RequestReducers/RequestReducer";
 import { locationSliceReducer } from "./MapReducers.js/LocationReducer";
 import { mechanicLocationSliceReducer } from "./MapReducers/MechanicLocationReducer";
+import { requestStatusSliceReucer } from "./MechanicReducers/RequestStatusReducers";
 
 export default configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export default configureStore({
     requestServiceSlice: requestServiceSliceReducer,
     locationSlice: locationSliceReducer,
     mechanicLocationSlice: mechanicLocationSliceReducer,
+    requestStatusSlice: requestStatusSliceReucer,
   },
 });
