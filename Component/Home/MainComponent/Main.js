@@ -8,7 +8,6 @@ import ServiceStatusStack from "./Views/ServiceView/ServiceStatusStack";
 export default function Main() {
   const Tab = createBottomTabNavigator();
   const pressable = useSelector(enable);
-  console.log(pressable);
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}

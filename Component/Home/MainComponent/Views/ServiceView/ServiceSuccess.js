@@ -21,17 +21,26 @@ export default function ServiceSuccess({ route }) {
   useEffect(() => {
     if (transactionID === null) {
       dispatch(postTransaction(ServiceName, Fee));
-      console("transacting");
-    } else {
-      console.log("end");
-      dispatch(endSession(UUID, transactionID));
+      return;
     }
-  }, [dispatch]);
-  return (
-    <View>
-      <Text>ServiceSuccess</Text>
-    </View>
-  );
+
+    console.log("ENDING");
+    dispatch(endSession(UUID, transactionID));
+  }, [transactionID]);
+
+  if (transactionID === null) {
+    return (
+      <View>
+        <Text>ServiceSuccess</Text>
+      </View>
+    );
+  } else {
+    return (
+      <View>
+        <Text>Session Ended</Text>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({});
