@@ -6,7 +6,7 @@ export default function Success(props) {
   useEffect(() => {
     const timer = setTimeout(() => {
       props.setModalVisible(false);
-      props.navigation.navigate("HomeScreen");
+      props.navigation.reset({ index: 0, routes: [{ name: "HomeScreen" }] });
     }, 1000);
     return () => {
       clearTimeout(timer);
