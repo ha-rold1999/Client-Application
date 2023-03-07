@@ -7,7 +7,7 @@ import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { checkInSession } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
 import SessionMap from "./SessionMap";
 
-export default function ServiceStatus() {
+export default function ServiceStatus({ navigation }) {
   const dispatch = useDispatch();
   const profile = useSelector(data);
   const { inSession, sessionID } = useSelector(
@@ -26,8 +26,13 @@ export default function ServiceStatus() {
     return (
       <View>
         <Text>The mechanic is on its way</Text>
-        <SessionMap sessionID={sessionID} />
-        <Button title="Done" />
+        <SessionMap sessionID={sessionID} navigation={navigation} />
+      </View>
+    );
+  } else {
+    return (
+      <View>
+        <Text>No Service as of the moment</Text>
       </View>
     );
   }

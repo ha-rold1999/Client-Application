@@ -46,9 +46,11 @@ export default function MechanicList({ navigation }) {
       </View>
     );
   } else if (!isEnabled) {
-    <View>
-      <Text>You already requested a service</Text>
-    </View>;
+    return (
+      <View>
+        <Text>You already requested a service</Text>
+      </View>
+    );
   } else {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

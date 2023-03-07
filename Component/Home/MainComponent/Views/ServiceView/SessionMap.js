@@ -1,11 +1,20 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Button,
+  View,
+  Text,
+} from "react-native";
 import React, { useEffect } from "react";
 import { getSessionLocation } from "../../../../../Redux/MapReducers.js/LocationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
+import { postTransaction } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
 
-export default function SessionMap({ sessionID }) {
+export default function SessionMap({ sessionID, navigation }) {
   const { sessionMap } = useSelector((state) => state.locationSlice);
+  const { sessionDetails } = useSelector((state) => state.requestStatusSlice);
   const dispatch = useDispatch();
   useEffect(() => {
     const time = setInterval(() => {
@@ -16,6 +25,10 @@ export default function SessionMap({ sessionID }) {
   }, [dispatch]);
 
   if (sessionMap !== null) {
+    const datas = sessionDetails.split("|");
+    const serviceDetails = datas[0].split(":");
+    const serviceName = serviceDetails[1];
+    const servicePrice = serviceDetails[2];
     return (
       <View>
         <MapView
@@ -43,6 +56,18 @@ export default function SessionMap({ sessionID }) {
             }}
           />
         </MapView>
+        <Text>Service Requested: {serviceName}</Text>
+        <Text>Fee: {servicePrice}</Text>
+        <Button
+          title="Done"
+          onPress={() => {
+            navigation.navigate("ServiceSucces", {
+              SessionID: sessionID,
+              ServiceName: serviceName,
+              Fee: servicePrice,
+            });
+          }}
+        />
       </View>
     );
   } else {
