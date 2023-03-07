@@ -34,10 +34,10 @@ export default function RequestService({ route }) {
         selectedValue={service}
         onValueChange={(itemValue) => dispatch(handleService(itemValue))}
       >
-        {mechaniService.map(({ ServiceName, ServiceID }) => (
+        {mechaniService.map(({ ServiceName, ServiceID, Price }) => (
           <Picker.Item
             label={ServiceName}
-            value={ServiceName}
+            value={ServiceName + ":" + Price}
             key={ServiceID}
           />
         ))}
