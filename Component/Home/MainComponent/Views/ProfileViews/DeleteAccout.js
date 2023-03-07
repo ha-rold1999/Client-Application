@@ -7,7 +7,6 @@ export default function DeleteAccout({ route, navigation }) {
   const dispatch = useDispatch();
   const info = route.params;
   const UUID = info.uuid;
-  console.log("Delete: " + UUID);
   return (
     <View>
       <Text>Are you sure you want to delete this account?</Text>

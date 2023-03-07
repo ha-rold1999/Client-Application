@@ -112,9 +112,9 @@ export default function LoginScreen({ navigation }) {
             style={LoginForm.input}
             secureTextEntry
             onChangeText={(text) =>
-              dispatch(loginForm.handlePassword("ThisIsATest@123"))
+              dispatch(loginForm.handlePassword("ThisIsATest@1234"))
             }
-            value="ThisIsATest@123"
+            value="ThisIsATest@1234"
           />
           {passwordError && (
             <Text style={{ color: "red" }}>{passwordError}</Text>

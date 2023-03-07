@@ -15,6 +15,14 @@ export default function Profile({ navigation }) {
       <Text>Name: {profile.AccountData.personalInformation.Firstname}</Text>
       <Text>ID: {profile.AccountData.personalInformation.UUID}</Text>
       <Button
+        title="Change Password"
+        onPress={() => {
+          navigation.navigate("ChangePass", {
+            uuid: profile.AccountData.personalInformation.UUID,
+          });
+        }}
+      />
+      <Button
         title="Delete Account"
         onPress={() =>
           navigation.navigate("Delete", {

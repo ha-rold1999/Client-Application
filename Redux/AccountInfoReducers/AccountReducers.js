@@ -33,3 +33,23 @@ export const deleteAccount = (UUID) => () => {
     console.log(error);
   }
 };
+
+export const changePassword = (UUID, NewPassword) => () => {
+  console.log("Change Password");
+  try {
+    fetch(`${server}/api/Account/Password?uuid=${UUID}`, {
+      method: "PUT",
+      headers: {
+        "AYUS-API-KEY": apiKey,
+        "new-password": NewPassword,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(JSON.stringify(data, null, 2));
+      })
+      .catch((err) => console.log(err));
+  } catch (error) {
+    console.log(error);
+  }
+};
