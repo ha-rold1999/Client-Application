@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { enable } from "../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { useSelector } from "react-redux";
 import ServiceStatusStack from "./Views/ServiceView/ServiceStatusStack";
+import ProfileStack from "./Views/ProfileViews/ProfileStack";
 
 export default function Main() {
   const Tab = createBottomTabNavigator();
@@ -14,7 +15,7 @@ export default function Main() {
       initialRouteName="Profile"
     >
       <Tab.Screen name="MechanicStack" component={MechanicStack} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="ProfileStack" component={ProfileStack} />
       <Tab.Screen name="ServiceStatusStack" component={ServiceStatusStack} />
     </Tab.Navigator>
   );
