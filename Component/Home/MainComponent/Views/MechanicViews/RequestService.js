@@ -13,16 +13,15 @@ import {
 } from "../../../../../Redux/RequestReducers/RequestReducer";
 import { setTabEnable } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 
-export default function RequestService({ route }) {
+export default function RequestService({ route, navigation }) {
   const { service } = useSelector((state) => state.requestServiceSlice);
 
   const dispatch = useDispatch();
   const mechanicInfo = route.params;
   const mechanicID = mechanicInfo.mechanicID;
-  const mechaniService = mechanicInfo.services;
-  const navigation = mechanicInfo.navigation;
 
   const userInfo = useSelector(data);
+  const { services } = useSelector((state) => state.mechanicListSlice);
   const userID = userInfo && userInfo.AccountData.personalInformation.UUID;
 
   return (
@@ -34,7 +33,7 @@ export default function RequestService({ route }) {
         selectedValue={service}
         onValueChange={(itemValue) => dispatch(handleService(itemValue))}
       >
-        {mechaniService.map(({ ServiceName, ServiceID, Price }) => (
+        {services.map(({ ServiceName, ServiceID, Price }) => (
           <Picker.Item
             label={ServiceName}
             value={ServiceName + ":" + Price}
@@ -67,7 +66,10 @@ export default function RequestService({ route }) {
         onPress={() => {
           dispatch(postRequest({ userID: userID, mechanicID: mechanicID }));
           dispatch(setTabEnable(false));
-          navigation.reset({ index: 0, routes: [{ name: "ServiceStatus" }] });
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "ServiceStatusStack" }],
+          });
         }}
       />
     </View>
