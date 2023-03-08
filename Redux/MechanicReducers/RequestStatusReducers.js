@@ -51,6 +51,8 @@ export const checkInSession = (UUID) => async (dispatch) => {
           dispatch(
             setSessionDetails(data.foundData.SessionData.SessionDetails)
           );
+        } else {
+          dispatch(setInSession(false));
         }
       })
       .catch((error) => dispatch(console.log(error)));
