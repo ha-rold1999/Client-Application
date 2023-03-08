@@ -45,8 +45,6 @@ export default function MechanicProfile({ route, navigation }) {
             onPress={() =>
               navigation.navigate("RequestService", {
                 mechanicID: mechanicID,
-                services: services,
-                navigation: navigation,
                 longitude: longitude,
                 latitude: latitude,
               })
