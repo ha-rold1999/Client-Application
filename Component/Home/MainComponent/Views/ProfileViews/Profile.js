@@ -7,19 +7,36 @@ import { checkRequests } from "../../../../../Redux/MechanicReducers/AvailableMe
 export default function Profile({ navigation }) {
   const profile = useSelector(data);
   const dispatch = useDispatch();
+
+  console.log("Get Prof: " + JSON.stringify(profile, null, 2));
   useEffect(() => {
     dispatch(checkRequests(profile.AccountData.personalInformation.UUID));
   }, [dispatch]);
   return (
     <View>
-      <Text>Name: {profile.AccountData.personalInformation.Firstname}</Text>
       <Text>ID: {profile.AccountData.personalInformation.UUID}</Text>
+      <Text>
+        Name: {profile.AccountData.personalInformation.Firstname}{" "}
+        {profile.AccountData.personalInformation.Lastname}
+      </Text>
+      <Text>Contact: {profile.AccountData.personalInformation.Contact}</Text>
+      <Text>
+        Birthdate: {profile.AccountData.personalInformation.Birthdate}
+      </Text>
+      <Text>Address: {profile.AccountData.personalInformation.Address}</Text>
+      <Text></Text>
       <Button
         title="Change Password"
         onPress={() => {
           navigation.navigate("ChangePass", {
             uuid: profile.AccountData.personalInformation.UUID,
           });
+        }}
+      />
+      <Button
+        title="Edit Profile"
+        onPress={() => {
+          navigation.navigate("ChangeProf");
         }}
       />
       <Button
