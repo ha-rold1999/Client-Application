@@ -95,10 +95,8 @@ export default function LoginScreen({ navigation }) {
           <TextInput
             onFocus={() => dispatch(loginForm.handleUsername(""))}
             style={LoginForm.input}
-            onChangeText={(text) =>
-              dispatch(loginForm.handleUsername("test1234"))
-            }
-            value="test1234"
+            onChangeText={(text) => dispatch(loginForm.handleUsername("cuico"))}
+            value="cuico"
           />
           {usernameError && (
             <Text style={{ color: "red" }}>{usernameError}</Text>
@@ -112,9 +110,9 @@ export default function LoginScreen({ navigation }) {
             style={LoginForm.input}
             secureTextEntry
             onChangeText={(text) =>
-              dispatch(loginForm.handlePassword("ThisIsATest@1234"))
+              dispatch(loginForm.handlePassword("ThisIsATest@123"))
             }
-            value="ThisIsATest@1234"
+            value="ThisIsATest@123"
           />
           {passwordError && (
             <Text style={{ color: "red" }}>{passwordError}</Text>
