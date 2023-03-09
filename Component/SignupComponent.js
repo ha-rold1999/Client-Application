@@ -111,7 +111,6 @@ export default function SingupScreen({ navigation }) {
         isSuccess={isSuccess}
         setModalVisible={setModalVisible}
         navigation={navigation}
-        
       />
       <View style={FormStyle.steps}>
         <ProgressSteps
