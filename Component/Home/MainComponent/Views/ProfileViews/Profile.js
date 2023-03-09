@@ -3,12 +3,12 @@ import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { checkRequests } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
+import { getAllData } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 
 export default function Profile({ navigation }) {
   const profile = useSelector(data);
   const dispatch = useDispatch();
 
-  console.log("Get Prof: " + JSON.stringify(profile, null, 2));
   useEffect(() => {
     dispatch(checkRequests(profile.AccountData.personalInformation.UUID));
   }, [dispatch]);
