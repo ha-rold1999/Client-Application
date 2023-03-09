@@ -61,7 +61,7 @@ export default function SessionMap({ sessionID, navigation }) {
         <Button
           title="Done"
           onPress={() => {
-            navigation.navigate("ServiceSucces", {
+            navigation.navigate("ServicePayment", {
               SessionID: sessionID,
               ServiceName: serviceName,
               Fee: servicePrice,
