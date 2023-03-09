@@ -4,6 +4,7 @@ import Main from "./Home/MainComponent/Main";
 import Setting from "./Home/SettingComponent/Setting";
 import LocationView from "./Home/MapViewComponent/MapView";
 import LogoutView from "./Home/LogoutComponent/LogoutView";
+import WalletStack from "./Home/WalletComponent/WalletStack";
 import { data } from "../Redux/AccountInfoReducers/AccountReducers";
 
 import * as Location from "expo-location";
@@ -40,6 +41,7 @@ export default function HomeScreen() {
       <Drawer.Screen name="Setting" component={Setting} />
       <Drawer.Screen name="Map" component={LocationView} />
       <Drawer.Screen name="Logout" component={LogoutView} />
+      <Drawer.Screen name="WalletStack" component={WalletStack} />
     </Drawer.Navigator>
   );
 }

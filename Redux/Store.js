@@ -9,6 +9,7 @@ import { requestServiceSliceReducer } from "./RequestReducers/RequestReducer";
 import { locationSliceReducer } from "./MapReducers.js/LocationReducer";
 import { mechanicLocationSliceReducer } from "./MapReducers/MechanicLocationReducer";
 import { requestStatusSliceReucer } from "./MechanicReducers/RequestStatusReducers";
+import { walletSliceReducer } from "./WalletReducers/WalletReducer";
 
 export default configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export default configureStore({
     locationSlice: locationSliceReducer,
     mechanicLocationSlice: mechanicLocationSliceReducer,
     requestStatusSlice: requestStatusSliceReucer,
+    walletSlice: walletSliceReducer,
   },
 });
