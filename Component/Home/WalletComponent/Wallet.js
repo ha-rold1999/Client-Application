@@ -22,38 +22,12 @@ export default function Wallet({ navigation }) {
     dispatch(getUserWallet(UUID));
   }, [isAdding, balance, dispatch]);
 
-  if (isAdding) {
-    return (
-      <View>
-        <Text>Enter the amout you add</Text>
-        <TextInput
-          onChangeText={(text) => {
-            setAddBal(text);
-          }}
-          keyboardType="number-pad"
-          required
-        />
-        <Button
-          title="Submit"
-          onPress={() => {
-            const newBal = parseFloat(addBal) + parseFloat(balance);
-            dispatch(addBalance(UUID, newBal));
-            setIsAdding(false);
-            setAddBal(0);
-            navigation.navigate("Wallet");
-          }}
-        />
-      </View>
-    );
-  } else {
-    return (
-      <View>
-        <Text>My Wallet</Text>
-        <Text>My Balance: {balance}</Text>
-        <Button title="Add Balance" onPress={() => setIsAdding(true)} />
-      </View>
-    );
-  }
+  return (
+    <View>
+      <Text>My Wallet</Text>
+      <Text>My Balance: {balance}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({});

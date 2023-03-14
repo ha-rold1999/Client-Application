@@ -27,7 +27,13 @@ export default function WalletPin({ navigation }) {
 
   useEffect(() => {
     dispatch(getUserWallet(UUID, setIsLoading));
-  }, [dispatch]);
+  }, [dispatch, pin, UUID]);
+
+  const refreshComponent = () => {
+    setIsLoading(true);
+    setPin("");
+    dispatch(getUserWallet(UUID, setIsLoading));
+  };
 
   if (isLoading) {
     return <ActivityIndicator />;
@@ -40,6 +46,7 @@ export default function WalletPin({ navigation }) {
           title="Submit"
           onPress={() => {
             dispatch(setWalletPin(UUID, pin));
+            refreshComponent();
             navigation.navigate("WalletPin");
           }}
         />
