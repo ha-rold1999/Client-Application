@@ -8,6 +8,8 @@ export const requestStatusSlice = createSlice({
     sessionID: null,
     sessionDetails: null,
     transactionID: null,
+    rating: null,
+    myRating: null,
   },
   reducers: {
     setInSession: (state, action) => {
@@ -22,6 +24,12 @@ export const requestStatusSlice = createSlice({
     setTransactionID: (state, action) => {
       state.transactionID = action.payload;
     },
+    setRating: (state, action) => {
+      state.rating = action.payload;
+    },
+    setMyRating: (state, action) => {
+      state.myRating = action.payload;
+    },
   },
 });
 
@@ -30,6 +38,8 @@ export const {
   setSessionID,
   setSessionDetails,
   setTransactionID,
+  setRating,
+  setMyRating,
 } = requestStatusSlice.actions;
 export const requestStatusSliceReucer = requestStatusSlice.reducer;
 
@@ -124,6 +134,30 @@ export const postReview = (mechID, rating) => () => {
       .then((res) => res.json())
       .then((response) => {
         console.log("Rating Response: " + JSON.stringify(response, null, 2));
+      })
+      .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getReview = (uuid, active) => (dispatch) => {
+  try {
+    fetch(`${server}/api/Account/Rating`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "AYUS-API-KEY": apiKey,
+        uuid: uuid,
+      },
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (active === "Profile") {
+          dispatch(setMyRating(response));
+        } else {
+          dispatch(setRating(response));
+        }
       })
       .catch((error) => console.log(error));
   } catch (error) {
