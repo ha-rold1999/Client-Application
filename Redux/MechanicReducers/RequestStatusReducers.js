@@ -107,3 +107,26 @@ export const postTransaction = (ServiceName, Price) => (dispatch) => {
     console.log(error);
   }
 };
+
+export const postReview = (mechID, rating) => () => {
+  try {
+    fetch(`${server}/api/Account/Rating`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "AYUS-API-KEY": apiKey,
+        uuid: mechID,
+      },
+      body: JSON.stringify({
+        Rating: rating,
+      }),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log("Rating Response: " + JSON.stringify(response, null, 2));
+      })
+      .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error);
+  }
+};

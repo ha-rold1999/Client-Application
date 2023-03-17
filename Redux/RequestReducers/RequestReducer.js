@@ -9,10 +9,10 @@ export const requestServiceSlice = createSlice({
     vehicle: "",
     description: "",
     service: "",
-    isRequesting:true,
-    requestID:"",
-    mechanicID:"",
-    requestData:[]
+    isRequesting: true,
+    requestID: "",
+    mechanicID: "",
+    requestData: [],
   },
   reducers: {
     handleLocation: (state, action) => {
@@ -31,6 +31,7 @@ export const requestServiceSlice = createSlice({
       state.description = action.payload;
     },
     postRequest: (state, action) => {
+      state.mechanicID = action.payload.mechanicID;
       fetch(`${server}/api/ServiceRequest`, {
         method: "POST",
         headers: {
@@ -46,22 +47,24 @@ export const requestServiceSlice = createSlice({
           service: state.service,
           description: state.description,
           picture: null,
-          Status:"requesting",
-          NewStatus:"requesting"
+          Status: "requesting",
+          NewStatus: "requesting",
         }),
       })
         .then((res) => res.json())
-        .then((response) =>  console.log(response))
+        .then((response) => console.log(response))
         .catch((error) => console.log(error));
     },
-    changeStatus:(state, action)=>{
-      state.requestData = action.payload
+    changeStatus: (state, action) => {
+      state.requestData = action.payload;
     },
 
     getServiceRequest: (state, action) => {
-      if(action.payload.Status === 200){
-        state.isRequesting = true
-      }else{state.isRequesting=false}
+      if (action.payload.Status === 200) {
+        state.isRequesting = true;
+      } else {
+        state.isRequesting = false;
+      }
     },
   },
 });
@@ -74,22 +77,26 @@ export const {
   handleService,
   postRequest,
   getServiceRequest,
-  changeStatus
+  changeStatus,
 } = requestServiceSlice.actions;
 export const requestServiceSliceReducer = requestServiceSlice.reducer;
 
-export const fetchRequest = (mechanicID)=>async(dispatch)=>{
-  try{
+export const fetchRequest = (mechanicID) => async (dispatch) => {
+  try {
     await fetch(`${server}/api/ServiceRequest`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "AYUS-API-KEY": apiKey,
-        MechanicUUID:mechanicID,
+        MechanicUUID: mechanicID,
       },
     })
       .then((res) => res.json())
-      .then((data) =>{dispatch(changeStatus(data.ServiceRequests))})
+      .then((data) => {
+        dispatch(changeStatus(data.ServiceRequests));
+      })
       .catch((error) => console.log(error));
-  }catch(error){console.log(error)}
-}
+  } catch (error) {
+    console.log(error);
+  }
+};
