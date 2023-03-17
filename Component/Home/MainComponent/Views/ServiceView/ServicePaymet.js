@@ -1,11 +1,13 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { addBalance } from "../../../../../Redux/WalletReducers/WalletReducer";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { getUserWallet } from "../../../../../Redux/WalletReducers/WalletReducer";
+import RatingModal from "./RatingModal";
 
 export default function ServicePaymet({ route, navigation }) {
+  const [isRating, setIsRating] = useState(false);
   const dispatch = useDispatch();
   const { balance } = useSelector((state) => state.walletSlice);
   const profile = useSelector(data);
@@ -27,7 +29,12 @@ export default function ServicePaymet({ route, navigation }) {
       <></>
       <Text>Balance</Text>
       <Text>P{balance}</Text>
-      <></>
+      <Button
+        title="Rate Mechanic?"
+        onPress={() => {
+          setIsRating(true);
+        }}
+      />
       <Button
         title="Pay"
         onPress={() => {
@@ -40,6 +47,7 @@ export default function ServicePaymet({ route, navigation }) {
           });
         }}
       />
+      <RatingModal modalVisible={isRating} setModalVisible={setIsRating} />
     </View>
   );
 }
