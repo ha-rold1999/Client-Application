@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { checkRequests } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { AirbnbRating } from "react-native-ratings";
 import { getReview } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
-import { profilePIc } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import PhoneCamera from "./Camera";
+import { server } from "../../../../../Static";
 
 export default function Profile({ navigation }) {
   const [openCamera, setOpenCamera] = useState(false);
@@ -21,23 +21,17 @@ export default function Profile({ navigation }) {
     dispatch(
       getReview(profile.AccountData.personalInformation.UUID, "Profile")
     );
-    dispatch(profilePIc(ID, dispatch));
   }, [dispatch]);
+
+  const image = `${server}/api/Upload/files/${ID}/PROFILE`;
   if (myRating !== null) {
     return (
       <View>
         <View style={{ backgroundColor: "red", width: "50%", height: "30%" }}>
-          {Profile === null ? (
-            <Image
-              source={require("../../../../../assets/Icons/pp.jpg")}
-              style={{ width: "100%", height: "100%" }}
-            />
-          ) : (
-            <Image
-              source={{ uri: `data:image/jpg;base64,${Profile}` }}
-              style={{ width: "100%", height: "100%" }}
-            />
-          )}
+          <Image
+            source={{ uri: image + "?" + new Date() }}
+            style={{ width: "100%", height: "100%" }}
+          />
         </View>
         <Button
           title="Change Piture"

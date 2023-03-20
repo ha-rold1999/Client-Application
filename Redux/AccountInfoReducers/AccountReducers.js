@@ -3,13 +3,10 @@ import { apiKey, server } from "../../Static";
 
 export const informationSlice = createSlice({
   name: "informationSlice",
-  initialState: { data: null, Profile: null },
+  initialState: { data: null },
   reducers: {
     getAllData: (state, action) => {
       state.data = action.payload;
-    },
-    getProfilePic: (state, action) => {
-      state.Profile = action.payload;
     },
   },
 });
@@ -84,26 +81,3 @@ export const changeInfo =
       console.log(error);
     }
   };
-
-export const profilePIc = (UUID, dispatch) => async () => {
-  console.log(UUID);
-  try {
-    const response = await fetch(`${server}/api/Upload/files/${UUID}/PROFILE`, {
-      method: "GET",
-    });
-
-    if (response.ok) {
-      const blob = await response.blob();
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = () => {
-        const base64data = reader.result;
-        dispatch(getProfilePic(base64data));
-      };
-    } else {
-      console.log("Failed to get the profile picture");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
