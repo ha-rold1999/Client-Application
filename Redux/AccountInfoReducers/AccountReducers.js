@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiKey, server } from "../../Static";
 
-const informationSlice = createSlice({
+export const informationSlice = createSlice({
   name: "informationSlice",
-  initialState: { data: null },
+  initialState: { data: null, Profile: null },
   reducers: {
     getAllData: (state, action) => {
       state.data = action.payload;
     },
+    getProfilePic: (state, action) => {
+      state.Profile = action.payload;
+    },
   },
 });
 
-export const { getAllData } = informationSlice.actions;
+export const { getAllData, getProfilePic } = informationSlice.actions;
 export const data = (state) => state.informationSlice.data;
 export const informationSliceReducer = informationSlice.reducer;
 
@@ -81,3 +84,26 @@ export const changeInfo =
       console.log(error);
     }
   };
+
+export const profilePIc = (UUID, dispatch) => async () => {
+  console.log(UUID);
+  try {
+    const response = await fetch(`${server}/api/Upload/files/${UUID}/PROFILE`, {
+      method: "GET",
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        dispatch(getProfilePic(base64data));
+      };
+    } else {
+      console.log("Failed to get the profile picture");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
