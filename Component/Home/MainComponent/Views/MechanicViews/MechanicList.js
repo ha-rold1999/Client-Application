@@ -1,4 +1,4 @@
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import { View, Text, FlatList, ActivityIndicator, Button } from "react-native";
 import MechanicCard from "./MechanicCardComponent";
 import MainView from "../../../../../Style/Component/MainViewStyles/StyleMainComponent";
 import { useEffect, useState } from "react";
@@ -14,8 +14,10 @@ import {
 import { useDispatch } from "react-redux";
 import { enable } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
+import PhoneCamera from "../ProfileViews/Camera";
 
 export default function MechanicList({ navigation }) {
+  const [openCamera, setOpenCamera] = useState(false);
   const isEnabled = useSelector(enable);
   const userData = useSelector(data);
   const userID = userData.AccountData.personalInformation.UUID;
@@ -54,6 +56,12 @@ export default function MechanicList({ navigation }) {
   } else {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Button
+          title="Provide Photo"
+          onPress={() => {
+            setOpenCamera(true);
+          }}
+        />
         {isEnabled && (
           <FlatList
             data={DATA}
@@ -63,6 +71,11 @@ export default function MechanicList({ navigation }) {
             style={MainView.flatView}
           />
         )}
+        <PhoneCamera
+          openCamera={openCamera}
+          setOpenCamera={setOpenCamera}
+          upload={"PROBLEM"}
+        />
       </View>
     );
   }

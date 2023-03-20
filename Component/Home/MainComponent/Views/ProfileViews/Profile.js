@@ -81,7 +81,11 @@ export default function Profile({ navigation }) {
             })
           }
         />
-        <PhoneCamera openCamera={openCamera} setOpenCamera={setOpenCamera} />
+        <PhoneCamera
+          openCamera={openCamera}
+          setOpenCamera={setOpenCamera}
+          upload={"PROFILE"}
+        />
       </View>
     );
   }

@@ -66,19 +66,35 @@ export default function PhoneCamera(props) {
                   console.log(
                     "Form data: " + JSON.stringify(formData, null, 2)
                   );
-                  fetch("http://119.92.196.92:5003/api/Upload", {
-                    method: "POST",
-                    headers: {
-                      UserID: UUID,
-                      Filename: "PROFILE",
-                    },
-                    body: formData,
-                  })
-                    .then((res) => res.json())
-                    .then((response) =>
-                      console.log(JSON.stringify(response, null, 2))
-                    )
-                    .catch((err) => console.log("ERROR: " + err));
+                  if (props.upload === "PROFILE") {
+                    fetch("http://119.92.196.92:5003/api/Upload", {
+                      method: "POST",
+                      headers: {
+                        UserID: UUID,
+                        Filename: "PROFILE",
+                      },
+                      body: formData,
+                    })
+                      .then((res) => res.json())
+                      .then((response) =>
+                        console.log(JSON.stringify(response, null, 2))
+                      )
+                      .catch((err) => console.log("ERROR: " + err));
+                  } else {
+                    fetch("http://119.92.196.92:5003/api/Upload", {
+                      method: "POST",
+                      headers: {
+                        UserID: UUID,
+                        Filename: "PROBLEM",
+                      },
+                      body: formData,
+                    })
+                      .then((res) => res.json())
+                      .then((response) =>
+                        console.log(JSON.stringify(response, null, 2))
+                      )
+                      .catch((err) => console.log("ERROR: " + err));
+                  }
                 }}
               />
             }
