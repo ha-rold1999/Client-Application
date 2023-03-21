@@ -1,15 +1,22 @@
-import { View, Text, Button, ActivityIndicator } from "react-native";
+import { View, Text, Button, ActivityIndicator, Image } from "react-native";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { checkRequests } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { AirbnbRating } from "react-native-ratings";
 import { getReview } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
+import PhoneCamera from "./Camera";
+import { server } from "../../../../../Static";
 
 export default function Profile({ navigation }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [imageUrl, setImageURL] = useState("");
+  const [openCamera, setOpenCamera] = useState(false);
   const profile = useSelector(data);
+  const { Profile } = useSelector((state) => state.informationSlice);
   const dispatch = useDispatch();
   const { myRating } = useSelector((state) => state.requestStatusSlice);
+  const ID = profile.AccountData.personalInformation.UUID;
 
   useEffect(() => {
     dispatch(checkRequests(profile.AccountData.personalInformation.UUID));
@@ -17,9 +24,27 @@ export default function Profile({ navigation }) {
       getReview(profile.AccountData.personalInformation.UUID, "Profile")
     );
   }, [dispatch]);
+
+  const image = `${server}/api/Upload/files/${ID}/PROFILE`;
+  if (!isLoaded) {
+    setImageURL(image + "?" + new Date());
+    setIsLoaded(true);
+  }
   if (myRating !== null) {
     return (
       <View>
+        <View style={{ backgroundColor: "red", width: "50%", height: "30%" }}>
+          <Image
+            source={{ uri: imageUrl }}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </View>
+        <Button
+          title="Change Piture"
+          onPress={() => {
+            setOpenCamera(true);
+          }}
+        />
         <Text>ID: {profile.AccountData.personalInformation.UUID}</Text>
         <Text>
           Name: {profile.AccountData.personalInformation.Firstname}{" "}
@@ -55,6 +80,12 @@ export default function Profile({ navigation }) {
               uuid: profile.AccountData.personalInformation.UUID,
             })
           }
+        />
+        <PhoneCamera
+          openCamera={openCamera}
+          setOpenCamera={setOpenCamera}
+          upload={"PROFILE"}
+          setIsLoaded={setIsLoaded}
         />
       </View>
     );

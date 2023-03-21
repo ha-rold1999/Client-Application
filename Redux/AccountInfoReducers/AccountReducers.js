@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiKey, server } from "../../Static";
 
-const informationSlice = createSlice({
+export const informationSlice = createSlice({
   name: "informationSlice",
   initialState: { data: null },
   reducers: {
@@ -11,7 +11,7 @@ const informationSlice = createSlice({
   },
 });
 
-export const { getAllData } = informationSlice.actions;
+export const { getAllData, getProfilePic } = informationSlice.actions;
 export const data = (state) => state.informationSlice.data;
 export const informationSliceReducer = informationSlice.reducer;
 
