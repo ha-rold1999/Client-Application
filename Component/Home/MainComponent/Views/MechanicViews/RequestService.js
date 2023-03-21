@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, Image } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,8 +12,11 @@ import {
   postRequest,
 } from "../../../../../Redux/RequestReducers/RequestReducer";
 import { setTabEnable } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
+import { server } from "../../../../../Static";
 
 export default function RequestService({ route, navigation }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [imageUrl, setImageURL] = useState("");
   const { service } = useSelector((state) => state.requestServiceSlice);
 
   const dispatch = useDispatch();
@@ -24,8 +27,20 @@ export default function RequestService({ route, navigation }) {
   const { services } = useSelector((state) => state.mechanicListSlice);
   const userID = userInfo && userInfo.AccountData.personalInformation.UUID;
 
+  const image = `${server}/api/Upload/files/${userID}/PROBLEM`;
+  if (!isLoaded) {
+    setImageURL(image + "?" + new Date());
+    setIsLoaded(true);
+  }
+
   return (
     <View>
+      <View style={{ backgroundColor: "red", width: "50%", height: "30%" }}>
+        <Image
+          source={{ uri: imageUrl }}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </View>
       <Text>{userID}</Text>
       <Text>{mechanicID}</Text>
       <Text>Service</Text>
