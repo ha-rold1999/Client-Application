@@ -9,6 +9,8 @@ import PhoneCamera from "./Camera";
 import { server } from "../../../../../Static";
 
 export default function Profile({ navigation }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [imageUrl, setImageURL] = useState("");
   const [openCamera, setOpenCamera] = useState(false);
   const profile = useSelector(data);
   const { Profile } = useSelector((state) => state.informationSlice);
@@ -24,12 +26,16 @@ export default function Profile({ navigation }) {
   }, [dispatch]);
 
   const image = `${server}/api/Upload/files/${ID}/PROFILE`;
+  if (!isLoaded) {
+    setImageURL(image + "?" + new Date());
+    setIsLoaded(true);
+  }
   if (myRating !== null) {
     return (
       <View>
         <View style={{ backgroundColor: "red", width: "50%", height: "30%" }}>
           <Image
-            source={{ uri: image + "?" + new Date() }}
+            source={{ uri: imageUrl }}
             style={{ width: "100%", height: "100%" }}
           />
         </View>
@@ -79,6 +85,7 @@ export default function Profile({ navigation }) {
           openCamera={openCamera}
           setOpenCamera={setOpenCamera}
           upload={"PROFILE"}
+          setIsLoaded={setIsLoaded}
         />
       </View>
     );
