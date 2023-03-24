@@ -37,18 +37,38 @@ export const mechanicListSliceReducer = mechanicListSlice.reducer;
 
 export const fetchAsyncData = () => async (dispatch) => {
   try {
-    await fetch(`${server}/api/Sessions/AvailableMechanics`, {
+    const response = await fetch(`${server}/api/Sessions/AvailableMechanics`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "AYUS-API-KEY": apiKey,
       },
-    })
-      .then((res) => res.json())
-      .then((data) => dispatch(getDataSuccess(data)))
-      .catch((error) => dispatch(getDataFail(error.message)));
+    });
+    const shops = await response.json();
+    const dataArr = [];
+    await Promise.all(
+      shops.map(async (shop) => {
+        const locResponse = await fetch(
+          `${server}/api/TemporaryRoute/MapLocation`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "AYUS-API-KEY": apiKey,
+              UUID: shop.personalInformation.UUID,
+            },
+          }
+        );
+        const loc = await locResponse.json();
+        dataArr.push({
+          information: shop,
+          loc: loc,
+        });
+      })
+    );
+    dispatch(getDataSuccess(dataArr));
   } catch (error) {
-    console.log(error);
+    dispatch(getDataFail(error.message));
   }
 };
 

@@ -12,10 +12,10 @@ export default function MechanicCard(props) {
     >
       <View style={MainView.card}>
         <Text style={MainView.nameText}>
-          {props.item.accountStatus.Shop.ShopName}
+          {props.item.information.accountStatus.Shop.ShopName}
         </Text>
         <Text style={MainView.addressText}>
-          {props.item.personalInformation.Address}
+          {props.item.information.personalInformation.Address}
         </Text>
       </View>
     </Pressable>

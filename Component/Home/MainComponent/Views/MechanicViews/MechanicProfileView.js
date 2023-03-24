@@ -9,19 +9,15 @@ import { getReview } from "../../../../../Redux/MechanicReducers/RequestStatusRe
 
 export default function MechanicProfile({ route, navigation }) {
   const ShopData = route.params;
-  const mechanicID = ShopData.ShopData.personalInformation.UUID;
+  const mechanicID = ShopData.ShopData.information.personalInformation.UUID;
   const dispatch = useDispatch();
   const { services } = useSelector((state) => state.mechanicListSlice);
   const { rating } = useSelector((state) => state.requestStatusSlice);
-  const { longitude, latitude } = useSelector(
-    (state) => state.mechanicLocationSlice
-  );
-
-  console.log(mechanicID);
+  const longitude = ShopData.ShopData.loc.Data.Longitude;
+  const latitude = ShopData.ShopData.loc.Data.Latitude;
 
   useEffect(() => {
     dispatch(fetchService(mechanicID));
-    dispatch(fetchMechaniLocation(mechanicID));
     dispatch(getReview(mechanicID, "Mechanic"));
   }, [dispatch]);
 
@@ -39,7 +35,9 @@ export default function MechanicProfile({ route, navigation }) {
           </View>
         </View>
         <View style={{ flex: 0.5 }}>
-          <Text>{ShopData.ShopData.accountStatus.Shop.ShopName}</Text>
+          <Text>
+            {ShopData.ShopData.information.accountStatus.Shop.ShopName}
+          </Text>
           <Text>
             <AirbnbRating defaultRating={rating.Rating} isDisabled />
           </Text>
