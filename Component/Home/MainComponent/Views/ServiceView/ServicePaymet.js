@@ -5,9 +5,11 @@ import { addBalance } from "../../../../../Redux/WalletReducers/WalletReducer";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { getUserWallet } from "../../../../../Redux/WalletReducers/WalletReducer";
 import RatingModal from "./RatingModal";
+import ReportModal from "./ReportModal";
 
 export default function ServicePaymet({ route, navigation }) {
   const [isRating, setIsRating] = useState(false);
+  const [isReporting, setIsReporting] = useState(false);
   const dispatch = useDispatch();
   const { balance } = useSelector((state) => state.walletSlice);
   const profile = useSelector(data);
@@ -36,6 +38,12 @@ export default function ServicePaymet({ route, navigation }) {
         }}
       />
       <Button
+        title="Report Mechanic"
+        onPress={() => {
+          setIsReporting(true);
+        }}
+      />
+      <Button
         title="Pay"
         onPress={() => {
           const newBal = parseFloat(balance) - parseFloat(Fee);
@@ -48,6 +56,10 @@ export default function ServicePaymet({ route, navigation }) {
         }}
       />
       <RatingModal modalVisible={isRating} setModalVisible={setIsRating} />
+      <ReportModal
+        modalVisible={isReporting}
+        setModalVisible={setIsReporting}
+      />
     </View>
   );
 }
