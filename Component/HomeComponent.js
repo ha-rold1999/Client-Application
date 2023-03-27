@@ -6,6 +6,7 @@ import LocationView from "./Home/MapViewComponent/MapView";
 import LogoutView from "./Home/LogoutComponent/LogoutView";
 import WalletStack from "./Home/WalletComponent/WalletStack";
 import { data } from "../Redux/AccountInfoReducers/AccountReducers";
+import HistoryTabs from "./Home/HistoryComponent/HistoryTabs";
 
 import * as Location from "expo-location";
 import { useEffect, useState } from "react";
@@ -38,6 +39,7 @@ export default function HomeScreen() {
   return (
     <Drawer.Navigator initialRouteName="Main">
       <Drawer.Screen name="Main" component={Main} />
+      <Drawer.Screen name="History" component={HistoryTabs} />
       <Drawer.Screen name="Setting" component={Setting} />
       <Drawer.Screen name="Map" component={LocationView} />
       <Drawer.Screen name="Logout" component={LogoutView} />
