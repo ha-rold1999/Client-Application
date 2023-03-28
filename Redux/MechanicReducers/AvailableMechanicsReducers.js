@@ -60,9 +60,21 @@ export const fetchAsyncData = () => async (dispatch) => {
           }
         );
         const loc = await locResponse.json();
+
+        const services = await fetch(`${server}/api/Mechanic/ServiceOffer`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "AYUS-API-KEY": apiKey,
+            MechanicUUID: shop.personalInformation.UUID,
+          },
+        });
+        const service = await services.json();
+
         dataArr.push({
           information: shop,
           loc: loc,
+          service: service,
         });
       })
     );

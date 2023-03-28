@@ -6,6 +6,7 @@ import {
   Button,
   StyleSheet,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import MechanicCard from "./MechanicCardComponent";
 import MainView from "../../../../../Style/Component/MainViewStyles/StyleMainComponent";
 import { useEffect, useState } from "react";
@@ -24,9 +25,12 @@ import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import PhoneCamera from "../ProfileViews/Camera";
 import MapView, { Marker } from "react-native-maps";
 import * as geolib from "geolib";
+import { server, apiKey } from "../../../../../Static";
 
 export default function MechanicList({ navigation }) {
   const [openCamera, setOpenCamera] = useState(false);
+  const [serviceList, setServiceList] = useState([]);
+  const [filterService, setFilter] = useState("all");
   const isEnabled = useSelector(enable);
   const userData = useSelector(data);
   const userID = userData.AccountData.personalInformation.UUID;
@@ -34,15 +38,45 @@ export default function MechanicList({ navigation }) {
   const { longitude, latitude } = useSelector((state) => state.locationSlice);
 
   const dispatch = useDispatch();
+
+  const fetchAllServices = async () => {
+    try {
+      await fetch(`${server}/api/System/Service`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "AYUS-API-KEY": apiKey,
+        },
+      })
+        .then((res) => res.json())
+        .then((services) => setServiceList(services.Services))
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
+    console.log("Filter: " + filterService);
+    if (filterService && filterService !== "all") {
+      const serviceNeed = DATA.filter((shop) => {
+        return shop.service.Info.some((service) => {
+          return service.ServiceName === filterService;
+        });
+      });
+      setDATA(serviceNeed);
+    } else {
+      setDATA(shops);
+    }
+    fetchAllServices();
     const time = setInterval(() => {
       dispatch(fetchAsyncData());
       dispatch(checkRequests(userID));
     }, 10000);
     return () => clearInterval(time);
-  }, [dispatch]);
+  }, [dispatch, filterService, DATA]);
 
-  const [DATA, setDATA] = useState(useSelector(availableMechanics));
+  const shops = useSelector(availableMechanics);
+  const [DATA, setDATA] = useState(shops);
   const Loading = useSelector(isLoading);
 
   if (Loading || longitude === "") {
@@ -98,9 +132,6 @@ export default function MechanicList({ navigation }) {
             })}
           </MapView>
         </View>
-        {/* <View>
-          
-        </View> */}
         <Button
           title="Provide Photo"
           onPress={() => {
@@ -127,6 +158,31 @@ export default function MechanicList({ navigation }) {
             });
             setDATA(null);
             setDATA(near);
+          }}
+        />
+
+        <Picker
+          selectedValue={filterService}
+          onValueChange={(itemValue, itemIndex) => {
+            setFilter(itemValue);
+            setDATA(shops);
+          }}
+          style={{ height: 50, width: "100%" }}
+        >
+          <Picker.Item label={"All Services"} value={"all"} />
+          {serviceList.map(({ ServiceName, ServiceID }) => (
+            <Picker.Item
+              label={ServiceName}
+              value={ServiceName}
+              key={ServiceID}
+            />
+          ))}
+        </Picker>
+        <Button
+          title="Remove Filter"
+          onPress={() => {
+            setDATA(null);
+            setDATA(shops);
           }}
         />
         {isEnabled && (

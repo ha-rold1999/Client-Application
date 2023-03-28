@@ -11,13 +11,12 @@ export default function MechanicProfile({ route, navigation }) {
   const ShopData = route.params;
   const mechanicID = ShopData.ShopData.information.personalInformation.UUID;
   const dispatch = useDispatch();
-  const { services } = useSelector((state) => state.mechanicListSlice);
   const { rating } = useSelector((state) => state.requestStatusSlice);
   const longitude = ShopData.ShopData.loc.Data.Longitude;
   const latitude = ShopData.ShopData.loc.Data.Latitude;
+  const services = ShopData.ShopData.service.Info;
 
   useEffect(() => {
-    dispatch(fetchService(mechanicID));
     dispatch(getReview(mechanicID, "Mechanic"));
   }, [dispatch]);
 
