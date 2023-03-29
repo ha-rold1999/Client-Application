@@ -54,6 +54,7 @@ export default function MechanicProfile({ route, navigation }) {
                 mechanicID: mechanicID,
                 longitude: longitude,
                 latitude: latitude,
+                services: services,
               })
             }
           />

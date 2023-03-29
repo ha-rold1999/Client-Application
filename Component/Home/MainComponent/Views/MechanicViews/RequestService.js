@@ -22,9 +22,9 @@ export default function RequestService({ route, navigation }) {
   const dispatch = useDispatch();
   const mechanicInfo = route.params;
   const mechanicID = mechanicInfo.mechanicID;
+  const services = mechanicInfo.services;
 
   const userInfo = useSelector(data);
-  const { services } = useSelector((state) => state.mechanicListSlice);
   const userID = userInfo && userInfo.AccountData.personalInformation.UUID;
 
   const image = `${server}/api/Upload/files/${userID}/PROBLEM`;
