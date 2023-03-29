@@ -59,6 +59,7 @@ export default function ServicePaymet({ route, navigation }) {
       <ReportModal
         modalVisible={isReporting}
         setModalVisible={setIsReporting}
+        userID={userID}
       />
     </View>
   );
