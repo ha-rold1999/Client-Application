@@ -73,7 +73,7 @@ export default function MechanicList({ navigation }) {
       dispatch(checkRequests(userID));
     }, 10000);
     return () => clearInterval(time);
-  }, [dispatch, filterService, DATA]);
+  }, [dispatch, filterService, DATA, availableMechanics]);
 
   const shops = useSelector(availableMechanics);
   const [DATA, setDATA] = useState(shops);
@@ -183,6 +183,7 @@ export default function MechanicList({ navigation }) {
           onPress={() => {
             setDATA(null);
             setDATA(shops);
+            setFilter("all");
           }}
         />
         {isEnabled && (
