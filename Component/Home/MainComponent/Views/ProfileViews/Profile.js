@@ -44,6 +44,7 @@ export default function Profile({ navigation }) {
     setImageURL(image + "?" + new Date());
     setIsLoaded(true);
   }
+
   if (myRating !== null) {
     return (
       <LinearGradient
@@ -102,6 +103,14 @@ export default function Profile({ navigation }) {
                 source={{ uri: imageUrl }}
                 style={{ width: "100%", height: "100%", borderRadius: 100 }}
               />
+              <TouchableOpacity
+                onPress={() => {
+                  setOpenCamera(true);
+                }}
+                style={style.button}
+              >
+                <Icon name="camera-retro" size={20} style={style.icon} />
+              </TouchableOpacity>
             </View>
             <View
               style={{
@@ -208,18 +217,6 @@ export default function Profile({ navigation }) {
               </Text>
             </View>
           </View>
-          {/* <View>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Delete", {
-                  uuid: profile.AccountData.personalInformation.UUID,
-                })
-              }
-              style={{ paddingBottom: 20, paddingLeft: 10 }}
-            >
-              <Icon name="trash" size={40} style={style.icon} />
-            </TouchableOpacity>
-          </View> */}
           <PhoneCamera
             openCamera={openCamera}
             setOpenCamera={setOpenCamera}

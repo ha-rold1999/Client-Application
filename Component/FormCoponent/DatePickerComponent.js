@@ -19,7 +19,7 @@ export default function DatePicker(props) {
             source={require("../../assets/Icons/calendar.png")}
             style={{ width: 30, height: 30 }}
           />
-          <Text style={{ fontSize: 20 }}>{props.birthdate}</Text>
+          <Text style={{ fontSize: 20 }}>{props.birthdate.split("T")[0]}</Text>
         </View>
       </Pressable>
       {isDatePickerVisible && (
