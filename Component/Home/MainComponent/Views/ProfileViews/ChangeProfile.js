@@ -134,16 +134,18 @@ export default function ChangeProfile({ navigation }) {
 
       {/* Delete Button */}
       <View style={{ flex: 1 }}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("Delete", {
-              uuid: UUID,
-            })
-          }
-          style={{ paddingTop: 20, paddingLeft: 10 }}
-        >
-          <Icon name="trash" size={20} style={{ color: "grey" }} />
-        </TouchableOpacity>
+        <View style={{ width: 40 }}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Delete", {
+                uuid: UUID,
+              })
+            }
+            style={{ paddingTop: 20, paddingLeft: 10 }}
+          >
+            <Icon name="trash" size={20} style={{ color: "grey" }} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Save Button */}
