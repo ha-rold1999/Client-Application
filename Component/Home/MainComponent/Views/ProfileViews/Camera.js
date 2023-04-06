@@ -4,6 +4,7 @@ import { Camera } from "expo-camera";
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
+import { server } from "../../../../../Static";
 
 export default function PhoneCamera(props) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -67,7 +68,7 @@ export default function PhoneCamera(props) {
                     "Form data: " + JSON.stringify(formData, null, 2)
                   );
                   if (props.upload === "PROFILE") {
-                    fetch("http://119.92.196.92:5003/api/Upload", {
+                    fetch(`${server}/api/Upload`, {
                       method: "POST",
                       headers: {
                         UserID: UUID,
@@ -82,7 +83,7 @@ export default function PhoneCamera(props) {
                       })
                       .catch((err) => console.log("ERROR: " + err));
                   } else {
-                    fetch("http://119.92.196.92:5003/api/Upload", {
+                    fetch(`${server}/api/Upload`, {
                       method: "POST",
                       headers: {
                         UserID: UUID,

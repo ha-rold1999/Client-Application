@@ -12,7 +12,6 @@ const loginSlice = createSlice({
   reducers: {
     handleUsername: (state, action) => {
       state.username = action.payload;
-      console.log(state.username);
     },
     handlePassword: (state, action) => {
       state.password = action.payload;

@@ -10,7 +10,7 @@ export default function ProfileStack() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="ProfileView" component={Profile} />
       <Stack.Screen name="Delete" component={DeleteAccout} />
       <Stack.Screen name="ChangePass" component={ChangePassword} />
       <Stack.Screen name="ChangeProf" component={ChangeProfile} />
