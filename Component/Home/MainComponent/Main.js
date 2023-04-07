@@ -11,7 +11,21 @@ export default function Main() {
       screenOptions={{ headerShown: false }}
       initialRouteName="Profile"
     >
-      <Tab.Screen name="MechanicStack" component={MechanicStack} />
+      <Tab.Screen
+        name="Mechanic"
+        component={MechanicStack}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View>
+              <Image
+                source={require("../../../assets/Icons/mechanicIcon.png")}
+                resizeMode="contain"
+                style={{ width: 30, height: 30 }}
+              />
+            </View>
+          ),
+        }}
+      />
       <Tab.Screen
         name="Profile"
         component={ProfileStack}

@@ -4,7 +4,6 @@ import { apiKey, server } from "../../Static";
 export const requestServiceSlice = createSlice({
   name: "requestServiceSlice",
   initialState: {
-    location: "",
     contact: "",
     vehicle: "",
     description: "",
@@ -15,9 +14,6 @@ export const requestServiceSlice = createSlice({
     requestData: [],
   },
   reducers: {
-    handleLocation: (state, action) => {
-      state.location = action.payload;
-    },
     handleContact: (state, action) => {
       state.contact = action.payload;
     },
@@ -42,7 +38,7 @@ export const requestServiceSlice = createSlice({
           requestor: action.payload.userID,
           recepient: action.payload.mechanicID,
           contact: state.contact,
-          location: state.location,
+          location: "",
           vehicle: state.vehicle,
           service: state.service,
           description: state.description,
