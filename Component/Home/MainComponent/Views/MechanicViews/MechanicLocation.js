@@ -5,7 +5,7 @@ import MapView, { Marker } from "react-native-maps";
 export default function MechanicLocation({ longitude, latitude }) {
   if (longitude) {
     return (
-      <View>
+      <View style={styles.container}>
         <MapView
           style={styles.map}
           provider="google"
@@ -37,14 +37,16 @@ export default function MechanicLocation({ longitude, latitude }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.2,
-    backgroundColor: "#fff",
+    flex: 1,
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
+    padding: 5,
+    elevation: 5,
+    marginHorizontal: 5,
   },
   map: {
     width: "100%",
     height: "100%",
-    maxHeight: 400,
   },
 });

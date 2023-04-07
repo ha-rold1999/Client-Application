@@ -100,9 +100,26 @@ export default function MechanicList({ navigation }) {
   } else {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <View style={{ width: "100%", height: "50%", backgroundColor: "red" }}>
+        <Button
+          title="Photo"
+          onPress={() => {
+            setOpenCamera(true);
+          }}
+        />
+        <View
+          style={{
+            width: "100%",
+            height: "30%",
+          }}
+        >
           <MapView
-            style={{ flex: 1 }}
+            style={{
+              flex: 1,
+              margin: 10,
+              borderRadius: 30,
+              overflow: "hidden",
+              elevation: 5,
+            }}
             provider="google"
             initialRegion={{
               longitude: longitude,
@@ -132,60 +149,68 @@ export default function MechanicList({ navigation }) {
             })}
           </MapView>
         </View>
-        <Button
-          title="Provide Photo"
-          onPress={() => {
-            setOpenCamera(true);
-          }}
-        />
-        <Button
-          title="Get the Mechanics within 5km near me"
-          onPress={() => {
-            const near = DATA.map((loc) => ({
-              ...loc,
-              distance: geolib.getDistance(
-                {
-                  longitude: longitude,
-                  latitude: latitude,
-                },
-                {
-                  longitude: loc.loc.Data.Longitude,
-                  latitude: loc.loc.Data.Latitude,
-                }
-              ),
-            })).filter((loc) => {
-              return loc.distance <= 5000;
-            });
-            setDATA(null);
-            setDATA(near);
-          }}
-        />
 
-        <Picker
-          selectedValue={filterService}
-          onValueChange={(itemValue, itemIndex) => {
-            setFilter(itemValue);
-            setDATA(shops);
+        <View
+          style={{
+            justifyContent: "space-between",
+            flexDirection: "row",
+            margin: 10,
+            backgroundColor: "red",
           }}
-          style={{ height: 50, width: "100%" }}
         >
-          <Picker.Item label={"All Services"} value={"all"} />
-          {serviceList.map(({ ServiceName, ServiceID }) => (
-            <Picker.Item
-              label={ServiceName}
-              value={ServiceName}
-              key={ServiceID}
+          <View style={{ flex: 1 }}>
+            <Button
+              title="near me"
+              onPress={() => {
+                const near = DATA.map((loc) => ({
+                  ...loc,
+                  distance: geolib.getDistance(
+                    {
+                      longitude: longitude,
+                      latitude: latitude,
+                    },
+                    {
+                      longitude: loc.loc.Data.Longitude,
+                      latitude: loc.loc.Data.Latitude,
+                    }
+                  ),
+                })).filter((loc) => {
+                  return loc.distance <= 5000;
+                });
+                setDATA(null);
+                setDATA(near);
+              }}
             />
-          ))}
-        </Picker>
-        <Button
-          title="Remove Filter"
-          onPress={() => {
-            setDATA(null);
-            setDATA(shops);
-            setFilter("all");
-          }}
-        />
+
+            <Picker
+              selectedValue={filterService}
+              onValueChange={(itemValue, itemIndex) => {
+                setFilter(itemValue);
+                setDATA(shops);
+              }}
+              style={{ height: 50, width: "100%" }}
+            >
+              <Picker.Item label={"All Services"} value={"all"} />
+              {serviceList.map(({ ServiceName, ServiceID }) => (
+                <Picker.Item
+                  label={ServiceName}
+                  value={ServiceName}
+                  key={ServiceID}
+                />
+              ))}
+            </Picker>
+          </View>
+
+          <Button
+            title="Remove Filter"
+            onPress={() => {
+              setDATA(null);
+              setDATA(shops);
+              setFilter("all");
+            }}
+          />
+        </View>
+
         {isEnabled && (
           <FlatList
             data={DATA}

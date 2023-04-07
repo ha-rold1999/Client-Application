@@ -56,7 +56,6 @@ export default function DeleteAccout({ route, navigation }) {
         </Pressable>
         <Pressable
           onPress={() => {
-            dispatch(deleteAccount(UUID));
             navigation.navigate("ProfileView");
           }}
           style={{
