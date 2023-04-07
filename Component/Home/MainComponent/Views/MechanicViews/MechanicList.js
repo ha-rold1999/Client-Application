@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   Button,
   StyleSheet,
+  Image,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import MechanicCard from "./MechanicCardComponent";
@@ -87,14 +88,26 @@ export default function MechanicList({ navigation }) {
     );
   } else if (inSession) {
     return (
-      <View>
-        <Text>Service on its way</Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Image
+          source={require("../../../../../assets/Icons/coming.png")}
+          style={{ width: 400, height: 400 }}
+        />
+        <Text style={{ fontSize: 20, textAlign: "center", fontWeight: "600" }}>
+          You already requested a service
+        </Text>
       </View>
     );
   } else if (!isEnabled) {
     return (
-      <View>
-        <Text>You already requested a service</Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Image
+          source={require("../../../../../assets/Icons/coming.png")}
+          style={{ width: 400, height: 400 }}
+        />
+        <Text style={{ fontSize: 20, textAlign: "center", fontWeight: "600" }}>
+          You already requested a service
+        </Text>
       </View>
     );
   } else {
