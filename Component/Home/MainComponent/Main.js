@@ -41,7 +41,21 @@ export default function Main() {
           ),
         }}
       />
-      <Tab.Screen name="ServiceStatusStack" component={ServiceStatusStack} />
+      <Tab.Screen
+        name="Service"
+        component={ServiceStatusStack}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View>
+              <Image
+                source={require("../../../assets/Icons/fixing.png")}
+                resizeMode="contain"
+                style={{ width: 30, height: 30 }}
+              />
+            </View>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

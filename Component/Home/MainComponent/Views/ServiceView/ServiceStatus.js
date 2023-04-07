@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { checkRequests } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,8 +31,21 @@ export default function ServiceStatus({ navigation }) {
     );
   } else {
     return (
-      <View>
-        <Text>No Service as of the moment</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "white",
+        }}
+      >
+        <Image
+          source={require("../../../../../assets/Icons/noService.png")}
+          style={{ width: 300, height: 300 }}
+        />
+        <Text style={{ fontSize: 30, textAlign: "center", fontWeight: "600" }}>
+          No Service as of the moment
+        </Text>
       </View>
     );
   }

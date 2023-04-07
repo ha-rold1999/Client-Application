@@ -142,7 +142,7 @@ export default function RequestService({ route, navigation }) {
             dispatch(setTabEnable(false));
             navigation.reset({
               index: 0,
-              routes: [{ name: "ServiceStatusStack" }],
+              routes: [{ name: "Service" }],
             });
           }}
           style={{
