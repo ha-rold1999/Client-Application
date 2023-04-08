@@ -10,7 +10,7 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   handleLocation,
   handleContact,
@@ -44,6 +44,11 @@ export default function RequestService({ route, navigation }) {
     setImageURL(image + "?" + new Date());
     setIsLoaded(true);
   }
+
+  useEffect(() => {
+    dispatch(handleContact(Contact));
+  }, []);
+
   return (
     <View style={{ flex: 1 }}>
       {/* Problem Image */}

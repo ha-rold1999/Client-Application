@@ -74,6 +74,7 @@ export default function Profile({ navigation }) {
               </View>
             </TouchableOpacity>
           </View>
+
           {/* Card View */}
           <View
             style={{
@@ -136,16 +137,6 @@ export default function Profile({ navigation }) {
                 />
                 <Text style={{ fontSize: 20 }}>{myRating.Rating}/5</Text>
               </View>
-
-              {/* <TouchableOpacity
-                  onPress={() => {
-                    setOpenCamera(true);
-                  }}
-                  style={style.button}
-                >
-                  <Icon name="camera-retro" size={20} style={style.icon} />
-                  <Text style={style.text}>Change Picture</Text>
-                </TouchableOpacity> */}
             </View>
             <View
               style={{
@@ -163,28 +154,6 @@ export default function Profile({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
-          {/* Button */}
-          {/* <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginHorizontal: 5,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("ChangePass", {
-                  uuid: profile.AccountData.personalInformation.UUID,
-                });
-              }}
-              style={style.button}
-            >
-              <Icon name="key" size={20} style={style.icon} />
-              <Text style={style.text}>Change Password</Text>
-            </TouchableOpacity>
-
-            
-          </View> */}
 
           {/* Details */}
           <View style={style.detailContainers}>
