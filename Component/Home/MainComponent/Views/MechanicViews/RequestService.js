@@ -26,7 +26,11 @@ import FormStyle from "../../../../../Style/Component/StyleSignupComponent";
 export default function RequestService({ route, navigation }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [imageUrl, setImageURL] = useState("");
-  const { service } = useSelector((state) => state.requestServiceSlice);
+  const [vehicleError, setVehicleError] = useState();
+  const [contactError, setContactError] = useState();
+  const { service, contact, vehicle, description } = useSelector(
+    (state) => state.requestServiceSlice
+  );
 
   const { longitude, latitude } = useSelector((state) => state.locationSlice);
 
@@ -47,6 +51,7 @@ export default function RequestService({ route, navigation }) {
 
   useEffect(() => {
     dispatch(handleContact(Contact));
+    dispatch(handleService(service));
   }, []);
 
   return (
@@ -103,10 +108,11 @@ export default function RequestService({ route, navigation }) {
               <TextInput
                 style={FormStyle.input}
                 onChangeText={(text) => dispatch(handleContact(text))}
-                value={Contact}
+                value={contact}
               />
             </View>
           </View>
+          {contactError && <Text style={{ color: "red" }}>{contactError}</Text>}
 
           {/* Vehicle Form */}
           <View style={{ marginVertical: 5 }}>
@@ -119,9 +125,11 @@ export default function RequestService({ route, navigation }) {
               <TextInput
                 style={FormStyle.input}
                 onChangeText={(text) => dispatch(handleVehicle(text))}
+                value={vehicle}
               />
             </View>
           </View>
+          {vehicleError && <Text style={{ color: "red" }}>{vehicleError}</Text>}
 
           {/* Description Form */}
           <View style={{ marginVertical: 5 }}>
@@ -134,6 +142,7 @@ export default function RequestService({ route, navigation }) {
               <TextInput
                 style={FormStyle.input}
                 onChangeText={(text) => dispatch(handleDescription(text))}
+                value={description}
               />
             </View>
           </View>
@@ -143,12 +152,30 @@ export default function RequestService({ route, navigation }) {
       <View style={{ alignItems: "center", paddingBottom: 5 }}>
         <Pressable
           onPress={() => {
-            dispatch(postRequest({ userID: userID, mechanicID: mechanicID }));
-            dispatch(setTabEnable(false));
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "Service" }],
-            });
+            if (!contact) {
+              setContactError("Please Enter your phone number");
+            } else if (!/^(09|\+639)\d{9}$/.test(contact)) {
+              setContactError("Enter a valid phone number");
+            } else {
+              setContactError("");
+            }
+            if (!vehicle) {
+              setVehicleError("Enter your vehicle");
+              console.log(vehicleError);
+            } else {
+              setVehicleError("");
+            }
+
+            console.log("Contact Error: " + contact);
+            console.log("Vehicle Error: " + vehicle);
+            if (contactError === "" && vehicleError === "") {
+              dispatch(postRequest({ userID: userID, mechanicID: mechanicID }));
+              dispatch(setTabEnable(false));
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "Service" }],
+              });
+            }
           }}
           style={{
             paddingHorizontal: 50,
