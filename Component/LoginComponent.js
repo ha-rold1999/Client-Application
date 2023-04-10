@@ -132,15 +132,17 @@ export default function LoginScreen({ navigation }) {
           >
             <Text style={{ marginLeft: 5 }}>Remember Me?</Text>
           </Pressable>
-          <Text
-            style={{
-              marginRight: 0,
-              marginLeft: 87,
-              color: "#61aee1",
-            }}
-          >
-            Forget Password?
-          </Text>
+          <Pressable onPress={() => navigation.navigate("Signup")}>
+            <Text
+              style={{
+                marginRight: 0,
+                marginLeft: 87,
+                color: "#61aee1",
+              }}
+            >
+              Create Account
+            </Text>
+          </Pressable>
         </View>
 
         {/* Login Button */}
