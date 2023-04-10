@@ -24,6 +24,7 @@ export default function ReportModal(props) {
     setTimeout(() => {
       props.setModalVisible(false);
     }, 5000);
+    setReportSubmitted(false);
   };
   return (
     <Modal
@@ -155,63 +156,6 @@ export default function ReportModal(props) {
         </View>
       </View>
     </Modal>
-    // <Modal
-    //   animationType="slide"
-    //   transparent={true}
-    //   visible={props.modalVisible}
-    // >
-    //   <View style={{ backgroundColor: "red" }}>
-    //     <Text>{mechanicID}</Text>
-    //     <Text>Report Details</Text>
-    //     <TextInput
-    //       onChangeText={(text) => {
-    //         setComplaine(text);
-    //       }}
-    //       multiline
-    //     />
-
-    //     {reportSubmitted && (
-    //       <View style={{ backgroundColor: "blue" }}>
-    //         <Text>Report Submitted to admin</Text>
-    //       </View>
-    //     )}
-    //     <Button
-    //       title="Cancel"
-    //       onPress={() => {
-    //         props.setModalVisible(!props.modalVisible);
-    //       }}
-    //     />
-    //     <Button
-    //       title="Submit Report"
-    //       onPress={() => {
-    //         handleSubmit();
-    //         try {
-    //           fetch(`${server}/api/Account/Report`, {
-    //             method: "POST",
-    //             headers: {
-    //               "Content-Type": "application/json",
-    //               "AYUS-API-KEY": apiKey,
-    //             },
-    //             body: JSON.stringify({
-    //               complainer: userID,
-    //               complainee: mechanicID,
-    //               reason: complaine,
-    //             }),
-    //           })
-    //             .then((res) => res.json())
-    //             .then((response) => {
-    //               console.log(
-    //                 "Report Response: " + JSON.stringify(response, null, 2)
-    //               );
-    //             })
-    //             .catch((error) => console.log(error));
-    //         } catch (error) {
-    //           console.log(error);
-    //         }
-    //       }}
-    //     />
-    //   </View>
-    // </Modal>
   );
 }
 
