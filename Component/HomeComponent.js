@@ -40,10 +40,7 @@ export default function HomeScreen() {
     <Drawer.Navigator initialRouteName="Main">
       <Drawer.Screen name="Main" component={Main} />
       <Drawer.Screen name="History" component={HistoryTabs} />
-      <Drawer.Screen name="Setting" component={Setting} />
-      <Drawer.Screen name="Map" component={LocationView} />
       <Drawer.Screen name="Logout" component={LogoutView} />
-      <Drawer.Screen name="WalletStack" component={WalletStack} />
     </Drawer.Navigator>
   );
 }

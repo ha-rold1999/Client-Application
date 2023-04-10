@@ -8,11 +8,10 @@ export default function WalletStack() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      initialRouteName="WalletPin"
+      initialRouteName="WalletView"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="WalletPin" component={WalletPin} />
-      <Stack.Screen name="Wallet" component={Wallet} />
+      <Stack.Screen name="WalletView" component={Wallet} />
     </Stack.Navigator>
   );
 }

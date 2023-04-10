@@ -20,6 +20,7 @@ import * as Clipboard from "expo-clipboard";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { LinearGradient } from "expo-linear-gradient";
 import Styles from "../../../../../Style/Component/StyleComponent";
+import { getUserWallet } from "../../../../../Redux/WalletReducers/WalletReducer";
 
 export default function Profile({ navigation }) {
   const [copyID, setCopyID] = useState("");
@@ -31,14 +32,17 @@ export default function Profile({ navigation }) {
   const dispatch = useDispatch();
   const { myRating } = useSelector((state) => state.requestStatusSlice);
   const ID = profile.AccountData.personalInformation.UUID;
+  const { balance } = useSelector((state) => state.walletSlice);
 
   useEffect(() => {
-    dispatch(checkRequests(profile.AccountData.personalInformation.UUID));
+    dispatch(checkRequests(ID));
+    dispatch(getUserWallet(ID));
     dispatch(
       getReview(profile.AccountData.personalInformation.UUID, "Profile")
     );
   }, [dispatch]);
 
+  console.log(ID);
   const image = `${server}/api/Upload/files/${ID}/PROFILE`;
   if (!isLoaded) {
     setImageURL(image + "?" + new Date());
@@ -135,7 +139,16 @@ export default function Profile({ navigation }) {
                   readonly={true}
                   imageSize={20}
                 />
-                <Text style={{ fontSize: 20 }}>{myRating.Rating}/5</Text>
+                <Text style={{ fontSize: 20 }}>
+                  {myRating.Rating.toFixed(2)}/5
+                </Text>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  source={require("../../../../../assets/Icons/wallet.png")}
+                  style={{ width: 20, height: 20, marginRight: 5 }}
+                />
+                <Text>My Balance: {balance}</Text>
               </View>
             </View>
             <View

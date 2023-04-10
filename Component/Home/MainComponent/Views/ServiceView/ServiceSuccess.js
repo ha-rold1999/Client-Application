@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -36,8 +36,12 @@ export default function ServiceSuccess({ route }) {
     );
   } else {
     return (
-      <View>
-        <Text>Session Ended</Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Image
+          source={require("../../../../../assets/Icons/done.png")}
+          style={{ width: 300, height: 300, marginBottom: 10 }}
+        />
+        <Text style={{ fontSize: 30, fontWeight: "700" }}>Session Ended</Text>
       </View>
     );
   }
