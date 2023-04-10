@@ -56,18 +56,66 @@ export default function SessionMap({ sessionID, navigation }) {
             }}
           />
         </MapView>
-        <Text>Service Requested: {serviceName}</Text>
-        <Text>Fee: {servicePrice}</Text>
-        <Button
-          title="Done"
-          onPress={() => {
-            navigation.navigate("ServicePayment", {
-              SessionID: sessionID,
-              ServiceName: serviceName,
-              Fee: servicePrice,
-            });
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+            paddingHorizontal: 10,
+            elevation: 10,
+            borderRadius: 20,
+            paddingTop: 10,
           }}
-        />
+        >
+          <Text>Service Requested: </Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "700" }}>
+              {serviceName}
+            </Text>
+            <Text style={{ fontSize: 20, fontWeight: "700" }}>
+              P {servicePrice}
+            </Text>
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "flex-end",
+              marginTop: 50,
+            }}
+          >
+            <Pressable
+              style={{
+                backgroundColor: "#209589",
+                paddingHorizontal: 80,
+                paddingVertical: 10,
+                borderRadius: 10,
+              }}
+              onPress={() => {
+                navigation.navigate("ServicePayment", {
+                  SessionID: sessionID,
+                  ServiceName: serviceName,
+                  Fee: servicePrice,
+                });
+              }}
+            >
+              <Text style={{ color: "white", fontSize: 20, fontWeight: "500" }}>
+                Done
+              </Text>
+            </Pressable>
+          </View>
+
+          {/* <Button
+            title="Done"
+            onPress={() => {
+              navigation.navigate("ServicePayment", {
+                SessionID: sessionID,
+                ServiceName: serviceName,
+                Fee: servicePrice,
+              });
+            }}
+          /> */}
+        </View>
       </View>
     );
   } else {

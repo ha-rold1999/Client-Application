@@ -25,7 +25,6 @@ export default function ServiceStatus({ navigation }) {
   if (inSession && sessionID !== null) {
     return (
       <View>
-        <Text>The mechanic is on its way</Text>
         <SessionMap sessionID={sessionID} navigation={navigation} />
       </View>
     );
