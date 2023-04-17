@@ -22,8 +22,11 @@ import {
 import { setTabEnable } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { server } from "../../../../../Static";
 import FormStyle from "../../../../../Style/Component/StyleSignupComponent";
+import PhoneCamera from "../ProfileViews/Camera";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function RequestService({ route, navigation }) {
+  const [openCamera, setOpenCamera] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [imageUrl, setImageURL] = useState("");
   const [vehicleError, setVehicleError] = useState();
@@ -61,7 +64,7 @@ export default function RequestService({ route, navigation }) {
         style={{
           backgroundColor: "white",
           width: "100%",
-          height: "40%",
+          height: "50%",
           padding: 10,
           elevation: 5,
           borderRadius: 10,
@@ -70,8 +73,30 @@ export default function RequestService({ route, navigation }) {
       >
         <Image
           source={{ uri: imageUrl }}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "80%" }}
         />
+        <View style={{ alignItems: "center" }}>
+          <Pressable
+            style={{
+              backgroundColor: "#209589",
+              paddingHorizontal: 50,
+              marginTop: 10,
+              paddingVertical: 10,
+              borderRadius: 10,
+              flexDirection: "row",
+            }}
+            onPress={() => {
+              setOpenCamera(true);
+            }}
+          >
+            <Icon
+              name="camera-retro"
+              size={20}
+              style={{ color: "black", paddingRight: 10 }}
+            />
+            <Text style={{ color: "white" }}>Capture</Text>
+          </Pressable>
+        </View>
       </View>
       {/* Request Form */}
       <ScrollView>
@@ -187,6 +212,11 @@ export default function RequestService({ route, navigation }) {
           <Text style={{ color: "white" }}>Submit Request</Text>
         </Pressable>
       </View>
+      <PhoneCamera
+        openCamera={openCamera}
+        setOpenCamera={setOpenCamera}
+        upload={"PROBLEM"}
+      />
     </View>
   );
 }

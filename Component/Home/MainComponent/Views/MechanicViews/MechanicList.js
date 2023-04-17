@@ -6,6 +6,7 @@ import {
   Button,
   StyleSheet,
   Image,
+  Pressable,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import MechanicCard from "./MechanicCardComponent";
@@ -27,9 +28,10 @@ import PhoneCamera from "../ProfileViews/Camera";
 import MapView, { Marker } from "react-native-maps";
 import * as geolib from "geolib";
 import { server, apiKey } from "../../../../../Static";
+import { Title } from "react-native-paper";
 
 export default function MechanicList({ navigation }) {
-  const [openCamera, setOpenCamera] = useState(false);
+  //const [openCamera, setOpenCamera] = useState(false);
   const [serviceList, setServiceList] = useState([]);
   const [filterService, setFilter] = useState("all");
   const isEnabled = useSelector(enable);
@@ -112,13 +114,19 @@ export default function MechanicList({ navigation }) {
     );
   } else {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Button
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {/* <Button
           title="Photo"
           onPress={() => {
             setOpenCamera(true);
           }}
-        />
+        /> */}
         <View
           style={{
             width: "100%",
@@ -164,6 +172,123 @@ export default function MechanicList({ navigation }) {
         </View>
 
         <View
+          style={{
+            width: "100%",
+            paddingHorizontal: 10,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "white",
+              borderWidth: 1,
+              borderRadius: 10,
+              marginBottom: 5,
+            }}
+          >
+            <Picker
+              selectedValue={filterService}
+              onValueChange={(itemValue, itemIndex) => {
+                setFilter(itemValue);
+                setDATA(shops);
+              }}
+              style={{ height: 50, width: "100%" }}
+            >
+              <Picker.Item label={"All Services"} value={"all"} />
+              {serviceList.map(({ ServiceName, ServiceID }) => (
+                <Picker.Item
+                  label={ServiceName}
+                  value={ServiceName}
+                  key={ServiceID}
+                />
+              ))}
+            </Picker>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Pressable
+              style={{
+                backgroundColor: "#228BD4",
+                paddingHorizontal: 80,
+                paddingVertical: 10,
+                borderRadius: 10,
+              }}
+              onPress={() => {
+                const near = DATA.map((loc) => ({
+                  ...loc,
+                  distance: geolib.getDistance(
+                    {
+                      longitude: longitude,
+                      latitude: latitude,
+                    },
+                    {
+                      longitude: loc.loc.Data.Longitude,
+                      latitude: loc.loc.Data.Latitude,
+                    }
+                  ),
+                })).filter((loc) => {
+                  return loc.distance <= 5000;
+                });
+                setDATA(null);
+                setDATA(near);
+              }}
+            >
+              <Text style={{ color: "white" }}>Near Me</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                backgroundColor: "#E8F1F8",
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+              }}
+              onPress={() => {
+                setDATA(null);
+                setDATA(shops);
+                setFilter("all");
+              }}
+            >
+              <Text>Remove Filter</Text>
+            </Pressable>
+            {/* <Button
+              title="near me"
+              onPress={() => {
+                const near = DATA.map((loc) => ({
+                  ...loc,
+                  distance: geolib.getDistance(
+                    {
+                      longitude: longitude,
+                      latitude: latitude,
+                    },
+                    {
+                      longitude: loc.loc.Data.Longitude,
+                      latitude: loc.loc.Data.Latitude,
+                    }
+                  ),
+                })).filter((loc) => {
+                  return loc.distance <= 5000;
+                });
+                setDATA(null);
+                setDATA(near);
+              }}
+            />
+            <Button
+              title="Remove Filter"
+              onPress={() => {
+                setDATA(null);
+                setDATA(shops);
+                setFilter("all");
+              }}
+            /> */}
+          </View>
+        </View>
+        {/* <View
           style={{
             justifyContent: "space-between",
             flexDirection: "row",
@@ -222,7 +347,7 @@ export default function MechanicList({ navigation }) {
               setFilter("all");
             }}
           />
-        </View>
+        </View> */}
 
         {isEnabled && (
           <FlatList
@@ -233,11 +358,11 @@ export default function MechanicList({ navigation }) {
             style={MainView.flatView}
           />
         )}
-        <PhoneCamera
+        {/* <PhoneCamera
           openCamera={openCamera}
           setOpenCamera={setOpenCamera}
           upload={"PROBLEM"}
-        />
+        /> */}
       </View>
     );
   }
