@@ -7,17 +7,18 @@ import LogoutView from "./Home/LogoutComponent/LogoutView";
 import WalletStack from "./Home/WalletComponent/WalletStack";
 import { data } from "../Redux/AccountInfoReducers/AccountReducers";
 import HistoryTabs from "./Home/HistoryComponent/HistoryTabs";
-
 import * as Location from "expo-location";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLocation } from "../Redux/MapReducers.js/LocationReducer";
+import SuspendedModal from "./Signup/ModalComponent/LoginModalMessage/SuspendedModal";
 
 export default function HomeScreen() {
   const Drawer = createDrawerNavigator();
   const dispatch = useDispatch();
   const userInfo = useSelector(data);
   const UUID = userInfo.AccountData.personalInformation.UUID;
+  const suspended = userInfo.AccountData.accountStatus.IsLocked;
 
   useEffect(() => {
     (async () => {
@@ -37,10 +38,13 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <Drawer.Navigator initialRouteName="Main">
-      <Drawer.Screen name="Main" component={Main} />
-      <Drawer.Screen name="History" component={HistoryTabs} />
-      <Drawer.Screen name="Logout" component={LogoutView} />
-    </Drawer.Navigator>
+    <>
+      {suspended && <SuspendedModal />}
+      <Drawer.Navigator initialRouteName="Main">
+        <Drawer.Screen name="Main" component={Main} />
+        <Drawer.Screen name="History" component={HistoryTabs} />
+        <Drawer.Screen name="Logout" component={LogoutView} />
+      </Drawer.Navigator>
+    </>
   );
 }
