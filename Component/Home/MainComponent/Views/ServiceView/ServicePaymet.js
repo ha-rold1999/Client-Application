@@ -1,4 +1,11 @@
-import { Button, StyleSheet, Text, View, Pressable } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Linking,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { addBalance } from "../../../../../Redux/WalletReducers/WalletReducer";
@@ -23,16 +30,17 @@ export default function ServicePaymet({ route, navigation }) {
   const UUID = SessionID.SessionID;
   const ServiceName = SessionID.ServiceName;
   const Fee = SessionID.Fee;
+  const mechanicID = SessionID.MechID;
 
   useEffect(() => {
     dispatch(getUserWallet(userID));
-    if (balance <= 0) {
+    if (balance <= 0 || balance < Fee) {
       setChecked("cash");
       setIsDisabled(true);
     } else {
       setChecked("wallet");
     }
-  }, [dispatch]);
+  }, [dispatch, userID, balance, Fee, setChecked, setIsDisabled]);
   return (
     <LinearGradient
       colors={["#cff5fb", "#fcfdfd"]}
@@ -110,7 +118,7 @@ export default function ServicePaymet({ route, navigation }) {
               }}
             >
               <Text style={{ color: "white", fontWeight: "700" }}>
-                Report Mechanic
+                Report Client
               </Text>
             </Pressable>
             <Pressable
@@ -161,6 +169,33 @@ export default function ServicePaymet({ route, navigation }) {
                 Pay
               </Text>
             </Pressable>
+            {/* <Pressable
+              style={{
+                paddingHorizontal: 150,
+                paddingVertical: 15,
+                backgroundColor: "#209589",
+                borderRadius: 10,
+              }}
+              onPress={() => {
+                const url = `http://192.53.114.221/gcash?merchant=AYUS@ICTEAM&amount=${Fee}&redirecturl=AYUS_UID_${mechanicID}_AMT_${Fee}`;
+                Linking.canOpenURL(url).then((supported) => {
+                  if (supported) {
+                    Linking.openURL(url);
+                  } else {
+                    console.log(`Don't know how to open URL: ${url}`);
+                  }
+                });
+                navigation.navigate("ServiceSucces", {
+                  SessionID: UUID,
+                  ServiceName: ServiceName,
+                  Fee: Fee,
+                });
+              }}
+            >
+              <Text style={{ fontSize: 20, fontWeight: "700", color: "white" }}>
+                GCash
+              </Text>
+            </Pressable> */}
           </View>
         </View>
 

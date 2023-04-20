@@ -31,7 +31,6 @@ import { server, apiKey } from "../../../../../Static";
 import { Title } from "react-native-paper";
 
 export default function MechanicList({ navigation }) {
-  //const [openCamera, setOpenCamera] = useState(false);
   const [serviceList, setServiceList] = useState([]);
   const [filterService, setFilter] = useState("all");
   const isEnabled = useSelector(enable);
@@ -121,12 +120,6 @@ export default function MechanicList({ navigation }) {
           alignItems: "center",
         }}
       >
-        {/* <Button
-          title="Photo"
-          onPress={() => {
-            setOpenCamera(true);
-          }}
-        /> */}
         <View
           style={{
             width: "100%",
@@ -256,98 +249,8 @@ export default function MechanicList({ navigation }) {
             >
               <Text>Remove Filter</Text>
             </Pressable>
-            {/* <Button
-              title="near me"
-              onPress={() => {
-                const near = DATA.map((loc) => ({
-                  ...loc,
-                  distance: geolib.getDistance(
-                    {
-                      longitude: longitude,
-                      latitude: latitude,
-                    },
-                    {
-                      longitude: loc.loc.Data.Longitude,
-                      latitude: loc.loc.Data.Latitude,
-                    }
-                  ),
-                })).filter((loc) => {
-                  return loc.distance <= 5000;
-                });
-                setDATA(null);
-                setDATA(near);
-              }}
-            />
-            <Button
-              title="Remove Filter"
-              onPress={() => {
-                setDATA(null);
-                setDATA(shops);
-                setFilter("all");
-              }}
-            /> */}
           </View>
         </View>
-        {/* <View
-          style={{
-            justifyContent: "space-between",
-            flexDirection: "row",
-            margin: 10,
-            backgroundColor: "red",
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Button
-              title="near me"
-              onPress={() => {
-                const near = DATA.map((loc) => ({
-                  ...loc,
-                  distance: geolib.getDistance(
-                    {
-                      longitude: longitude,
-                      latitude: latitude,
-                    },
-                    {
-                      longitude: loc.loc.Data.Longitude,
-                      latitude: loc.loc.Data.Latitude,
-                    }
-                  ),
-                })).filter((loc) => {
-                  return loc.distance <= 5000;
-                });
-                setDATA(null);
-                setDATA(near);
-              }}
-            />
-
-            <Picker
-              selectedValue={filterService}
-              onValueChange={(itemValue, itemIndex) => {
-                setFilter(itemValue);
-                setDATA(shops);
-              }}
-              style={{ height: 50, width: "100%" }}
-            >
-              <Picker.Item label={"All Services"} value={"all"} />
-              {serviceList.map(({ ServiceName, ServiceID }) => (
-                <Picker.Item
-                  label={ServiceName}
-                  value={ServiceName}
-                  key={ServiceID}
-                />
-              ))}
-            </Picker>
-          </View>
-
-          <Button
-            title="Remove Filter"
-            onPress={() => {
-              setDATA(null);
-              setDATA(shops);
-              setFilter("all");
-            }}
-          />
-        </View> */}
 
         {isEnabled && (
           <FlatList
@@ -358,11 +261,6 @@ export default function MechanicList({ navigation }) {
             style={MainView.flatView}
           />
         )}
-        {/* <PhoneCamera
-          openCamera={openCamera}
-          setOpenCamera={setOpenCamera}
-          upload={"PROBLEM"}
-        /> */}
       </View>
     );
   }

@@ -15,6 +15,7 @@ import { postTransaction } from "../../../../../Redux/MechanicReducers/RequestSt
 export default function SessionMap({ sessionID, navigation }) {
   const { sessionMap } = useSelector((state) => state.locationSlice);
   const { sessionDetails } = useSelector((state) => state.requestStatusSlice);
+  const { mechID } = useSelector((state) => state.requestStatusSlice);
   const dispatch = useDispatch();
   useEffect(() => {
     const time = setInterval(() => {
@@ -96,6 +97,7 @@ export default function SessionMap({ sessionID, navigation }) {
                   SessionID: sessionID,
                   ServiceName: serviceName,
                   Fee: servicePrice,
+                  MechID: mechID,
                 });
               }}
             >

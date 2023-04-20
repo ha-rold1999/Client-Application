@@ -6,6 +6,7 @@ export const requestStatusSlice = createSlice({
   initialState: {
     inSession: false,
     sessionID: null,
+    mechID: null,
     sessionDetails: null,
     transactionID: null,
     rating: null,
@@ -14,6 +15,9 @@ export const requestStatusSlice = createSlice({
   reducers: {
     setInSession: (state, action) => {
       state.inSession = action.payload;
+    },
+    setMechanicID: (state, action) => {
+      state.mechID = action.payload;
     },
     setSessionID: (state, action) => {
       state.sessionID = action.payload;
@@ -40,6 +44,7 @@ export const {
   setTransactionID,
   setRating,
   setMyRating,
+  setMechanicID,
 } = requestStatusSlice.actions;
 export const requestStatusSliceReucer = requestStatusSlice.reducer;
 
@@ -58,6 +63,10 @@ export const checkInSession = (UUID) => async (dispatch) => {
         if (data.Status === 200) {
           dispatch(setInSession(true));
           dispatch(setSessionID(data.foundData.SessionData.SessionID));
+          dispatch(setMechanicID(data.foundData.SessionData.MechanicUUID));
+          console.log(
+            JSON.stringify(data.foundData.SessionData.SessionDetails)
+          );
           dispatch(
             setSessionDetails(data.foundData.SessionData.SessionDetails)
           );

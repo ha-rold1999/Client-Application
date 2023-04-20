@@ -21,9 +21,7 @@ export default function ReportModal(props) {
 
   const handleSubmit = () => {
     setReportSubmitted(true);
-    setTimeout(() => {
-      props.setModalVisible(false);
-    }, 5000);
+    props.setModalVisible(false);
     setReportSubmitted(false);
   };
   return (
