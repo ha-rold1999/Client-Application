@@ -237,7 +237,12 @@ export default function ChangeProfile({ navigation }) {
                     dispatch(getAllData(data));
                     ToastAndroid.show("Profile Updated", ToastAndroid.SHORT);
                   })
-                  .then(() => navigation.navigate("ProfileView"))
+                  .then(() =>
+                    navigation.reset({
+                      index: 0,
+                      routes: [{ name: "ProfileView" }],
+                    })
+                  )
                   .catch((error) => console.log(error));
               }, 500);
             } else {

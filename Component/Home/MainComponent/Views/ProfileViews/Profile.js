@@ -29,6 +29,8 @@ export default function Profile({ navigation }) {
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
+  const [isExpired, setExpired] = useState(false);
+
   const [imageUrl, setImageURL] = useState("");
   const [openCamera, setOpenCamera] = useState(false);
   const profile = useSelector(data);
@@ -38,12 +40,20 @@ export default function Profile({ navigation }) {
   const ID = profile.AccountData.personalInformation.UUID;
   const { balance } = useSelector((state) => state.walletSlice);
 
+  const currentDate = new Date();
+  const licenseDate = new Date(
+    profile.AccountData.personalInformation.Expiry.split("T")[0]
+  );
+
   useEffect(() => {
     dispatch(checkRequests(ID));
     dispatch(getUserWallet(ID));
     dispatch(
       getReview(profile.AccountData.personalInformation.UUID, "Profile")
     );
+    if (licenseDate.getTime() < currentDate.getTime()) {
+      setExpired(true);
+    }
   }, [dispatch, imageLoading]);
 
   console.log(ID);
@@ -242,6 +252,20 @@ export default function Profile({ navigation }) {
               <Text style={{ ...style.lebelText, fontWeight: "800" }}>
                 {profile.AccountData.personalInformation.Expiry.split("T")[0]}
               </Text>
+              {isExpired && (
+                <View
+                  style={{
+                    backgroundColor: "yellow",
+                    alignItems: "center",
+                    padding: 10,
+                    margin: 10,
+                  }}
+                >
+                  <Text style={{ textAlign: "center" }}>
+                    License Already Expired
+                  </Text>
+                </View>
+              )}
             </View>
           </View>
 
