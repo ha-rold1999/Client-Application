@@ -11,6 +11,7 @@ export const requestStatusSlice = createSlice({
     transactionID: null,
     rating: null,
     myRating: null,
+    serviceFee: null,
   },
   reducers: {
     setInSession: (state, action) => {
@@ -34,6 +35,9 @@ export const requestStatusSlice = createSlice({
     setMyRating: (state, action) => {
       state.myRating = action.payload;
     },
+    setServiceFee: (state, action) => {
+      state.serviceFee = action.payload;
+    },
   },
 });
 
@@ -45,6 +49,7 @@ export const {
   setRating,
   setMyRating,
   setMechanicID,
+  setServiceFee,
 } = requestStatusSlice.actions;
 export const requestStatusSliceReucer = requestStatusSlice.reducer;
 

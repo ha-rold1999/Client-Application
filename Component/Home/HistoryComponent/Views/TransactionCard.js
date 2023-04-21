@@ -31,12 +31,14 @@ export default function TransactionCard({ data }) {
       >
         <TouchableOpacity
           onPress={() => {
-            Clipboard.setStringAsync(data.item.ID);
+            Clipboard.setStringAsync(data.item.TransactionID);
             ToastAndroid.show("Text Copied", ToastAndroid.SHORT);
           }}
           style={{ flexDirection: "row", alignItems: "center" }}
         >
-          <Text style={{ fontSize: 12 }}>Transaction ID: {data.item.ID}</Text>
+          <Text style={{ fontSize: 12 }}>
+            Transaction ID: {data.item.TransactionID}
+          </Text>
           <View style={{ alignItems: "flex-end" }}>
             <Image
               source={require("../../../../assets/Icons/copy.png")}
@@ -44,12 +46,15 @@ export default function TransactionCard({ data }) {
             />
           </View>
         </TouchableOpacity>
+        <Text>Date of Transaction: {data.item.TimeEnd}</Text>
         <Text>
-          Date of Transaction: {data.item.DateOfTransaction.split("T")[0]}{" "}
-          {data.item.DateOfTransaction.split("T")[1].split(".")[0]}
+          Service Price:{" "}
+          {data.item.SessionDetails.split("|")[0].split(": ")[1].split(":")[0]}
         </Text>
-        <Text>Service Price: {data.item.ServicePrice}</Text>
-        <Text>Service Name: {data.item.ServiceName}</Text>
+        <Text>
+          Service Name:{" "}
+          {data.item.SessionDetails.split("|")[0].split(": ")[1].split(":")[1]}
+        </Text>
       </View>
     </LinearGradient>
   );

@@ -41,7 +41,9 @@ export const fetchAsyncData = () => async (dispatch) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "no-cache",
         "AYUS-API-KEY": apiKey,
+        pragma: "no-cache",
       },
     });
     const shops = await response.json();
@@ -71,6 +73,7 @@ export const fetchAsyncData = () => async (dispatch) => {
         });
         const service = await services.json();
 
+        console.log("TEST: " + JSON.stringify(shop, null, 2));
         dataArr.push({
           information: shop,
           loc: loc,

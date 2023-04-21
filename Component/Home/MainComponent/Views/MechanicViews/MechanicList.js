@@ -65,9 +65,12 @@ export default function MechanicList({ navigation }) {
           return service.ServiceName === filterService;
         });
       });
-      setDATA(serviceNeed);
+      const online = serviceNeed.filter(
+        (item) => item.information.accountStatus.IsOnline === false
+      );
+      setDATA(online);
     } else {
-      setDATA(shops);
+      setDATA(onlines);
     }
     fetchAllServices();
     const time = setInterval(() => {
@@ -78,7 +81,12 @@ export default function MechanicList({ navigation }) {
   }, [dispatch, filterService, DATA, availableMechanics]);
 
   const shops = useSelector(availableMechanics);
-  const [DATA, setDATA] = useState(shops);
+  const onlines = shops.filter(
+    (item) => item.information.accountStatus.IsOnline === false
+  );
+
+  //console.log(JSON.stringify(shops, null, 2));
+  const [DATA, setDATA] = useState(onlines);
   const Loading = useSelector(isLoading);
 
   if (Loading || longitude === "") {
@@ -182,7 +190,10 @@ export default function MechanicList({ navigation }) {
               selectedValue={filterService}
               onValueChange={(itemValue, itemIndex) => {
                 setFilter(itemValue);
-                setDATA(shops);
+                const filt = shops.filter(
+                  (item) => item.information.accountStatus.IsOnline === false
+                );
+                setDATA(filt);
               }}
               style={{ height: 50, width: "100%" }}
             >
@@ -227,8 +238,11 @@ export default function MechanicList({ navigation }) {
                 })).filter((loc) => {
                   return loc.distance <= 5000;
                 });
+                const filterOn = shops.filter(
+                  (item) => item.information.accountStatus.IsOnline === false
+                );
                 setDATA(null);
-                setDATA(near);
+                setDATA(filterOn);
               }}
             >
               <Text style={{ color: "white" }}>Near Me</Text>
@@ -243,7 +257,10 @@ export default function MechanicList({ navigation }) {
               }}
               onPress={() => {
                 setDATA(null);
-                setDATA(shops);
+                const filter = shops.filter(
+                  (item) => item.information.accountStatus.IsOnline === false
+                );
+                setDATA(filter);
                 setFilter("all");
               }}
             >
