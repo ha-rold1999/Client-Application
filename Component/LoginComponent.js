@@ -49,10 +49,16 @@ export default function LoginScreen({ navigation }) {
             setIsPasswordWrong(true);
             setIsSuccess(false);
           } else {
-            setIsExist(false);
-            setIsPasswordWrong(false);
-            setIsSuccess(true);
-            dispatch(getAllData(data));
+            if (data.AccountData.accountStatus.Role === "CLIENT") {
+              setIsExist(false);
+              setIsPasswordWrong(false);
+              setIsSuccess(true);
+              dispatch(getAllData(data));
+            } else {
+              setIsExist(true);
+              setIsPasswordWrong(false);
+              setIsSuccess(false);
+            }
           }
           setIsLoading(false);
         })
