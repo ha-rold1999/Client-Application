@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
@@ -27,7 +28,11 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function RequestService({ route, navigation }) {
   const [openCamera, setOpenCamera] = useState(false);
+
   const [isLoaded, setIsLoaded] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+
   const [imageUrl, setImageURL] = useState("");
   const [vehicleError, setVehicleError] = useState();
   const [contactError, setContactError] = useState();
@@ -57,12 +62,21 @@ export default function RequestService({ route, navigation }) {
     dispatch(handleService(service));
   }, []);
 
+  const handleImageLoad = () => {
+    setImageLoading(false);
+    setImageError(false);
+  };
+  const handleImageLoadFail = () => {
+    setImageLoading(false);
+    setImageError(true);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       {/* Problem Image */}
       <View
         style={{
-          backgroundColor: "white",
+          backgroundColor: "#E8F1F8",
           width: "100%",
           height: "50%",
           padding: 10,
@@ -74,7 +88,38 @@ export default function RequestService({ route, navigation }) {
         <Image
           source={{ uri: imageUrl }}
           style={{ width: "100%", height: "80%" }}
+          onLoad={() => {
+            handleImageLoad();
+          }}
+          onError={() => {
+            handleImageLoadFail();
+          }}
         />
+        {imageLoading && (
+          <ActivityIndicator
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "80%",
+            }}
+          />
+        )}
+        {imageError && (
+          <Image
+            source={require("../../../../../assets/Icons/vehicle-placeholder.png")}
+            style={{
+              width: "100%",
+              height: "80%",
+              padding: 5,
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+            }}
+          />
+        )}
         <View style={{ alignItems: "center" }}>
           <Pressable
             style={{

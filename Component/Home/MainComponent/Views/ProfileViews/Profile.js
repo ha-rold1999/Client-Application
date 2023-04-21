@@ -24,7 +24,11 @@ import { getUserWallet } from "../../../../../Redux/WalletReducers/WalletReducer
 
 export default function Profile({ navigation }) {
   const [copyID, setCopyID] = useState("");
+
   const [isLoaded, setIsLoaded] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+
   const [imageUrl, setImageURL] = useState("");
   const [openCamera, setOpenCamera] = useState(false);
   const profile = useSelector(data);
@@ -40,7 +44,7 @@ export default function Profile({ navigation }) {
     dispatch(
       getReview(profile.AccountData.personalInformation.UUID, "Profile")
     );
-  }, [dispatch]);
+  }, [dispatch, imageLoading]);
 
   console.log(ID);
   const image = `${server}/api/Upload/files/${ID}/PROFILE`;
@@ -48,6 +52,15 @@ export default function Profile({ navigation }) {
     setImageURL(image + "?" + new Date());
     setIsLoaded(true);
   }
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
+    setImageError(false);
+  };
+  const handleImageLoadFail = () => {
+    setImageLoading(false);
+    setImageError(true);
+  };
 
   if (myRating !== null) {
     return (
@@ -97,7 +110,7 @@ export default function Profile({ navigation }) {
           >
             <View
               style={{
-                backgroundColor: "red",
+                backgroundColor: "#E8F1F8",
                 width: "30%",
                 height: "60%",
                 elevation: 4,
@@ -107,7 +120,39 @@ export default function Profile({ navigation }) {
               <Image
                 source={{ uri: imageUrl }}
                 style={{ width: "100%", height: "100%", borderRadius: 100 }}
+                onLoad={() => {
+                  handleImageLoad();
+                }}
+                onError={() => {
+                  handleImageLoadFail();
+                }}
               />
+              {imageLoading && (
+                <ActivityIndicator
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              )}
+              {imageError && (
+                <Image
+                  source={require("../../../../../assets/Icons/placeholder.png")}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 100,
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                  }}
+                />
+              )}
+
               <TouchableOpacity
                 onPress={() => {
                   setOpenCamera(true);
@@ -199,6 +244,7 @@ export default function Profile({ navigation }) {
               </Text>
             </View>
           </View>
+
           <PhoneCamera
             openCamera={openCamera}
             setOpenCamera={setOpenCamera}
