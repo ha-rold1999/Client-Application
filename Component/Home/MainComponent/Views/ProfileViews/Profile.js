@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ToastAndroid,
   StyleSheet,
+  Pressable,
+  Linking,
 } from "react-native";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { useSelector, useDispatch } from "react-redux";
@@ -204,6 +206,22 @@ export default function Profile({ navigation }) {
                   style={{ width: 20, height: 20, marginRight: 5 }}
                 />
                 <Text>My Balance: {balance}</Text>
+                <Pressable
+                  style={{
+                    borderRadius: 20,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  onPress={() => {
+                    let url = `http://192.53.114.221/gcash?merchant=AYUS@ICTEAM&amount=100&redirecturl=AYUS_UID_${ID}_AMT_100`;
+                    Linking.openURL(url);
+                  }}
+                >
+                  <Image
+                    source={require("../../../../../assets/Icons/add.png")}
+                    style={{ width: 30, height: 30 }}
+                  />
+                </Pressable>
               </View>
             </View>
             <View
