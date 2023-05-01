@@ -178,3 +178,20 @@ export const getReview = (uuid, active) => (dispatch) => {
     console.log(error);
   }
 };
+
+export const fetchDeleteReq = (clientID) => async (dispatch) => {
+  try {
+    await fetch(`${server}/api/ServiceRequest`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "AYUS-API-KEY": apiKey,
+        ServiceRequestUUID: clientID,
+      },
+    })
+      .then((res) => res.json())
+      .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error);
+  }
+};

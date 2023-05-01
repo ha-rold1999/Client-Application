@@ -22,18 +22,23 @@ import {
   checkRequests,
 } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { useDispatch } from "react-redux";
-import { enable } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
+import {
+  enable,
+  requestID,
+} from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import PhoneCamera from "../ProfileViews/Camera";
 import MapView, { Marker } from "react-native-maps";
 import * as geolib from "geolib";
 import { server, apiKey } from "../../../../../Static";
 import { Title } from "react-native-paper";
+import { fetchDeleteReq } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
 
 export default function MechanicList({ navigation }) {
   const [serviceList, setServiceList] = useState([]);
   const [filterService, setFilter] = useState("all");
   const isEnabled = useSelector(enable);
+  const request = useSelector(requestID);
   const userData = useSelector(data);
   const userID = userData.AccountData.personalInformation.UUID;
   const { inSession } = useSelector((state) => state.requestStatusSlice);
@@ -72,7 +77,7 @@ export default function MechanicList({ navigation }) {
     const time = setInterval(() => {
       dispatch(fetchAsyncData());
       dispatch(checkRequests(userID));
-    }, 10000);
+    }, 500);
     return () => clearInterval(time);
   }, [dispatch, filterService, DATA, availableMechanics, shops, onlines]);
 
@@ -110,6 +115,26 @@ export default function MechanicList({ navigation }) {
         <Text style={{ fontSize: 20, textAlign: "center", fontWeight: "600" }}>
           You already requested a service
         </Text>
+        <Pressable
+          style={{
+            backgroundColor: "red",
+            paddingHorizontal: 40,
+            paddingVertical: 10,
+            borderRadius: 10,
+            borderWidth: 1,
+          }}
+          onPress={() => {
+            dispatch(fetchDeleteReq(request));
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "MechanicList" }],
+            });
+          }}
+        >
+          <Text style={{ color: "white", fontWeight: "500" }}>
+            Cancel Request
+          </Text>
+        </Pressable>
       </View>
     );
   } else {

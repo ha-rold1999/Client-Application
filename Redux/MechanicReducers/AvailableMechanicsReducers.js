@@ -9,6 +9,7 @@ export const mechanicListSlice = createSlice({
     error: null,
     services: [],
     enable: true,
+    requestID: null,
   },
   reducers: {
     getDataSuccess: (state, action) => {
@@ -25,14 +26,23 @@ export const mechanicListSlice = createSlice({
     setTabEnable: (state, action) => {
       state.enable = action.payload;
     },
+    getRequestID: (state, action) => {
+      state.requestID = action.payload;
+    },
   },
 });
 
-export const { getDataSuccess, getDataFail, getServices, setTabEnable } =
-  mechanicListSlice.actions;
+export const {
+  getDataSuccess,
+  getDataFail,
+  getServices,
+  setTabEnable,
+  getRequestID,
+} = mechanicListSlice.actions;
 export const availableMechanics = (state) => state.mechanicListSlice.data;
 export const isLoading = (state) => state.mechanicListSlice.isLoading;
 export const enable = (state) => state.mechanicListSlice.enable;
+export const requestID = (state) => state.mechanicListSlice.requestID;
 export const mechanicListSliceReducer = mechanicListSlice.reducer;
 
 export const fetchAsyncData = () => async (dispatch) => {
@@ -116,6 +126,7 @@ export const checkRequests = (UUID) => async (dispatch) => {
       .then((data) => {
         if (data.ServiceRequests.length) {
           dispatch(setTabEnable(false));
+          dispatch(getRequestID(data.ServiceRequests[0].RequestID));
         } else {
           dispatch(setTabEnable(true));
         }
