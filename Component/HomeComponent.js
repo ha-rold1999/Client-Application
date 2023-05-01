@@ -12,8 +12,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLocation } from "../Redux/MapReducers.js/LocationReducer";
 import SuspendedModal from "./Signup/ModalComponent/LoginModalMessage/SuspendedModal";
+import { Alert, BackHandler } from "react-native";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const Drawer = createDrawerNavigator();
   const dispatch = useDispatch();
   const userInfo = useSelector(data);
@@ -22,17 +23,34 @@ export default function HomeScreen() {
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        BackHandler.exitApp();
-      }
-      let location = await Location.getCurrentPositionAsync();
-      dispatch(
-        getLocation({
-          longitude: location.coords.longitude,
-          latitude: location.coords.latitude,
-          UUID: UUID,
-        })
+      Alert.alert(
+        "Turn on location",
+        "Please grant location permission to use this app.",
+        [
+          {
+            text: "Deny",
+            onPress: () =>
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "InitialScreen" }],
+              }),
+            style: "destructive",
+          },
+          {
+            text: "Accept",
+            onPress: async () => {
+              let location = await Location.getCurrentPositionAsync();
+              dispatch(
+                getLocation({
+                  longitude: location.coords.longitude,
+                  latitude: location.coords.latitude,
+                  UUID: UUID,
+                })
+              );
+            },
+            style: "default",
+          },
+        ]
       );
     })();
   }, []);
