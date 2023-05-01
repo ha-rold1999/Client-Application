@@ -58,17 +58,13 @@ export default function MechanicList({ navigation }) {
     }
   };
   useEffect(() => {
-    console.log("Filter: " + filterService);
     if (filterService && filterService !== "all") {
       const serviceNeed = DATA.filter((shop) => {
         return shop.service.Info.some((service) => {
           return service.ServiceName === filterService;
         });
       });
-      const online = serviceNeed.filter(
-        (item) => item.information.accountStatus.IsOnline === false
-      );
-      setDATA(online);
+      setDATA(serviceNeed);
     } else {
       setDATA(onlines);
     }
@@ -78,14 +74,11 @@ export default function MechanicList({ navigation }) {
       dispatch(checkRequests(userID));
     }, 10000);
     return () => clearInterval(time);
-  }, [dispatch, filterService, DATA, availableMechanics]);
+  }, [dispatch, filterService, DATA, availableMechanics, shops, onlines]);
 
   const shops = useSelector(availableMechanics);
-  const onlines = shops.filter(
-    (item) => item.information.accountStatus.IsOnline === false
-  );
+  const onlines = shops.filter((item) => item.loc.Status !== 404);
 
-  //console.log(JSON.stringify(shops, null, 2));
   const [DATA, setDATA] = useState(onlines);
   const Loading = useSelector(isLoading);
 
@@ -190,10 +183,6 @@ export default function MechanicList({ navigation }) {
               selectedValue={filterService}
               onValueChange={(itemValue, itemIndex) => {
                 setFilter(itemValue);
-                const filt = shops.filter(
-                  (item) => item.information.accountStatus.IsOnline === false
-                );
-                setDATA(filt);
               }}
               style={{ height: 50, width: "100%" }}
             >
@@ -218,7 +207,7 @@ export default function MechanicList({ navigation }) {
             <Pressable
               style={{
                 backgroundColor: "#228BD4",
-                paddingHorizontal: 80,
+                paddingHorizontal: 50,
                 paddingVertical: 10,
                 borderRadius: 10,
               }}
@@ -238,11 +227,8 @@ export default function MechanicList({ navigation }) {
                 })).filter((loc) => {
                   return loc.distance <= 5000;
                 });
-                const filterOn = shops.filter(
-                  (item) => item.information.accountStatus.IsOnline === false
-                );
                 setDATA(null);
-                setDATA(filterOn);
+                setDATA(near);
               }}
             >
               <Text style={{ color: "white" }}>Near Me</Text>
@@ -256,15 +242,30 @@ export default function MechanicList({ navigation }) {
                 borderRadius: 10,
               }}
               onPress={() => {
-                setDATA(null);
-                const filter = shops.filter(
-                  (item) => item.information.accountStatus.IsOnline === false
-                );
-                setDATA(filter);
+                setDATA(shops);
                 setFilter("all");
               }}
             >
               <Text>Remove Filter</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                backgroundColor: "#E8F1F8",
+                paddingHorizontal: 5,
+                paddingVertical: 5,
+                borderWidth: 1,
+                borderRadius: 10,
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                setDATA(shops);
+                setFilter("all");
+              }}
+            >
+              <Image
+                source={require("../../../../../assets/Icons/refresh.png")}
+                style={{ width: 20, height: 20 }}
+              />
             </Pressable>
           </View>
         </View>

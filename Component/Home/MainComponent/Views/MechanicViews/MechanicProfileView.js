@@ -92,22 +92,7 @@ export default function MechanicProfile({ route, navigation }) {
                   const phoneUrl = `tel:${ShopData.ShopData.information.personalInformation.Contact}`;
                   Linking.openURL(phoneUrl);
                 }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Image
-                    source={require("../../../../../assets/Icons/call.png")}
-                    style={{ width: 20, height: 20 }}
-                  />
-                  <Text style={{ fontSize: 20, paddingLeft: 5 }}>
-                    {ShopData.ShopData.information.personalInformation.Contact}
-                  </Text>
-                </View>
-              </Pressable>
+              ></Pressable>
             </View>
             <View
               style={{

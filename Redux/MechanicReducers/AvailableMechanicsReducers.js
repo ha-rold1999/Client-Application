@@ -73,7 +73,6 @@ export const fetchAsyncData = () => async (dispatch) => {
         });
         const service = await services.json();
 
-        console.log("TEST: " + JSON.stringify(shop, null, 2));
         dataArr.push({
           information: shop,
           loc: loc,

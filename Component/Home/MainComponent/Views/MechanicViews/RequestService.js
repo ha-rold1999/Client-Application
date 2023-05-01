@@ -34,6 +34,7 @@ export default function RequestService({ route, navigation }) {
   const [imageError, setImageError] = useState(false);
 
   const [imageUrl, setImageURL] = useState("");
+  const [serviceError, setServiceError] = useState();
   const [vehicleError, setVehicleError] = useState();
   const [contactError, setContactError] = useState();
   const { service, contact, vehicle, description } = useSelector(
@@ -156,6 +157,7 @@ export default function RequestService({ route, navigation }) {
                   dispatch(handleService(itemValue))
                 }
               >
+                <Picker.Item label={"Select Service"} value={"default"} />
                 {services.map(({ ServiceName, ServiceID, Price }) => (
                   <Picker.Item
                     label={ServiceName}
@@ -165,6 +167,9 @@ export default function RequestService({ route, navigation }) {
                 ))}
               </Picker>
             </View>
+            {serviceError && (
+              <Text style={{ color: "red" }}>{serviceError}</Text>
+            )}
           </View>
 
           {/* Contact Form */}
@@ -222,6 +227,12 @@ export default function RequestService({ route, navigation }) {
       <View style={{ alignItems: "center", paddingBottom: 5 }}>
         <Pressable
           onPress={() => {
+            if (!service || service === "default") {
+              setServiceError("Select a service");
+            } else {
+              setServiceError("");
+            }
+
             if (!contact) {
               setContactError("Please Enter your phone number");
             } else if (!/^(09|\+639)\d{9}$/.test(contact)) {
@@ -238,7 +249,11 @@ export default function RequestService({ route, navigation }) {
 
             console.log("Contact Error: " + contact);
             console.log("Vehicle Error: " + vehicle);
-            if (contactError === "" && vehicleError === "") {
+            if (
+              contactError === "" &&
+              vehicleError === "" &&
+              serviceError === ""
+            ) {
               dispatch(postRequest({ userID: userID, mechanicID: mechanicID }));
               dispatch(setTabEnable(false));
               navigation.reset({
