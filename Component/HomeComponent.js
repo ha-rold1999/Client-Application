@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLocation } from "../Redux/MapReducers.js/LocationReducer";
 import SuspendedModal from "./Signup/ModalComponent/LoginModalMessage/SuspendedModal";
 import { Alert, BackHandler } from "react-native";
+import { server } from "../Static";
+import PhoneCamera from "./Home/MainComponent/Views/ProfileViews/Camera";
 
 export default function HomeScreen({ navigation }) {
   const Drawer = createDrawerNavigator();
@@ -20,7 +22,40 @@ export default function HomeScreen({ navigation }) {
   const userInfo = useSelector(data);
   const UUID = userInfo.AccountData.personalInformation.UUID;
   const suspended = userInfo.AccountData.accountStatus.IsLocked;
+  const [hasLicense, setHasLicense] = useState(true);
+  const [openCamera, setOpenCamera] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
 
+  fetch(`${server}/api/Upload/files/${UUID}/LICENSE`)
+    .then((response) => {
+      console.log(JSON.stringify(response, null, 2));
+      if (response.status === 200) {
+        setHasLicense(true);
+      } else {
+        setHasLicense(false);
+      }
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+
+  {
+    !hasLicense &&
+      !openCamera &&
+      Alert.alert(
+        "Proof license",
+        "Please upload a picture of your drivers license",
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              setHasLicense(true);
+              setOpenCamera(true);
+            },
+          },
+        ]
+      );
+  }
   useEffect(() => {
     (async () => {
       Alert.alert(
@@ -63,6 +98,13 @@ export default function HomeScreen({ navigation }) {
         <Drawer.Screen name="History" component={HistoryTabs} />
         <Drawer.Screen name="Logout" component={LogoutView} />
       </Drawer.Navigator>
+      <PhoneCamera
+        openCamera={openCamera}
+        setOpenCamera={setOpenCamera}
+        setIsLoaded={setIsLoaded}
+        upload={"LICENSE"}
+        setHasLicense={setHasLicense}
+      />
     </>
   );
 }

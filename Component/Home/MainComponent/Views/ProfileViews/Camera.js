@@ -79,6 +79,21 @@ export default function PhoneCamera(props) {
                         props.setIsLoaded(false);
                       })
                       .catch((err) => console.log("ERROR: " + err));
+                  } else if (props.upload === "LICENSE") {
+                    fetch(`${server}/api/Upload`, {
+                      method: "POST",
+                      headers: {
+                        UserID: UUID,
+                        Filename: "LICENSE",
+                      },
+                      body: formData,
+                    })
+                      .then((res) => res.json())
+                      .then((response) => {
+                        props.setIsLoaded(false);
+                        props.setHasLicense(true);
+                      })
+                      .catch((err) => console.log("ERROR: " + err));
                   } else {
                     fetch(`${server}/api/Upload`, {
                       method: "POST",
