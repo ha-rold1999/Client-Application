@@ -168,7 +168,6 @@ export default function ChangeProfile({ navigation }) {
             //firstname validation
             if (!Firstname) {
               setFnameError("Enter your firstname");
-              console.log(FirstnameError);
             } else if (
               !/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(Firstname)
             ) {
@@ -189,7 +188,6 @@ export default function ChangeProfile({ navigation }) {
             //contact validation
             if (!Contact) {
               setContactError("Enter your number");
-              console.log(ContactError);
             } else if (!/^(09|\+639)\d{9}$/.test(Contact)) {
               setContactError("Enter a valid contact number");
             } else {

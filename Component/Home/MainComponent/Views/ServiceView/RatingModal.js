@@ -16,7 +16,6 @@ export default function RatingModal(props) {
   const dispatch = useDispatch();
   const { mechanicID } = useSelector((state) => state.requestServiceSlice);
   const [rating, setRating] = useState(0);
-  console.log("Mechanic id:" + mechanicID);
   return (
     <Modal
       animationType="slide"

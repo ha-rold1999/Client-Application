@@ -48,7 +48,6 @@ export const requestServiceSlice = createSlice({
         }),
       })
         .then((res) => res.json())
-        .then((response) => console.log(response))
         .catch((error) => console.log(error));
     },
     changeStatus: (state, action) => {

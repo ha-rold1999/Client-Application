@@ -63,7 +63,6 @@ export default function LoginScreen({ navigation }) {
           setIsLoading(false);
         })
         .catch((error) => {
-          console.log("error: " + error);
           setIsLoading(false);
         });
     }

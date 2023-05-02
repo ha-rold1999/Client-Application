@@ -76,7 +76,6 @@ export default function SessionCard({ data }) {
           />
           <Text>{data.item.SessionDetails.split("|")[4].split(":")[1]}</Text>
         </View>
-        {console.log(data.item.TimeStart)}
         <Text style={{ marginTop: 5 }}>
           {" "}
           Time start: {data.item.TimeStart.split("T")[0]}{" "}

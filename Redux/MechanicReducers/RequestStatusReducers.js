@@ -69,9 +69,6 @@ export const checkInSession = (UUID) => async (dispatch) => {
           dispatch(setInSession(true));
           dispatch(setSessionID(data.foundData.SessionData.SessionID));
           dispatch(setMechanicID(data.foundData.SessionData.MechanicUUID));
-          console.log(
-            JSON.stringify(data.foundData.SessionData.SessionDetails)
-          );
           dispatch(
             setSessionDetails(data.foundData.SessionData.SessionDetails)
           );
@@ -86,7 +83,6 @@ export const checkInSession = (UUID) => async (dispatch) => {
 };
 
 export const endSession = (UUID, TransactionID) => () => {
-  console.log("ending session");
   try {
     fetch(`${server}/api/Sessions/EndSession`, {
       method: "PUT",
@@ -99,9 +95,6 @@ export const endSession = (UUID, TransactionID) => () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(JSON.stringify(data, null, 2));
-      })
       .catch((error) => dispatch(console.log(error)));
   } catch (error) {
     console.log(error);
@@ -146,9 +139,6 @@ export const postReview = (mechID, rating) => () => {
       }),
     })
       .then((res) => res.json())
-      .then((response) => {
-        console.log("Rating Response: " + JSON.stringify(response, null, 2));
-      })
       .catch((error) => console.log(error));
   } catch (error) {
     console.log(error);

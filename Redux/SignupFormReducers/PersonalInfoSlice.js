@@ -68,13 +68,11 @@ const firstnameSlice = createSlice({
         state.birthdateError = "Enter your birthdate";
       } else if (Date.parse(state.birthdate) >= new Date()) {
         state.birthdateError = "Enter a valid birthdate";
-        console.log("hello");
       } else if (
         Math.abs(new Date() - Date.parse(state.birthdate)) / 31557600000 <
         18
       ) {
         state.birthdateError = "Your age is not valid";
-        console.log("hello");
       } else {
         state.birthdateError = "";
       }

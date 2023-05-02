@@ -64,9 +64,7 @@ export default function PhoneCamera(props) {
                     name: "photo.png",
                     type: "image/png",
                   });
-                  console.log(
-                    "Form data: " + JSON.stringify(formData, null, 2)
-                  );
+
                   if (props.upload === "PROFILE") {
                     fetch(`${server}/api/Upload`, {
                       method: "POST",
@@ -78,7 +76,6 @@ export default function PhoneCamera(props) {
                     })
                       .then((res) => res.json())
                       .then((response) => {
-                        console.log(JSON.stringify(response, null, 2));
                         props.setIsLoaded(false);
                       })
                       .catch((err) => console.log("ERROR: " + err));
@@ -92,9 +89,6 @@ export default function PhoneCamera(props) {
                       body: formData,
                     })
                       .then((res) => res.json())
-                      .then((response) =>
-                        console.log(JSON.stringify(response, null, 2))
-                      )
                       .catch((err) => console.log("ERROR: " + err));
                   }
                 }}

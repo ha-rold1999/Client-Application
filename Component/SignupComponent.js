@@ -53,7 +53,6 @@ export default function SingupScreen({ navigation }) {
   const executePost = () => {
     checkForm(CredentialForm.checkCredForm("error"));
     if (!formError) {
-      console.log("fetch");
       setModalVisible(true);
       fetch(`${server}/api/Account`, {
         method: "POST",

@@ -242,13 +242,10 @@ export default function RequestService({ route, navigation }) {
             }
             if (!vehicle) {
               setVehicleError("Enter your vehicle");
-              console.log(vehicleError);
             } else {
               setVehicleError("");
             }
 
-            console.log("Contact Error: " + contact);
-            console.log("Vehicle Error: " + vehicle);
             if (
               contactError === "" &&
               vehicleError === "" &&

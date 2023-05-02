@@ -169,33 +169,6 @@ export default function ServicePaymet({ route, navigation }) {
                 Pay
               </Text>
             </Pressable>
-            {/* <Pressable
-              style={{
-                paddingHorizontal: 150,
-                paddingVertical: 15,
-                backgroundColor: "#209589",
-                borderRadius: 10,
-              }}
-              onPress={() => {
-                const url = `http://192.53.114.221/gcash?merchant=AYUS@ICTEAM&amount=${Fee}&redirecturl=AYUS_UID_${mechanicID}_AMT_${Fee}`;
-                Linking.canOpenURL(url).then((supported) => {
-                  if (supported) {
-                    Linking.openURL(url);
-                  } else {
-                    console.log(`Don't know how to open URL: ${url}`);
-                  }
-                });
-                navigation.navigate("ServiceSucces", {
-                  SessionID: UUID,
-                  ServiceName: ServiceName,
-                  Fee: Fee,
-                });
-              }}
-            >
-              <Text style={{ fontSize: 20, fontWeight: "700", color: "white" }}>
-                GCash
-              </Text>
-            </Pressable> */}
           </View>
         </View>
 

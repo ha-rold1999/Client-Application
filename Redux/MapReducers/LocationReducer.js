@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { server,apiKey } from "../../Static";
+import { server, apiKey } from "../../Static";
 
 export const locationSlice = createSlice({
   name: "locationSlice",
@@ -24,7 +24,6 @@ export const locationSlice = createSlice({
         }),
       })
         .then((res) => res.json())
-        .then((response) => console.log(JSON.stringify(response)))
         .catch((err) => console.log(err));
     },
   },

@@ -13,18 +13,12 @@ export default function ServiceSuccess({ route }) {
   const UUID = SessionID.SessionID;
   const ServiceName = SessionID.ServiceName;
   const Fee = SessionID.Fee;
-  console.log("sessiongID: " + UUID);
-  console.log("transactionID: " + transactionID);
-  console.log("ServiceName: " + ServiceName);
-  console.log("Fee: " + Fee);
-
   useEffect(() => {
     if (transactionID === null) {
       dispatch(postTransaction(ServiceName, Fee));
       return;
     }
 
-    console.log("ENDING");
     dispatch(endSession(UUID, transactionID));
   }, [transactionID]);
 

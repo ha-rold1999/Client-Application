@@ -17,7 +17,6 @@ const loginSlice = createSlice({
       state.password = action.payload;
     },
     checkLoginForm: (state, action) => {
-      console.log("checking");
       if (!state.username) {
         state.usernameError = "Enter your username";
       } else if (!/^[A-Za-z][A-Za-z0-9_]{2,29}$/.test(state.username)) {

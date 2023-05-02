@@ -56,7 +56,6 @@ export const setWalletPin = (UUID, Pin) => () => {
 };
 
 export const addBalance = (UUID, balance) => () => {
-  console.log(balance);
   try {
     fetch(`${server}/api/Wallet?uuid=${UUID}`, {
       method: "PUT",
@@ -67,7 +66,6 @@ export const addBalance = (UUID, balance) => () => {
       },
     })
       .then((res) => res.json())
-      .then((responose) => console.log(JSON.stringify(responose, null, 2)))
       .catch((error) => console.log(error));
   } catch (error) {
     console.log(error);

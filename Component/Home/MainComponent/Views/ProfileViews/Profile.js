@@ -58,7 +58,6 @@ export default function Profile({ navigation }) {
     }
   }, [dispatch, imageLoading]);
 
-  console.log(ID);
   const image = `${server}/api/Upload/files/${ID}/PROFILE`;
   if (!isLoaded) {
     setImageURL(image + "?" + new Date());
