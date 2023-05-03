@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, Modal, Button, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  Button,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import { Camera } from "expo-camera";
 import { useState, useRef, useEffect } from "react";
@@ -11,6 +19,7 @@ export default function PhoneCamera(props) {
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const [uploading, setUploading] = useState(false);
   const cameraRef = useRef(null);
   const formData = new FormData();
   const profile = useSelector(data);
@@ -37,10 +46,6 @@ export default function PhoneCamera(props) {
 
   return (
     <Modal animationType="slide" transparent={true} visible={props.openCamera}>
-      <Button
-        title="Close Camera"
-        onPress={() => props.setOpenCamera(!props.openCamera)}
-      />
       <View style={styles.container}>
         {!image ? (
           <>
@@ -54,6 +59,27 @@ export default function PhoneCamera(props) {
           </>
         ) : (
           <>
+            {uploading && (
+              <View
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 1,
+                  backgroundColor: "rgba(255, 255, 255, 0.5)",
+                }}
+              >
+                <ActivityIndicator size="large" color="#0000ff" />
+              </View>
+            )}
+            <Button
+              title="Close Camera"
+              onPress={() => props.setOpenCamera(!props.openCamera)}
+            />
             <Image source={{ uri: image }} style={{ flex: 1 }} />
             {
               <Button
@@ -64,6 +90,8 @@ export default function PhoneCamera(props) {
                     name: "photo.png",
                     type: "image/png",
                   });
+
+                  setUploading(true);
 
                   if (props.upload === "PROFILE") {
                     fetch(`${server}/api/Upload`, {
@@ -77,6 +105,8 @@ export default function PhoneCamera(props) {
                       .then((res) => res.json())
                       .then((response) => {
                         props.setIsLoaded(false);
+                        setUploading(false);
+                        props.setOpenCamera(!props.openCamera);
                       })
                       .catch((err) => console.log("ERROR: " + err));
                   } else if (props.upload === "LICENSE") {
@@ -92,6 +122,8 @@ export default function PhoneCamera(props) {
                       .then((response) => {
                         props.setIsLoaded(false);
                         props.setHasLicense(true);
+                        setUploading(false);
+                        props.setOpenCamera(!props.openCamera);
                       })
                       .catch((err) => console.log("ERROR: " + err));
                   } else {
@@ -104,6 +136,10 @@ export default function PhoneCamera(props) {
                       body: formData,
                     })
                       .then((res) => res.json())
+                      .then(() => {
+                        setUploading(false);
+                        props.setOpenCamera(!props.openCamera);
+                      })
                       .catch((err) => console.log("ERROR: " + err));
                   }
                 }}

@@ -28,7 +28,6 @@ export default function HomeScreen({ navigation }) {
 
   fetch(`${server}/api/Upload/files/${UUID}/LICENSE`)
     .then((response) => {
-      console.log(JSON.stringify(response, null, 2));
       if (response.status === 200) {
         setHasLicense(true);
       } else {
