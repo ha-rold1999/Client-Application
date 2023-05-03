@@ -33,7 +33,7 @@ export default function SessionHistory() {
           setSessionHistory(response);
           setIsLoading(false);
         });
-    }, 10000);
+    }, 5000);
     return () => clearInterval(time);
   }, []);
 

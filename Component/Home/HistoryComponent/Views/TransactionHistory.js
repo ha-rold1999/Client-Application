@@ -34,7 +34,7 @@ export default function TransactionHistory() {
           setTransactionHistory(response);
           setIsLoading(false);
         });
-    }, 10000);
+    }, 5000);
     return () => clearInterval(time);
   }, []);
 
