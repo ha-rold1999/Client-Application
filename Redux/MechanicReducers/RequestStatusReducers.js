@@ -38,6 +38,16 @@ export const requestStatusSlice = createSlice({
     setServiceFee: (state, action) => {
       state.serviceFee = action.payload;
     },
+    deleteRequestStatusData: (state, action) => {
+      state.inSession = false;
+      state.sessionID = null;
+      state.mechID = null;
+      state.sessionDetails = null;
+      state.transactionID = null;
+      state.rating = null;
+      state.myRating = null;
+      state.serviceFee = null;
+    },
   },
 });
 
@@ -50,6 +60,7 @@ export const {
   setMyRating,
   setMechanicID,
   setServiceFee,
+  deleteRequestStatusData,
 } = requestStatusSlice.actions;
 export const requestStatusSliceReucer = requestStatusSlice.reducer;
 

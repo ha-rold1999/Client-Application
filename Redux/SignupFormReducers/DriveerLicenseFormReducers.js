@@ -40,11 +40,22 @@ const licenseSlice = createSlice({
         state.licenseFormError = true;
       }
     },
+    deleteDriveerLicenseData: (state, action) => {
+      state.licenseNo = "";
+      state.licenseExpDate = "";
+      state.licenseNoError = "";
+      state.licenseExpDateError = "";
+      state.licenseFormError = false;
+    },
   },
 });
 
-export const { handleLicenseNo, handleLicenseExpDate, checkDriversLicense } =
-  licenseSlice.actions;
+export const {
+  handleLicenseNo,
+  handleLicenseExpDate,
+  checkDriversLicense,
+  deleteDriveerLicenseData,
+} = licenseSlice.actions;
 export const licenseNo = (state) => state.licenseSlice.licenseNo;
 export const licenseExpDate = (state) => state.licenseSlice.licenseExpDate;
 export const licenseNoError = (state) => state.licenseSlice.licenseNoError;

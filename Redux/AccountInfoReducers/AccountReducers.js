@@ -8,10 +8,14 @@ export const informationSlice = createSlice({
     getAllData: (state, action) => {
       state.data = action.payload;
     },
+    deleteAccountData: (state, action) => {
+      state.data = null;
+    },
   },
 });
 
-export const { getAllData, getProfilePic } = informationSlice.actions;
+export const { getAllData, getProfilePic, deleteAccountData } =
+  informationSlice.actions;
 export const data = (state) => state.informationSlice.data;
 export const informationSliceReducer = informationSlice.reducer;
 

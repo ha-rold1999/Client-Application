@@ -19,6 +19,9 @@ import * as CredentialForm from "../Redux/SignupFormReducers/AccountCredFormRedu
 import { useState } from "react";
 import SingnupConfirmation from "./Signup/ModalComponent/SignupConfirmationModal";
 import { server } from "../Static";
+import { deleteAccountCredData } from "../Redux/SignupFormReducers/AccountCredFormReducers";
+import { deleteDriveerLicenseData } from "../Redux/SignupFormReducers/DriveerLicenseFormReducers";
+import { deletPersonalInfoData } from "../Redux/SignupFormReducers/PersonalInfoSlice";
 
 export default function SingupScreen({ navigation }) {
   const apiKey = "API_SECRET-42e016b219421dc83d180bdee27f81dd";
@@ -93,6 +96,9 @@ export default function SingupScreen({ navigation }) {
           } else {
             setIsError(false);
             setIsSuccess(true);
+            checkForm(deleteAccountCredData(""));
+            checkForm(deleteDriveerLicenseData(""));
+            checkForm(deletPersonalInfoData(""));
           }
           setIsLoading(false);
         })

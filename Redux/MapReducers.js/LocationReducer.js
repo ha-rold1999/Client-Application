@@ -29,10 +29,17 @@ export const locationSlice = createSlice({
     getSessionMap: (state, action) => {
       state.sessionMap = action.payload;
     },
+    deleteLocationData: (state, action) => {
+      state.UUID = "";
+      state.latitude = "";
+      state.longitude = "";
+      state.sessionMap = null;
+    },
   },
 });
 
-export const { getLocation, getSessionMap } = locationSlice.actions;
+export const { getLocation, getSessionMap, deleteLocationData } =
+  locationSlice.actions;
 export const locationSliceReducer = locationSlice.reducer;
 
 export const getSessionLocation = (UUID) => (dispatch) => {

@@ -9,10 +9,15 @@ export const mechanicLocationSlice = createSlice({
       state.latitude = action.payload.Data.Latitude;
       state.longitude = action.payload.Data.Longitude;
     },
+    deleteMechanicLocationData: (state, action) => {
+      state.latitude = "";
+      state.longitude = "";
+    },
   },
 });
 
-export const { getMechanicLocation } = mechanicLocationSlice.actions;
+export const { getMechanicLocation, deleteMechanicLocationData } =
+  mechanicLocationSlice.actions;
 export const mechanicLocationSliceReducer = mechanicLocationSlice.reducer;
 
 export const fetchMechaniLocation = (UUID) => async (dispatch) => {

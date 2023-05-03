@@ -91,6 +91,19 @@ const credentialSlice = createSlice({
         state.formError = true;
       }
     },
+    deleteAccountCredData: (state, action) => {
+      state.email = "";
+      state.username = "";
+      state.password = "";
+      state.retypePass = "";
+      state.aggree = true;
+      state.emailError = "";
+      state.usernameError = "";
+      state.passwordError = "";
+      state.retypePassError = "";
+      state.aggreError = "";
+      state.formError = false;
+    },
   },
 });
 
@@ -101,6 +114,7 @@ export const {
   handleRetypePass,
   handleAggree,
   checkCredForm,
+  deleteAccountCredData,
 } = credentialSlice.actions;
 export const email = (state) => state.credentialSlice.email;
 export const username = (state) => state.credentialSlice.username;

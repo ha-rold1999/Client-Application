@@ -43,11 +43,22 @@ const loginSlice = createSlice({
         state.formError = true;
       }
     },
+    deleteLoginData: (state, action) => {
+      state.formError = "";
+      state.password = "";
+      state.passwordError = "";
+      state.username = "";
+      state.usernameError = "";
+    },
   },
 });
 
-export const { handleUsername, handlePassword, checkLoginForm } =
-  loginSlice.actions;
+export const {
+  handleUsername,
+  handlePassword,
+  checkLoginForm,
+  deleteLoginData,
+} = loginSlice.actions;
 export const username = (state) => state.loginSlice.username;
 export const password = (state) => state.loginSlice.password;
 export const usernameError = (state) => state.loginSlice.usernameError;
