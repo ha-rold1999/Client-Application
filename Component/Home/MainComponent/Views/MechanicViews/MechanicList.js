@@ -86,9 +86,9 @@ export default function MechanicList({ navigation }) {
   const onlines = shops.filter((item) => item.loc.Status !== 404);
 
   const [DATA, setDATA] = useState(onlines);
-  const Loading = useSelector(isLoading);
+  const Load = useSelector(isLoading);
 
-  if (Loading || longitude === "") {
+  if (Load || longitude === "") {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Loading />
