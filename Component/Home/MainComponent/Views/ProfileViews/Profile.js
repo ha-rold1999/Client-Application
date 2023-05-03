@@ -23,6 +23,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { LinearGradient } from "expo-linear-gradient";
 import Styles from "../../../../../Style/Component/StyleComponent";
 import { getUserWallet } from "../../../../../Redux/WalletReducers/WalletReducer";
+import Loading from "../../Loading";
 
 export default function Profile({ navigation }) {
   const [copyID, setCopyID] = useState("");
@@ -297,8 +298,8 @@ export default function Profile({ navigation }) {
     );
   }
   return (
-    <View>
-      <ActivityIndicator />
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Loading />
     </View>
   );
 }

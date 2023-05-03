@@ -3,6 +3,7 @@ import { fetchRequest } from "../../../../../Redux/RequestReducers/RequestReduce
 import { useDispatch, useSelector } from "react-redux";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import React, { useEffect, useState } from "react";
+import Loading from "../../Loading";
 
 export default function RequestingView({ route }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +27,13 @@ export default function RequestingView({ route }) {
 
   return (
     <View>
-      {isLoading && <ActivityIndicator />}
+      {isLoading && (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Loading />
+        </View>
+      )}
       {!isLoading && <Text>{requestData[0].Status}</Text>}
     </View>
   );

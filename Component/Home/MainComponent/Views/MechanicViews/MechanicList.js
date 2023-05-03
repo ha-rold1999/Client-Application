@@ -9,6 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import Loading from "../../Loading";
 import MechanicCard from "./MechanicCardComponent";
 import MainView from "../../../../../Style/Component/MainViewStyles/StyleMainComponent";
 import { useEffect, useState } from "react";
@@ -90,7 +91,7 @@ export default function MechanicList({ navigation }) {
   if (Loading || longitude === "") {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator />
+        <Loading />
       </View>
     );
   } else if (inSession) {

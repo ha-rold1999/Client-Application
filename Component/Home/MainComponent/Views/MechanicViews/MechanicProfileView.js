@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { fetchService } from "../../../../../Redux/MechanicReducers/AvailableMechanicsReducers";
 import { fetchMechaniLocation } from "../../../../../Redux/MapReducers/MechanicLocationReducer";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../Loading";
 import MechanicLocation from "./MechanicLocation";
 import { AirbnbRating, Rating } from "react-native-ratings";
 import { getReview } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
@@ -180,8 +181,8 @@ export default function MechanicProfile({ route, navigation }) {
     );
   } else {
     return (
-      <View>
-        <ActivityIndicator />
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Loading />
       </View>
     );
   }

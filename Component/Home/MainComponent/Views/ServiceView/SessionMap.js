@@ -11,6 +11,7 @@ import { getSessionLocation } from "../../../../../Redux/MapReducers.js/Location
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
 import { postTransaction } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
+import Loading from "../../Loading";
 
 export default function SessionMap({ sessionID, navigation }) {
   const { sessionMap } = useSelector((state) => state.locationSlice);
@@ -121,7 +122,11 @@ export default function SessionMap({ sessionID, navigation }) {
       </View>
     );
   } else {
-    return <ActivityIndicator />;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Loading />
+      </View>
+    );
   }
 }
 

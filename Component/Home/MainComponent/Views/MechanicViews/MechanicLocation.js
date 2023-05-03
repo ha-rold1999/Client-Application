@@ -1,6 +1,7 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import MapView, { Marker } from "react-native-maps";
+import Loading from "../../Loading";
 
 export default function MechanicLocation({ longitude, latitude }) {
   if (longitude) {
@@ -28,8 +29,8 @@ export default function MechanicLocation({ longitude, latitude }) {
     );
   } else {
     return (
-      <View>
-        <ActivityIndicator />
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Loading />
       </View>
     );
   }
