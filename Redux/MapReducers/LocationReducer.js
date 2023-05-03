@@ -26,6 +26,11 @@ export const locationSlice = createSlice({
         .then((res) => res.json())
         .catch((err) => console.log(err));
     },
+    deleteData: (state, action) => {
+      state.UUID = "";
+      state.latitude = "";
+      state.longitude = "";
+    },
   },
 });
 

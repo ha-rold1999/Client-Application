@@ -29,6 +29,14 @@ export const mechanicListSlice = createSlice({
     getRequestID: (state, action) => {
       state.requestID = action.payload;
     },
+    deleteData: (state, action) => {
+      state.data = [];
+      state.isLoading = true;
+      state.error = null;
+      state.services = [];
+      state.enable = true;
+      state.requestID = null;
+    },
   },
 });
 

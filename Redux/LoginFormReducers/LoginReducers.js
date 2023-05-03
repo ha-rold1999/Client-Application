@@ -43,6 +43,13 @@ const loginSlice = createSlice({
         state.formError = true;
       }
     },
+    deleteData: (state, action) => {
+      state.formError = "";
+      state.password = "";
+      state.passwordError = "";
+      state.username = "";
+      state.usernameError = "";
+    },
   },
 });
 

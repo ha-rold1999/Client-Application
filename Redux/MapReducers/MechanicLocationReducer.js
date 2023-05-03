@@ -9,6 +9,10 @@ export const mechanicLocationSlice = createSlice({
       state.latitude = action.payload.Data.Latitude;
       state.longitude = action.payload.Data.Longitude;
     },
+    deleteData: (state, action) => {
+      state.latitude = "";
+      state.longitude = "";
+    },
   },
 });
 

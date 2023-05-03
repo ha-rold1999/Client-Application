@@ -29,6 +29,12 @@ export const locationSlice = createSlice({
     getSessionMap: (state, action) => {
       state.sessionMap = action.payload;
     },
+    deleteData: (state, action) => {
+      state.UUID = "";
+      state.latitude = "";
+      state.longitude = "";
+      state.sessionMap = null;
+    },
   },
 });
 

@@ -40,6 +40,13 @@ const licenseSlice = createSlice({
         state.licenseFormError = true;
       }
     },
+    deleteData: (state, action) => {
+      state.licenseNo = "G11-11-123456";
+      state.licenseExpDate = "02/20/23";
+      state.licenseNoError = "";
+      state.licenseExpDateError = "";
+      state.licenseFormError = false;
+    },
   },
 });
 

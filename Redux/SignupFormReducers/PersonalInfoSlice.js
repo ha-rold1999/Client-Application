@@ -99,6 +99,19 @@ const firstnameSlice = createSlice({
         state.formError = true;
       }
     },
+    deletData: (state, action) => {
+      state.firstname = "harold";
+      state.lastname = "cuico";
+      state.contact = "09567126397";
+      state.birthdate = "02/20/04";
+      state.address = "Cebu";
+      state.error = "";
+      state.lastnameError = "";
+      state.contactError = "";
+      state.birthdateError = "";
+      state.addressError = "";
+      state.formError = false;
+    },
   },
 });
 

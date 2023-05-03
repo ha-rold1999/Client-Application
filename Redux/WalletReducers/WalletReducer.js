@@ -13,6 +13,10 @@ export const walletSlice = createSlice({
       state.pincode = action.payload.pincode;
       state.balance = action.payload.balance;
     },
+    deleteData: (state, action) => {
+      state.balance = 0;
+      state.pincode = "";
+    },
   },
 });
 

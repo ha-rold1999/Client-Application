@@ -91,6 +91,19 @@ const credentialSlice = createSlice({
         state.formError = true;
       }
     },
+    deleteData: (state, action) => {
+      state.email = "test1@gmail.com";
+      state.username = "test1234";
+      state.password = "ThisIsATest@123";
+      state.retypePass = "ThisIsATest@123";
+      state.aggree = true;
+      state.emailError = "";
+      state.usernameError = "";
+      state.passwordError = "";
+      state.retypePassError = "";
+      state.aggreError = "";
+      state.formError = false;
+    },
   },
 });
 

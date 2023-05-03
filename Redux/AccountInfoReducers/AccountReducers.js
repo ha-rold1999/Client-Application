@@ -8,6 +8,9 @@ export const informationSlice = createSlice({
     getAllData: (state, action) => {
       state.data = action.payload;
     },
+    deleteData: (state, action) => {
+      state.data = null;
+    },
   },
 });
 

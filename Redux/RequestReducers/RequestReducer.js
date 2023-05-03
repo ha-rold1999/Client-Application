@@ -61,6 +61,16 @@ export const requestServiceSlice = createSlice({
         state.isRequesting = false;
       }
     },
+    deleteData: (state, action) => {
+      state.contact = "";
+      state.vehicle = "";
+      state.description = "";
+      state.service = "";
+      state.isRequesting = true;
+      state.requestID = "";
+      state.mechanicID = "";
+      state.requestData = [];
+    },
   },
 });
 
