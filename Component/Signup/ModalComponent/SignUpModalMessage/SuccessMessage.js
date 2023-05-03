@@ -15,7 +15,7 @@ export default function Success(props) {
         style={modelStyle.button}
         onPress={() => {
           props.setModalVisible(!props.modalVisible);
-          props.navigation.navigate("Login");
+          props.navigation.reset({ index: 0, routes: [{ name: "Login" }] });
         }}
       >
         <Text style={modelStyle.textSucces}>OK</Text>

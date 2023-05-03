@@ -61,7 +61,7 @@ export const requestServiceSlice = createSlice({
         state.isRequesting = false;
       }
     },
-    deleteData: (state, action) => {
+    deleteRequestData: (state, action) => {
       state.contact = "";
       state.vehicle = "";
       state.description = "";
@@ -83,6 +83,7 @@ export const {
   postRequest,
   getServiceRequest,
   changeStatus,
+  deleteRequestData,
 } = requestServiceSlice.actions;
 export const requestServiceSliceReducer = requestServiceSlice.reducer;
 

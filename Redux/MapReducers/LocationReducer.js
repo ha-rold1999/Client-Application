@@ -26,7 +26,7 @@ export const locationSlice = createSlice({
         .then((res) => res.json())
         .catch((err) => console.log(err));
     },
-    deleteData: (state, action) => {
+    deleteLocationData: (state, action) => {
       state.UUID = "";
       state.latitude = "";
       state.longitude = "";
@@ -34,5 +34,5 @@ export const locationSlice = createSlice({
   },
 });
 
-export const { getLocation } = locationSlice.actions;
+export const { getLocation, deleteLocationData } = locationSlice.actions;
 export const locationSliceReducer = locationSlice.reducer;

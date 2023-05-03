@@ -1,7 +1,10 @@
 import { Button, StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteAccountData } from "../../../Redux/AccountInfoReducers/AccountReducers";
 
 export default function LogoutView({ navigation }) {
+  const dispatch = useDispatch();
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Image
@@ -20,6 +23,7 @@ export default function LogoutView({ navigation }) {
           marginTop: 10,
         }}
         onPress={() => {
+          dispatch(deleteAccountData(""));
           navigation.reset({ index: 0, routes: [{ name: "Login" }] });
         }}
       >

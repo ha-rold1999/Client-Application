@@ -99,12 +99,12 @@ const firstnameSlice = createSlice({
         state.formError = true;
       }
     },
-    deletData: (state, action) => {
-      state.firstname = "harold";
-      state.lastname = "cuico";
-      state.contact = "09567126397";
-      state.birthdate = "02/20/04";
-      state.address = "Cebu";
+    deletPersonalInfoData: (state, action) => {
+      state.firstname = "";
+      state.lastname = "";
+      state.contact = "";
+      state.birthdate = "";
+      state.address = "";
       state.error = "";
       state.lastnameError = "";
       state.contactError = "";
@@ -122,6 +122,7 @@ export const {
   hadleBirthdate,
   handleAddress,
   checkFirstname,
+  deletPersonalInfoData,
 } = firstnameSlice.actions;
 export const firstname = (state) => state.firstnameSlice.firstname;
 export const lastname = (state) => state.firstnameSlice.lastname;

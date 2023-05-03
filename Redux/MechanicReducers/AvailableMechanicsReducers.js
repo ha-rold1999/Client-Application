@@ -29,7 +29,7 @@ export const mechanicListSlice = createSlice({
     getRequestID: (state, action) => {
       state.requestID = action.payload;
     },
-    deleteData: (state, action) => {
+    deleteAvailableMechanicsData: (state, action) => {
       state.data = [];
       state.isLoading = true;
       state.error = null;
@@ -46,6 +46,7 @@ export const {
   getServices,
   setTabEnable,
   getRequestID,
+  deleteAvailableMechanicsData,
 } = mechanicListSlice.actions;
 export const availableMechanics = (state) => state.mechanicListSlice.data;
 export const isLoading = (state) => state.mechanicListSlice.isLoading;

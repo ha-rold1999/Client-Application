@@ -13,14 +13,14 @@ export const walletSlice = createSlice({
       state.pincode = action.payload.pincode;
       state.balance = action.payload.balance;
     },
-    deleteData: (state, action) => {
+    deleteWalletData: (state, action) => {
       state.balance = 0;
       state.pincode = "";
     },
   },
 });
 
-export const { getWallet, setWallet } = walletSlice.actions;
+export const { getWallet, setWallet, deleteWalletData } = walletSlice.actions;
 export const walletSliceReducer = walletSlice.reducer;
 
 export const getUserWallet = (UUID, setIsLoading) => (dispatch) => {
