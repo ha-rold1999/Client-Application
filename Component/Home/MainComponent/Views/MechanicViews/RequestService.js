@@ -25,6 +25,7 @@ import { server } from "../../../../../Static";
 import FormStyle from "../../../../../Style/Component/StyleSignupComponent";
 import PhoneCamera from "../ProfileViews/Camera";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { deleteRequestData } from "../../../../../Redux/RequestReducers/RequestReducer";
 
 export default function RequestService({ route, navigation }) {
   const [openCamera, setOpenCamera] = useState(false);
@@ -252,6 +253,7 @@ export default function RequestService({ route, navigation }) {
               serviceError === ""
             ) {
               dispatch(postRequest({ userID: userID, mechanicID: mechanicID }));
+              dispatch(deleteRequestData(""));
               dispatch(setTabEnable(false));
               navigation.reset({
                 index: 0,
