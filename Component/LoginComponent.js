@@ -116,9 +116,8 @@ export default function LoginScreen({ navigation }) {
             style={LoginForm.input}
             secureTextEntry
             onChangeText={(text) =>
-              dispatch(loginForm.handlePassword("ThisIsATest@123"))
+              dispatch(loginForm.handlePassword(text))
             }
-            value="ThisIsATest@123"
           />
           {passwordError && (
             <Text style={{ color: "red" }}>{passwordError}</Text>
@@ -127,35 +126,36 @@ export default function LoginScreen({ navigation }) {
 
         {/* Checkbox */}
         <View style={LoginForm.checkBox}>
-          <Checkbox
+          {/* <Checkbox
             value={isChecked}
             onValueChange={setChecked}
             color={isChecked ? "black" : undefined}
-          />
-          <Pressable
+          /> */}
+          {/* <Pressable
             onPress={() => {
               isChecked ? setChecked(false) : setChecked(true);
             }}
           >
             <Text style={{ marginLeft: 5 }}>Remember Me?</Text>
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate("Signup")}>
-            <Text
-              style={{
-                marginRight: 0,
-                marginLeft: 87,
-                color: "#61aee1",
-              }}
-            >
-              Create Account
-            </Text>
-          </Pressable>
+          </Pressable> */}
+          
         </View>
 
         {/* Login Button */}
         <Pressable style={LoginForm.loginButton} onPress={loginFetch}>
           <Text style={LoginForm.loginText}>Login</Text>
         </Pressable>
+        <Pressable onPress={() => navigation.navigate("Signup")} style={{justifyContent:"center", flexDirection:"row", paddingTop:10}}>
+          <Text>Don't have an account? </Text>
+            <Text
+              style={{
+                color: "#61aee1",
+                textAlign:"center"
+              }}
+            >
+             Create Account
+            </Text>
+          </Pressable>
       </View>
     </LinearGradient>
   );

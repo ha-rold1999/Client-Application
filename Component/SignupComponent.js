@@ -138,7 +138,7 @@ export default function SingupScreen({ navigation }) {
 
           {/* Drivers License Component*/}
           <ProgressStep
-            label="Dirvers License"
+            label="Driver's License"
             nextBtnStyle={FormStyle.nextButton}
             nextBtnTextStyle={FormStyle.nextButton}
             previousBtnStyle={FormStyle.prevButton}
@@ -164,7 +164,14 @@ export default function SingupScreen({ navigation }) {
           </ProgressStep>
         </ProgressSteps>
       </View>
-      <Text>Already have an account? Login here</Text>
+      <View style={{flexDirection:"row"}}>
+        
+      <Text>Already have an account? </Text>
+      <Pressable onPress={()=>{navigation.navigate("Login")}}>
+        <Text style={{color:"blue"}}>Login Here</Text>
+      </Pressable>
+
+      </View>
     </View>
   );
 }
