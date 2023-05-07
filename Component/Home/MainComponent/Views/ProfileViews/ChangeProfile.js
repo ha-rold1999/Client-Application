@@ -134,16 +134,17 @@ export default function ChangeProfile({ navigation }) {
 
       {/* Delete Button */}
       <View style={{ flex: 1 }}>
-        <View style={{ width: 40 }}>
+        <View style={{ width: "50%" }}>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Delete", {
                 uuid: UUID,
               })
             }
-            style={{ paddingTop: 20, paddingLeft: 10 }}
+            style={{ paddingTop: 20, paddingLeft: 10, flexDirection:"row" }}
           >
             <Icon name="trash" size={20} style={{ color: "grey" }} />
+            <Text style={{paddingLeft:10, color:"red"}}>Delete Account</Text>
           </TouchableOpacity>
         </View>
       </View>

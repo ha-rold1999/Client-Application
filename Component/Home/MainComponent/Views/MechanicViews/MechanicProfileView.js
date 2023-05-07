@@ -17,6 +17,7 @@ import MechanicLocation from "./MechanicLocation";
 import { AirbnbRating, Rating } from "react-native-ratings";
 import { getReview } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
 import MechanicModalDetail from "./MechanicModalDetail";
+import { currancyFormat } from "../../../../../Static";
 
 export default function MechanicProfile({ route, navigation }) {
   const ShopData = route.params;
@@ -57,10 +58,10 @@ export default function MechanicProfile({ route, navigation }) {
             }}
           >
             <View style={{ width: "90%" }}>
-              <Text style={{ fontSize: 10 }}>
+              {/* <Text style={{ fontSize: 10 }}>
                 Shop ID:{" "}
                 {ShopData.ShopData.information.accountStatus.Shop.ShopID}
-              </Text>
+              </Text> */}
               <Text style={{ fontSize: 20, fontWeight: "700" }}>
                 {ShopData.ShopData.information.accountStatus.Shop.ShopName}
               </Text>
@@ -141,7 +142,7 @@ export default function MechanicProfile({ route, navigation }) {
                     width: "30%",
                   }}
                 >
-                  <Text style={{ fontSize: 15 }}>P{Price}</Text>
+                  <Text style={{ fontSize: 15 }}>{currancyFormat.format(Price)}</Text>
                 </View>
               </View>
             ))}

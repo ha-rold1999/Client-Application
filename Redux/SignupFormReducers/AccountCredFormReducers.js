@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const credentialSlice = createSlice({
   name: "credentialSlice",
   initialState: {
-    email: "test1@gmail.com",
-    username: "test1234",
-    password: "ThisIsATest@123",
-    retypePass: "ThisIsATest@123",
+    email: "",
+    username: "",
+    password: "",
+    retypePass: "",
     aggree: true,
     emailError: "",
     usernameError: "",

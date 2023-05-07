@@ -91,7 +91,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <>
-      {suspended && <SuspendedModal />}
+      {suspended && <SuspendedModal navigation={navigation}/>}
       <Drawer.Navigator initialRouteName="Main">
         <Drawer.Screen name="Main" component={Main} />
         <Drawer.Screen name="History" component={HistoryTabs} />

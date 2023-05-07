@@ -268,7 +268,7 @@ export default function MechanicList({ navigation }) {
                 borderRadius: 10,
               }}
               onPress={() => {
-                setDATA(shops);
+                setDATA(onlines);
                 setFilter("all");
               }}
             >
@@ -284,7 +284,7 @@ export default function MechanicList({ navigation }) {
                 justifyContent: "center",
               }}
               onPress={() => {
-                setDATA(shops);
+                setDATA(onlines);
                 setFilter("all");
               }}
             >

@@ -15,6 +15,8 @@ import RatingModal from "./RatingModal";
 import ReportModal from "./ReportModal";
 import { RadioButton } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
+import { apiKey, server } from "../../../../../Static";
+import { currancyFormat } from "../../../../../Static";
 
 export default function ServicePaymet({ route, navigation }) {
   const [isRating, setIsRating] = useState(false);
@@ -49,7 +51,7 @@ export default function ServicePaymet({ route, navigation }) {
       end={{ x: 1, y: 1 }}
     >
       <View style={{ paddingHorizontal: 10 }}>
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center", marginBottom:10 }}>
           <Text style={{ fontSize: 30, fontWeight: "700" }}>Payment</Text>
         </View>
 
@@ -66,7 +68,7 @@ export default function ServicePaymet({ route, navigation }) {
           <Text style={{ fontSize: 20, fontWeight: "700" }}>
             Service: {ServiceName}
           </Text>
-          <Text style={{ fontSize: 15, fontWeight: "700" }}>Fee: P {Fee}</Text>
+          <Text style={{ fontSize: 15, fontWeight: "700" }}>Fee: {currancyFormat.format(Fee)}</Text>
         </View>
 
         <View
@@ -118,7 +120,7 @@ export default function ServicePaymet({ route, navigation }) {
               }}
             >
               <Text style={{ color: "white", fontWeight: "700" }}>
-                Report Client
+                Report Mechanic
               </Text>
             </Pressable>
             <Pressable
@@ -156,12 +158,39 @@ export default function ServicePaymet({ route, navigation }) {
                     ServiceName: ServiceName,
                     Fee: Fee,
                   });
+                  fetch(`${server}/api/Sessions/Flag`, {
+                    method: "PUT",
+                    headers: {
+                      "AYUS-API-KEY": apiKey,
+                      "SessionID": UUID,
+                      "Flag": "Wallet",
+                    },
+                  })
+                    .then((res) =>
+                      res.json()
+                    )
+                    .then((res) => {
+                      console.log(JSON.stringify(res, null, 2));
+                    });
                 } else {
                   navigation.navigate("ServiceSucces", {
                     SessionID: UUID,
                     ServiceName: ServiceName,
                     Fee: Fee,
                   });
+                  fetch(`${server}/api/Sessions/Flag`, {
+                    method: "PUT",
+                    headers: {
+                      "AYUS-API-KEY": apiKey,
+                      "SessionID": UUID,
+                      "Flag": "Cash",
+                    },
+                  })
+                    .then((res) => res.json()
+                    )
+                    .then((res) => {
+                      console.log("FLAG: "+JSON.stringify(res, null, 2));
+                    });
                 }
               }}
             >

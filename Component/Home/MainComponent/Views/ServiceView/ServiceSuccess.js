@@ -5,22 +5,36 @@ import {
   postTransaction,
   endSession,
 } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
+import { useState } from "react";
+import Loading from "../../Loading";
 
 export default function ServiceSuccess({ route }) {
   const dispatch = useDispatch();
   const { transactionID } = useSelector((state) => state.requestStatusSlice);
+  const [isLoading, setIsLoading] = useState(true);
   const SessionID = route.params;
   const UUID = SessionID.SessionID;
   const ServiceName = SessionID.ServiceName;
   const Fee = SessionID.Fee;
   useEffect(() => {
-    if (transactionID === null) {
-      dispatch(postTransaction(ServiceName, Fee));
-      return;
-    }
+    setTimeout(() => {
+      if (transactionID === null) {
+        dispatch(postTransaction(ServiceName, Fee));
+        return;
+      }
 
-    dispatch(endSession(UUID, transactionID));
+      dispatch(endSession(UUID, transactionID));
+      setIsLoading(false);
+    }, 5000);
   }, [transactionID]);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Loading />
+      </View>
+    );
+  }
 
   if (transactionID === null) {
     return (

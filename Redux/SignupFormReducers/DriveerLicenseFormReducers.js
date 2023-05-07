@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const licenseSlice = createSlice({
   name: "licenseSlice",
   initialState: {
-    licenseNo: "G11-11-123456",
-    licenseExpDate: "02/20/23",
+    licenseNo: "",
+    licenseExpDate: "",
     licenseNoError: "",
     licenseExpDateError: "",
     licenseFormError: false,

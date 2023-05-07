@@ -9,6 +9,8 @@ import {
   StyleSheet,
   Pressable,
   Linking,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import { data } from "../../../../../Redux/AccountInfoReducers/AccountReducers";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,6 +26,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Styles from "../../../../../Style/Component/StyleComponent";
 import { getUserWallet } from "../../../../../Redux/WalletReducers/WalletReducer";
 import Loading from "../../Loading";
+import { currancyFormat } from "../../../../../Static";
 
 export default function Profile({ navigation }) {
   const [copyID, setCopyID] = useState("");
@@ -42,6 +45,15 @@ export default function Profile({ navigation }) {
   const { myRating } = useSelector((state) => state.requestStatusSlice);
   const ID = profile.AccountData.personalInformation.UUID;
   const { balance } = useSelector((state) => state.walletSlice);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+
+    // perform your refresh logic here
+
+    setRefreshing(false);
+  }
 
   const currentDate = new Date();
   const licenseDate = new Date(
@@ -76,15 +88,17 @@ export default function Profile({ navigation }) {
 
   if (myRating !== null) {
     return (
+
+      
       <LinearGradient
         colors={["#cff5fb", "#fcfdfd"]}
-        style={{ flex: 1 }}
+        style={{ flex: 2 }}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
         <View style={{ flex: 1 }}>
           {/* ID */}
-          <View style={{ flexDirection: "row" }}>
+          {/* <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={() => {
                 Clipboard.setStringAsync(
@@ -94,15 +108,16 @@ export default function Profile({ navigation }) {
               }}
               style={{ flexDirection: "row", alignItems: "center" }}
             >
-              <Text>ID: {profile.AccountData.personalInformation.UUID}</Text>
+              
               <View style={{ alignItems: "flex-end" }}>
                 <Image
                   source={require("../../../../../assets/Icons/copy.png")}
                   style={{ width: 15, height: 15 }}
                 />
               </View>
+              <Text>Copy ID</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           {/* Card View */}
           <View
@@ -205,7 +220,7 @@ export default function Profile({ navigation }) {
                   source={require("../../../../../assets/Icons/wallet.png")}
                   style={{ width: 20, height: 20, marginRight: 5 }}
                 />
-                <Text>My Balance: {balance}</Text>
+                <Text>{currancyFormat.format(balance)}</Text>
                 <Pressable
                   style={{
                     borderRadius: 20,
@@ -214,6 +229,7 @@ export default function Profile({ navigation }) {
                   }}
                   onPress={() => {
                     let url = `${adminserver}/gcash?merchant=AYUS@ICTEAM&amount=100&redirecturl=AYUS_UID_${ID}_AMT_100`;
+                    console.log(url);
                     Linking.openURL(url);
                   }}
                 >
@@ -285,6 +301,12 @@ export default function Profile({ navigation }) {
                 </View>
               )}
             </View>
+          </View>
+          <View style={{alignItems:"center"}}>
+
+          <Pressable style={{paddingVertical:10, paddingHorizontal:40, backgroundColor:"#209589", margin:10, borderRadius:10}} onPress={()=>{navigation.reset({ index: 0, routes: [{ name: "ProfileView" }] });}}>
+            <Text style={{color:"white"}}>Refresh Profile</Text>
+          </Pressable>
           </View>
 
           <PhoneCamera

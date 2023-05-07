@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const firstnameSlice = createSlice({
   name: "firstnameSlice",
   initialState: {
-    firstname: "harold",
-    lastname: "cuico",
-    contact: "09567126397",
-    birthdate: "02/20/04",
-    address: "Cebu",
+    firstname: "",
+    lastname: "",
+    contact: "",
+    birthdate: "",
+    address: "",
     error: "",
     lastnameError: "",
     contactError: "",

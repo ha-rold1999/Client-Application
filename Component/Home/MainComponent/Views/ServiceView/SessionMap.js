@@ -11,6 +11,7 @@ import { getSessionLocation } from "../../../../../Redux/MapReducers.js/Location
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
 import { postTransaction } from "../../../../../Redux/MechanicReducers/RequestStatusReducers";
+import { currancyFormat } from "../../../../../Static";
 import Loading from "../../Loading";
 
 export default function SessionMap({ sessionID, navigation }) {
@@ -72,11 +73,11 @@ export default function SessionMap({ sessionID, navigation }) {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "700" }}>
+            <Text style={{ fontSize: 15, fontWeight: "700" }}>
               {serviceName}
             </Text>
             <Text style={{ fontSize: 20, fontWeight: "700" }}>
-              P {servicePrice}
+              {currancyFormat.format(servicePrice)}
             </Text>
           </View>
           <View
