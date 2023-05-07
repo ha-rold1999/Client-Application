@@ -73,7 +73,7 @@ export default function SessionMap({ sessionID, navigation }) {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "700" }}>
+            <Text style={{ fontSize: 15, fontWeight: "700" }}>
               {serviceName}
             </Text>
             <Text style={{ fontSize: 20, fontWeight: "700" }}>
