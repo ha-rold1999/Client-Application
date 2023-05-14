@@ -33,10 +33,16 @@ export default function ServicePaymet({ route, navigation }) {
   const ServiceName = SessionID.ServiceName;
   const Fee = SessionID.Fee;
   const mechanicID = SessionID.MechID;
+  const sessionDetails = SessionID.SessionDetails;
 
   useEffect(() => {
     dispatch(getUserWallet(userID));
-    if (balance <= 0 || balance < Fee) {
+    console.log(ServiceName);
+    if (
+      balance <= 0 ||
+      balance < Fee ||
+      ServiceName === " Unknown Malfunction"
+    ) {
       setChecked("cash");
       setIsDisabled(true);
     } else {
@@ -51,7 +57,7 @@ export default function ServicePaymet({ route, navigation }) {
       end={{ x: 1, y: 1 }}
     >
       <View style={{ paddingHorizontal: 10 }}>
-        <View style={{ alignItems: "center", marginBottom:10 }}>
+        <View style={{ alignItems: "center", marginBottom: 10 }}>
           <Text style={{ fontSize: 30, fontWeight: "700" }}>Payment</Text>
         </View>
 
@@ -68,7 +74,9 @@ export default function ServicePaymet({ route, navigation }) {
           <Text style={{ fontSize: 20, fontWeight: "700" }}>
             Service: {ServiceName}
           </Text>
-          <Text style={{ fontSize: 15, fontWeight: "700" }}>Fee: {currancyFormat.format(Fee)}</Text>
+          <Text style={{ fontSize: 15, fontWeight: "700" }}>
+            Fee: {currancyFormat.format(Fee)}
+          </Text>
         </View>
 
         <View
@@ -162,13 +170,11 @@ export default function ServicePaymet({ route, navigation }) {
                     method: "PUT",
                     headers: {
                       "AYUS-API-KEY": apiKey,
-                      "SessionID": UUID,
-                      "Flag": "Wallet",
+                      SessionID: UUID,
+                      Flag: "Wallet",
                     },
                   })
-                    .then((res) =>
-                      res.json()
-                    )
+                    .then((res) => res.json())
                     .then((res) => {
                       console.log(JSON.stringify(res, null, 2));
                     });
@@ -177,19 +183,19 @@ export default function ServicePaymet({ route, navigation }) {
                     SessionID: UUID,
                     ServiceName: ServiceName,
                     Fee: Fee,
+                    SessionDetails: sessionDetails,
                   });
                   fetch(`${server}/api/Sessions/Flag`, {
                     method: "PUT",
                     headers: {
                       "AYUS-API-KEY": apiKey,
-                      "SessionID": UUID,
-                      "Flag": "Cash",
+                      SessionID: UUID,
+                      Flag: "Cash",
                     },
                   })
-                    .then((res) => res.json()
-                    )
+                    .then((res) => res.json())
                     .then((res) => {
-                      console.log("FLAG: "+JSON.stringify(res, null, 2));
+                      console.log("FLAG: " + JSON.stringify(res, null, 2));
                     });
                 }
               }}

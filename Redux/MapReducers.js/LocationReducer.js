@@ -22,9 +22,7 @@ export const locationSlice = createSlice({
           longitude: state.longitude,
           additionData: "POST Location of user",
         }),
-      })
-        .then((res) => res.json())
-        .catch((err) => console.log(err));
+      }).catch((err) => console.log(err));
     },
     getSessionMap: (state, action) => {
       state.sessionMap = action.payload;

@@ -10,6 +10,10 @@ import store from "./Redux/Store";
 import HomeScreen from "./Component/HomeComponent";
 import "react-native-gesture-handler";
 
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["new NativeEventEmitter"]);
+LogBox.ignoreAllLogs();
+
 export default function App() {
   /*
    *Todo:

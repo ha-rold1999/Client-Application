@@ -100,6 +100,7 @@ export default function SessionMap({ sessionID, navigation }) {
                   ServiceName: serviceName,
                   Fee: servicePrice,
                   MechID: mechID,
+                  SessionDetails: sessionDetails,
                 });
               }}
             >

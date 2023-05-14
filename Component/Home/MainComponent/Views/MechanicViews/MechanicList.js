@@ -110,8 +110,8 @@ export default function MechanicList({ navigation }) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Image
-          source={require("../../../../../assets/Icons/coming.png")}
-          style={{ width: 400, height: 400 }}
+          source={require("../../../../../assets/Icons/request.png")}
+          style={{ width: 350, height: 350 }}
         />
         <Text style={{ fontSize: 20, textAlign: "center", fontWeight: "600" }}>
           You already requested a service
